@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitManager Pro - Gestão de Academia</title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer>
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+    [x-cloak] { display: none !important; }
+
+    /* Scrollbar */
+    .scrollbar-thin::-webkit-scrollbar { width: 4px; }
+    .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+    /* Transitions */
+    .sidebar-transition { transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease; }
+    .fade-in { animation: fadeIn 0.35s ease-out; }
+    .slide-up { animation: slideUp 0.4s ease-out; }
+    .scale-in { animation: scaleIn 0.25s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+    /* Access animations */
+    .blink-red { animation: blinkBg 0.8s ease 3; }
+    @keyframes blinkBg { 0%, 100% { background-color: rgba(239,68,68,0.15); } 50% { background-color: rgba(239,68,68,0.4); } }
+    .access-granted { animation: grantPulse 0.6s ease; }
+    @keyframes grantPulse { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    .shimmer { background: linear-gradient(90deg, transparent 0%, rgba(99,102,241,0.08) 50%, transparent 100%); background-size: 200% 100%; animation: shimmer 2s ease-in-out infinite; }
+
+    /* Login bg */
+    .login-bg { background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920'); background-size: cover; background-position: center; background-attachment: fixed; }
+
+    /* Card glass effect */
+    .glass-card { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.5); }
+    .glass-card-light { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(51, 65, 85, 0.4); }
+
+    /* Gradient border */
+    .gradient-border { position: relative; background: rgba(30, 41, 59, 0.6); border-radius: 16px; }
+    .gradient-border::before { content: ''; position: absolute; inset: 0; border-radius: 16px; padding: 1px; background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(6,182,212,0.3)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+
+    /* Table striped */
+    .table-striped tbody tr:nth-child(even) { background: rgba(51, 65, 85, 0.15); }
+
+    /* Sidebar active indicator */
+    .sidebar-item { position: relative; }
+    .sidebar-item.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: linear-gradient(to bottom, #6366f1, #06b6d4); border-radius: 0 3px 3px 0; }
+
+    /* Card hover lift */
+    .card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
+    /* Toast */
+    .toast-enter { animation: toastIn 0.35s ease-out; }
+    .toast-leave { animation: toastOut 0.3s ease-in forwards; }
+    @keyframes toastIn { from { opacity: 0; transform: translateX(100%) scale(0.95); } to { opacity: 1; transform: translateX(0) scale(1); } }
+    @keyframes toastOut { from { opacity: 1; transform: translateX(0) scale(1); } to { opacity: 0; transform: translateX(100%) scale(0.95); } }
+
+    /* Status pulse */
+    .status-pulse { position: relative; }
+    .status-pulse::after { content: ''; position: absolute; inset: -2px; border-radius: inherit; border: 2px solid; opacity: 0; animation: pulseRing 2s ease-out infinite; }
+    @keyframes pulseRing { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 0; transform: scale(1.15); } }
+    .status-pulse.verde::after { border-color: #10b981; }
+    .status-pulse.vermelho::after { border-color: #ef4444; }
+    .status-pulse.azul::after { border-color: #3b82f6; }
+
+    /* Steps indicator for exercise */
+    .step-number { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font-size: 11px; font-weight: 700; background: rgba(99,102,241,0.15); color: #a5b4fc; transition: all 0.2s; }
+    tr:hover .step-number { background: rgba(99,102,241,0.3); color: #c7d2fe; }
+
+    /* Responsive sidebar overlay */
+    @media (max-width: 768px) {
+      .sidebar-mobile { position: fixed !important; left: 0 !important; top: 0 !important; bottom: 0 !important; z-index: 40 !important; }
+    }
+
+    /* Custom select arrow */
+    select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+    /* Modal backdrop */
+    .modal-overlay { animation: fadeIn 0.2s ease; }
+
+    /* Input focus glow */
+    .input-glow:focus { box-shadow: 0 0 0 3px rgba(99,102,241,0.15), 0 0 15px rgba(99,102,241,0.1); }
+
+    /* Page transition */
+    .page-enter { animation: pageIn 0.3s ease-out; }
+    @keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Print styles */
+    @media print {
+      body { background: white !important; color: #1e293b !important; }
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      .print-card { break-inside: avoid; page-break-inside: avoid; border: 1px solid #e2e8f0 !important; border-radius: 8px !important; padding: 16px !important; margin-bottom: 16px !important; background: white !important; box-shadow: none !important; }
+      .print-card h3 { color: #334155 !important; font-size: 14px !important; font-weight: 700 !important; border-bottom: 2px solid #6366f1 !important; padding-bottom: 6px !important; margin-bottom: 10px !important; }
+      .print-table { width: 100% !important; border-collapse: collapse !important; font-size: 12px !important; }
+      .print-table th { background: #f1f5f9 !important; color: #475569 !important; padding: 6px 10px !important; text-align: left !important; font-weight: 600 !important; border-bottom: 1px solid #e2e8f0 !important; }
+      .print-table td { padding: 5px 10px !important; border-bottom: 1px solid #f1f5f9 !important; color: #334155 !important; }
+      .print-header { text-align: center !important; margin-bottom: 20px !important; }
+      .print-header h1 { font-size: 20px !important; color: #1e293b !important; margin-bottom: 4px !important; }
+      .print-header p { font-size: 12px !important; color: #64748b !important; }
+      .print-footer { text-align: center !important; font-size: 10px !important; color: #94a3b8 !important; margin-top: 20px !important; border-top: 1px solid #e2e8f0 !important; padding-top: 10px !important; }
+      @page { margin: 15mm; }
+    }
+    .print-only { display: none; }
+  </style>
+</head>
+<body>
+
+  <div x-data="app()" x-cloak class="min-h-screen bg-slate-900 text-slate-100">
+
+    <!-- ===== LOGIN SCREEN ===== -->
+    <div x-show="!loggedIn" class="fixed inset-0 z-50 flex login-bg">
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/70 backdrop-blur-sm"></div>
+      <div class="absolute top-20 right-20 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 left-1/2 w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl"></div>
+
+      <div class="relative z-10 w-full flex flex-col lg:flex-row">
+        <!-- LEFT: Login -->
+        <div class="w-full lg:w-1/2 flex items-center justify-center px-6 py-12 lg:py-0">
+          <div class="w-full max-w-sm scale-in">
+            <div class="mb-8">
+              <div class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-500 to-cyan-400 rounded-xl mb-4 shadow-lg shadow-indigo-500/30 ring-1 ring-white/10">
+                <i data-lucide="dumbbell" class="w-6 h-6 text-white"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">FitManager</h1>
+              <p class="text-slate-400 text-sm mt-1">Gestão de Academia</p>
+            </div>
+
+            <form @submit.prevent="login" class="space-y-4">
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1.5">Usuário</label>
+                <div class="relative">
+                  <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
+                  <input type="text" x-model="loginForm.user" class="w-full bg-slate-800/50 border border-slate-700/60 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="admin">
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1.5">Senha</label>
+                <div class="relative">
+                  <i data-lucide="lock" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
+                  <input type="password" x-model="loginForm.pass" class="w-full bg-slate-800/50 border border-slate-700/60 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="••••••">
+                </div>
+              </div>
+              <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-semibold py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
+                Entrar
+              </button>
+            </form>
+
+            <div x-show="loginError" class="mt-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20">
+              <p x-text="loginError" class="text-red-400 text-xs text-center"></p>
+            </div>
+            <p class="text-center text-xs text-slate-600 mt-8">FitManager Pro v2.0</p>
+          </div>
+        </div>
+
+        <!-- RIGHT: DataMind AI -->
+        <div class="w-full lg:w-1/2 flex items-center justify-center px-6 py-12 lg:py-0 relative">
+          <div class="absolute inset-0 bg-gradient-to-l from-indigo-950/30 via-transparent to-transparent pointer-events-none"></div>
+          <div class="relative max-w-md text-center lg:text-left slide-up">
+            <!-- Logo DataMind -->
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-violet-500 to-indigo-400 rounded-2xl mb-6 shadow-2xl shadow-violet-500/25 ring-1 ring-white/10">
+              <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a10 10 0 1 0 10 10h-10V2Z"/>
+                <path d="M14 2a8 8 0 0 1 8 8h-8V2Z"/>
+                <path d="M12 12 2 14.5"/>
+                <path d="M12 12 20 17"/>
+                <path d="M12 12v10"/>
+              </svg>
+            </div>
+
+            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-3">
+              DataMind <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-300">AI</span>
+            </h2>
+            <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+              Transformando dados em decisões inteligentes com IA avançada e tecnologia moderna.
+            </p>
+
+            <div class="space-y-5">
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20 flex items-center justify-center shrink-0 group-hover:from-violet-500/30 group-hover:to-indigo-500/30 transition-all">
+                  <i data-lucide="brain" class="w-5 h-5 text-violet-400"></i>
+                </div>
+                <div class="text-left">
+                  <p class="text-sm font-semibold text-slate-200">Inteligência Artificial</p>
+                  <p class="text-xs text-slate-500">Modelos avançados de machine learning</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20 flex items-center justify-center shrink-0 group-hover:from-violet-500/30 group-hover:to-indigo-500/30 transition-all">
+                  <i data-lucide="zap" class="w-5 h-5 text-violet-400"></i>
+                </div>
+                <div class="text-left">
+                  <p class="text-sm font-semibold text-slate-200">Automação Inteligente</p>
+                  <p class="text-xs text-slate-500">Processos otimizados com IA</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20 flex items-center justify-center shrink-0 group-hover:from-violet-500/30 group-hover:to-indigo-500/30 transition-all">
+                  <i data-lucide="bar-chart-3" class="w-5 h-5 text-violet-400"></i>
+                </div>
+                <div class="text-left">
+                  <p class="text-sm font-semibold text-slate-200">Análise de Dados</p>
+                  <p class="text-xs text-slate-500">Insights acionáveis para seu negócio</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-500/20 flex items-center justify-center shrink-0 group-hover:from-violet-500/30 group-hover:to-indigo-500/30 transition-all">
+                  <i data-lucide="code-2" class="w-5 h-5 text-violet-400"></i>
+                </div>
+                <div class="text-left">
+                  <p class="text-sm font-semibold text-slate-200">Soluções Digitais</p>
+                  <p class="text-xs text-slate-500">Sistemas empresariais personalizados</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-10 pt-6 border-t border-slate-700/30">
+              <p class="text-xs text-slate-600 italic">"Transformando dados em decisões inteligentes"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MAIN APP ===== -->
+    <div x-show="loggedIn" class="flex h-screen overflow-hidden">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar-transition bg-slate-800/80 border-r border-slate-700/50 flex flex-col"
+        :class="sidebarOpen ? 'w-64' : 'w-16'">
+        <div class="flex items-center h-16 px-4 border-b border-slate-700/50">
+          <div class="flex items-center gap-3 min-w-0" :class="sidebarOpen ? '' : 'justify-center w-full'">
+            <div class="shrink-0 w-9 h-9 bg-gradient-to-br from-indigo-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+              <i data-lucide="dumbbell" class="w-5 h-5 text-white"></i>
+            </div>
+            <span x-show="sidebarOpen" class="font-bold text-sm whitespace-nowrap">FitManager</span>
+          </div>
+        </div>
+
+        <nav class="flex-1 py-4 px-2 space-y-1 overflow-y-auto scrollbar-thin">
+          <template x-for="item in menuItems" :key="item.id">
+            <button @click="currentPage = item.id"
+              class="sidebar-item flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 relative"
+              :class="currentPage === item.id ? 'bg-indigo-500/15 text-indigo-300' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/40'"
+              :title="!sidebarOpen ? item.label : ''">
+              <div x-show="currentPage === item.id && sidebarOpen" class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-gradient-to-b from-indigo-400 to-cyan-400 rounded-r"></div>
+              <i :data-lucide="item.icon" class="w-5 h-5 shrink-0 ml-0.5"></i>
+              <span x-show="sidebarOpen" x-text="item.label"></span>
+            </button>
+          </template>
+        </nav>
+
+        <div class="p-2 border-t border-slate-700/50">
+          <button @click="sidebarOpen = !sidebarOpen" class="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-slate-200 hover:bg-slate-700/50 transition">
+            <i data-lucide="panel-left-close" class="w-5 h-5 shrink-0" x-show="sidebarOpen"></i>
+            <i data-lucide="panel-left-open" class="w-5 h-5 shrink-0" x-show="!sidebarOpen"></i>
+            <span x-show="sidebarOpen">Recolher</span>
+          </button>
+          <button @click="logout" class="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition">
+            <i data-lucide="log-out" class="w-5 h-5 shrink-0"></i>
+            <span x-show="sidebarOpen">Sair</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <main class="flex-1 flex flex-col min-w-0 bg-slate-900">
+        <!-- Top Bar -->
+        <header class="h-16 border-b border-slate-800/80 flex items-center justify-between px-6 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-20">
+          <div>
+            <div class="flex items-center gap-2 text-xs text-slate-500 mb-0.5">
+              <span>FitManager</span>
+              <i data-lucide="chevron-right" class="w-3 h-3"></i>
+              <span class="text-indigo-400 font-medium" x-text="pageTitle"></span>
+            </div>
+            <h2 class="text-lg font-bold text-white" x-text="pageTitle"></h2>
+            <p class="text-xs text-slate-500" x-text="pageSubtitle"></p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-600 bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-700/30 hidden sm:block">FitManager Pro <span class="text-slate-700">v2.0</span></span>
+          </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="flex-1 overflow-y-auto p-6 scrollbar-thin">
+
+          <!-- ===== DASHBOARD ===== -->
+          <div x-show="currentPage === 'dashboard'" class="space-y-6 page-enter">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div class="gradient-border p-5 card-lift">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Alunos</span>
+                  <div class="w-10 h-10 bg-indigo-500/20 rounded-xl flex items-center justify-center"><i data-lucide="users" class="w-4.5 h-4.5 text-indigo-400"></i></div>
+                </div>
+                <p class="text-3xl font-bold text-white" x-text="alunos.length"></p>
+                <p class="text-xs text-slate-600 mt-1">Matriculados na academia</p>
+              </div>
+              <div class="gradient-border p-5 card-lift" style="--from: #10b981; --to: #34d399;">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Alunos Ativos</span>
+                  <div class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center"><i data-lucide="activity" class="w-4.5 h-4.5 text-emerald-400"></i></div>
+                </div>
+                <p class="text-3xl font-bold text-white" x-text="alunosAtivos"></p>
+                <p class="text-xs text-slate-600 mt-1">Com mensalidade em dia</p>
+              </div>
+              <div class="gradient-border p-5 card-lift" style="--from: #ef4444; --to: #f87171;">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Inadimplentes</span>
+                  <div class="w-10 h-10 bg-red-500/20 rounded-xl flex items-center justify-center"><i data-lucide="alert-triangle" class="w-4.5 h-4.5 text-red-400"></i></div>
+                </div>
+                <p class="text-3xl font-bold text-red-400" x-text="inadimplentes.length"></p>
+                <p class="text-xs text-slate-600 mt-1">Pendências financeiras</p>
+              </div>
+              <div class="gradient-border p-5 card-lift" style="--from: #06b6d4; --to: #22d3ee;">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Faturamento Mês</span>
+                  <div class="w-10 h-10 bg-cyan-500/20 rounded-xl flex items-center justify-center"><i data-lucide="trending-up" class="w-4.5 h-4.5 text-cyan-400"></i></div>
+                </div>
+                <p class="text-3xl font-bold text-cyan-400" x-text="'R$ ' + faturamentoMes.toFixed(2).replace('.',',')"></p>
+                <p class="text-xs text-slate-600 mt-1">Valor acumulado no mês</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Alertas -->
+              <div class="glass-card rounded-2xl p-5 card-lift">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-sm font-semibold text-slate-300 flex items-center gap-2"><i data-lucide="bell" class="w-4 h-4 text-amber-400"></i> Alertas - Cobrança</h3>
+                  <span class="text-xs text-slate-500 bg-slate-700/40 px-2 py-0.5 rounded-full" x-show="inadimplentes.length" x-text="inadimplentes.length + ' pendente' + (inadimplentes.length !== 1 ? 's' : '')"></span>
+                </div>
+                <div x-show="!inadimplentes.length" class="text-sm text-slate-500 text-center py-8">
+                  <i data-lucide="check-circle" class="w-8 h-8 mx-auto mb-2 text-emerald-500/50"></i>
+                  <p>Todos os alunos estão em dia!</p>
+                </div>
+                <template x-for="aluno in inadimplentes" :key="aluno.id">
+                  <div class="flex items-center justify-between py-2.5 border-b border-slate-700/30 last:border-0 group hover:bg-slate-700/10 px-2 -mx-2 rounded-lg transition">
+                    <div class="flex items-center gap-3">
+                      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-500/30 to-red-600/20 flex items-center justify-center text-xs font-bold text-red-300 relative status-pulse vermelho" x-text="aluno.nome.charAt(0)"></div>
+                      <div>
+                        <p class="text-sm font-medium text-slate-200" x-text="aluno.nome"></p>
+                        <p class="text-xs text-slate-500">Vencimento: <span class="text-red-400" x-text="aluno.vencimento"></span></p>
+                      </div>
+                    </div>
+                    <span class="text-xs font-semibold text-red-400 bg-red-500/10 px-2.5 py-1 rounded-lg flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span> Devendo
+                    </span>
+                  </div>
+                </template>
+              </div>
+
+              <!-- Fluxo Catraca -->
+              <div class="glass-card rounded-2xl p-5 card-lift">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-sm font-semibold text-slate-300 flex items-center gap-2"><i data-lucide="log-in" class="w-4 h-4 text-emerald-400"></i> Fluxo de Entrada</h3>
+                  <span class="text-xs text-slate-500 bg-slate-700/40 px-2 py-0.5 rounded-full" x-show="acessoHistorico.length" x-text="acessoHistorico.length + ' hoje'"></span>
+                </div>
+                <div x-show="!acessoHistorico.length" class="text-sm text-slate-500 text-center py-8">
+                  <i data-lucide="clock" class="w-8 h-8 mx-auto mb-2 text-slate-600"></i>
+                  <p>Nenhum acesso registrado hoje.</p>
+                </div>
+                <template x-for="(acesso, i) in acessoHistorico.slice().reverse().slice(0,8)" :key="i">
+                  <div class="flex items-center justify-between py-2 border-b border-slate-700/30 last:border-0 group hover:bg-slate-700/10 px-2 -mx-2 rounded-lg transition">
+                    <div class="flex items-center gap-3">
+                      <div class="w-7 h-7 rounded-full bg-slate-700/60 flex items-center justify-center group-hover:bg-slate-700 transition">
+                        <i data-lucide="user" class="w-3.5 h-3.5 text-slate-400"></i>
+                      </div>
+                      <p class="text-sm text-slate-300 font-medium" x-text="acesso.nome"></p>
+                    </div>
+                    <span class="text-xs text-slate-500 bg-slate-700/30 px-2 py-0.5 rounded" x-text="acesso.hora"></span>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== ALUNOS ===== -->
+          <div x-show="currentPage === 'alunos'" class="space-y-4 page-enter">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div class="relative w-full sm:w-72">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
+                <input type="text" x-model="searchQuery" class="w-full bg-slate-800/60 border border-slate-700 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="Buscar por nome ou CPF...">
+              </div>
+              <button @click="openAddAluno" class="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 hover:-translate-y-0.5">
+                <i data-lucide="plus" class="w-4 h-4"></i> Adicionar Aluno
+              </button>
+            </div>
+
+            <div class="glass-card-light rounded-2xl overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-b border-slate-700/50 text-slate-400 text-xs uppercase tracking-wider bg-slate-800/40">
+                      <th class="text-left py-3.5 px-4 font-medium">Aluno</th>
+                      <th class="text-left py-3.5 px-4 font-medium hidden md:table-cell">CPF</th>
+                      <th class="text-left py-3.5 px-4 font-medium hidden lg:table-cell">Contato</th>
+                      <th class="text-left py-3.5 px-4 font-medium">Plano</th>
+                      <th class="text-left py-3.5 px-4 font-medium hidden sm:table-cell">Vencimento</th>
+                      <th class="text-left py-3.5 px-4 font-medium">Status</th>
+                      <th class="text-right py-3.5 px-4 font-medium">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-striped">
+                    <template x-for="aluno in filteredAlunos" :key="aluno.id">
+                      <tr class="border-b border-slate-700/20 hover:bg-slate-700/20 transition-all duration-150 group">
+                        <td class="py-3 px-4">
+                          <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500/30 to-cyan-500/20 flex items-center justify-center text-sm font-bold text-indigo-300 group-hover:from-indigo-500/40 group-hover:to-cyan-500/30 transition-all" x-text="aluno.nome.charAt(0)"></div>
+                            <div>
+                              <span class="text-slate-200 font-medium" x-text="aluno.nome"></span>
+                              <p class="text-xs text-slate-600 md:hidden" x-text="aluno.cpf"></p>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="py-3 px-4 text-slate-400 hidden md:table-cell font-mono text-xs" x-text="aluno.cpf"></td>
+                        <td class="py-3 px-4 text-slate-400 hidden lg:table-cell" x-text="aluno.contato"></td>
+                        <td class="py-3 px-4">
+                          <span class="text-xs font-semibold bg-indigo-500/10 text-indigo-300 px-2.5 py-1 rounded-lg border border-indigo-500/10" x-text="aluno.plano"></span>
+                        </td>
+                        <td class="py-3 px-4 text-slate-400 hidden sm:table-cell" x-text="aluno.vencimento"></td>
+                        <td class="py-3 px-4">
+                          <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg"
+                            :class="aluno.status === 'pago' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'">
+                            <span class="w-1.5 h-1.5 rounded-full" :class="aluno.status === 'pago' ? 'bg-emerald-400' : 'bg-red-400'"></span>
+                            <span x-text="aluno.status === 'pago' ? 'Pago' : 'Devendo'"></span>
+                          </span>
+                        </td>
+                        <td class="py-3 px-4 text-right">
+                          <div class="flex items-center justify-end gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <button @click="editAluno(aluno)" class="p-1.5 rounded-lg hover:bg-indigo-500/20 text-slate-500 hover:text-indigo-400 transition-all" title="Editar">
+                              <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                            </button>
+                            <button @click="excluirAluno(aluno)" class="p-1.5 rounded-lg hover:bg-red-500/20 text-slate-500 hover:text-red-400 transition-all" title="Excluir">
+                              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </template>
+                    <tr x-show="!filteredAlunos.length">
+                      <td colspan="7" class="text-center py-12">
+                        <i data-lucide="search-x" class="w-8 h-8 mx-auto mb-2 text-slate-600"></i>
+                        <p class="text-slate-500 text-sm">Nenhum aluno encontrado.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== FINANCEIRO ===== -->
+          <div x-show="currentPage === 'financeiro'" class="space-y-6 page-enter">
+            <!-- Inadimplentes -->
+            <div class="glass-card rounded-2xl p-5 card-lift">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-semibold text-slate-300 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-4 h-4 text-red-400"></i> Inadimplência</h3>
+                <span class="text-xs text-slate-500 bg-slate-700/40 px-2 py-0.5 rounded-full" x-show="inadimplentes.length" x-text="inadimplentes.length + ' aluno' + (inadimplentes.length !== 1 ? 's' : '')"></span>
+              </div>
+              <div x-show="!inadimplentes.length" class="text-sm text-slate-500 text-center py-8">
+                <i data-lucide="smile" class="w-8 h-8 mx-auto mb-2 text-emerald-500/50"></i>
+                <p>Todos os alunos estão em dia!</p>
+              </div>
+              <template x-for="aluno in inadimplentes" :key="aluno.id">
+                <div class="flex items-center justify-between py-3 border-b border-slate-700/30 last:border-0 group hover:bg-slate-700/10 px-2 -mx-2 rounded-lg transition">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-red-500/30 to-red-600/20 flex items-center justify-center text-xs font-bold text-red-300" x-text="aluno.nome.charAt(0)"></div>
+                    <div>
+                      <p class="text-sm font-medium text-slate-200" x-text="aluno.nome"></p>
+                      <p class="text-xs text-slate-500" x-text="'CPF: ' + aluno.cpf + ' | ' + aluno.plano + ' | Vence: ' + aluno.vencimento"></p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-semibold text-red-400 bg-red-500/10 px-2 py-1 rounded-lg hidden sm:inline">R$ 89,90</span>
+                    <button @click="receberPagamento(aluno)" class="flex items-center gap-1.5 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all border border-emerald-500/20 hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10">
+                      <i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> Receber
+                    </button>
+                  </div>
+                </div>
+              </template>
+            </div>
+
+            <!-- Histórico Caixa -->
+            <div class="glass-card rounded-2xl overflow-hidden card-lift">
+              <div class="p-5 pb-0">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-sm font-semibold text-slate-300 flex items-center gap-2"><i data-lucide="wallet" class="w-4 h-4 text-cyan-400"></i> Histórico de Caixa</h3>
+                  <span class="text-xs text-slate-500 bg-slate-700/40 px-2 py-0.5 rounded-full" x-show="caixa.length" x-text="caixa.length + ' registro' + (caixa.length !== 1 ? 's' : '')"></span>
+                </div>
+              </div>
+              <div x-show="!caixa.length" class="text-sm text-slate-500 text-center py-8 px-5">
+                <i data-lucide="credit-card" class="w-8 h-8 mx-auto mb-2 text-slate-600"></i>
+                <p>Nenhum pagamento registrado ainda.</p>
+              </div>
+              <div class="overflow-x-auto" x-show="caixa.length">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-y border-slate-700/30 text-slate-400 text-xs uppercase tracking-wider bg-slate-800/40">
+                      <th class="text-left py-3 px-4 font-medium">Aluno</th>
+                      <th class="text-left py-3 px-4 font-medium">Data</th>
+                      <th class="text-left py-3 px-4 font-medium">Forma</th>
+                      <th class="text-right py-3 px-4 font-medium">Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-striped">
+                    <template x-for="(pag, i) in caixa.slice().reverse()" :key="i">
+                      <tr class="border-b border-slate-700/20 last:border-0 hover:bg-slate-700/10 transition">
+                        <td class="py-3 px-4 text-slate-200 font-medium" x-text="pag.aluno"></td>
+                        <td class="py-3 px-4 text-slate-400" x-text="pag.data"></td>
+                        <td class="py-3 px-4">
+                          <span class="inline-flex items-center gap-1 text-xs font-medium bg-cyan-500/10 text-cyan-400 px-2 py-0.5 rounded">
+                            <i data-lucide="landmark" class="w-3 h-3" x-show="pag.forma === 'Dinheiro'"></i>
+                            <i data-lucide="smartphone" class="w-3 h-3" x-show="pag.forma === 'Pix'"></i>
+                            <i data-lucide="credit-card" class="w-3 h-3" x-show="pag.forma === 'Cartão'"></i>
+                            <span x-text="pag.forma"></span>
+                          </span>
+                        </td>
+                        <td class="py-3 px-4 text-right text-slate-200 font-semibold" x-text="'R$ ' + pag.valor.toFixed(2).replace('.',',')"></td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== TREINOS ===== -->
+          <div x-show="currentPage === 'treinos'" class="space-y-4 page-enter">
+            <!-- Toggle: Lista / Ficha -->
+            <div class="flex items-center gap-2 bg-slate-800/40 p-1 rounded-xl w-fit border border-slate-700/30">
+              <button @click="treinoView = 'lista'"
+                class="px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 flex items-center gap-1.5"
+                :class="treinoView === 'lista' ? 'bg-indigo-500/20 text-indigo-300 shadow-sm' : 'text-slate-400 hover:text-slate-200'">
+                <i data-lucide="list" class="w-3.5 h-3.5"></i> Lista Geral
+              </button>
+              <button @click="treinoView = 'ficha'"
+                class="px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 flex items-center gap-1.5"
+                :class="treinoView === 'ficha' ? 'bg-indigo-500/20 text-indigo-300 shadow-sm' : 'text-slate-400 hover:text-slate-200'">
+                <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i> Ficha Individual
+              </button>
+            </div>
+
+            <!-- ===== LISTA GERAL ===== -->
+            <div x-show="treinoView === 'lista'" class="slide-up">
+              <div class="glass-card rounded-2xl overflow-hidden">
+                <div class="p-4 border-b border-slate-700/30 flex items-center justify-between">
+                  <h3 class="text-sm font-semibold text-slate-300 flex items-center gap-2">
+                    <i data-lucide="dumbbell" class="w-4 h-4 text-indigo-400"></i> Todos os Treinos
+                  </h3>
+                  <span class="text-xs text-slate-500 bg-slate-700/40 px-2 py-0.5 rounded-full"><span x-text="alunos.length"></span> alunos</span>
+                </div>
+                <template x-if="alunos.length">
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                      <thead>
+                        <tr class="border-b border-slate-700/30 text-slate-500 text-xs uppercase tracking-wider bg-slate-800/40">
+                          <th class="text-left py-3 px-4 font-medium">Aluno</th>
+                          <th class="text-left py-3 px-4 font-medium hidden sm:table-cell">Plano</th>
+                          <th class="text-center py-3 px-4 font-medium">Treino A</th>
+                          <th class="text-center py-3 px-4 font-medium">Treino B</th>
+                          <th class="text-center py-3 px-4 font-medium hidden sm:table-cell">Treino C</th>
+                          <th class="text-right py-3 px-4 font-medium">Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-striped">
+                        <template x-for="a in alunos" :key="a.id">
+                          <tr class="border-b border-slate-700/20 last:border-0 hover:bg-slate-700/15 transition cursor-pointer" @click="selectedTreinoAluno = a.id; treinoView = 'ficha'">
+                            <td class="py-3 px-4">
+                              <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500/30 to-cyan-500/20 flex items-center justify-center text-xs font-bold text-indigo-300" x-text="a.nome.charAt(0)"></div>
+                                <div>
+                                  <p class="text-sm font-medium text-slate-200" x-text="a.nome"></p>
+                                  <p class="text-xs text-slate-500 sm:hidden" x-text="a.plano"></p>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="py-3 px-4 hidden sm:table-cell"><span class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-2 py-0.5 rounded" x-text="a.plano"></span></td>
+                            <td class="py-3 px-4 text-center">
+                              <span class="text-xs text-slate-400" x-text="getTreinoCount(a, 'A') + ' ex'"></span>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                              <span class="text-xs text-slate-400" x-text="getTreinoCount(a, 'B') + ' ex'"></span>
+                            </td>
+                            <td class="py-3 px-4 text-center hidden sm:table-cell">
+                              <span class="text-xs text-slate-400" x-text="getTreinoCount(a, 'C') + ' ex'"></span>
+                            </td>
+                            <td class="py-3 px-4 text-right">
+                              <div class="flex items-center justify-end gap-0.5" @click.stop>
+                                <button @click="selectedTreinoAluno = a.id; treinoView = 'ficha'" class="p-1.5 rounded-lg hover:bg-indigo-500/20 text-slate-500 hover:text-indigo-400 transition" title="Ver Ficha">
+                                  <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                                </button>
+                                <button @click="printTreino(a)" class="p-1.5 rounded-lg hover:bg-slate-700 text-slate-500 hover:text-cyan-400 transition" title="Imprimir">
+                                  <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                                </button>
+                                <button @click="abrirAddExercicio(a)" class="p-1.5 rounded-lg hover:bg-emerald-500/20 text-slate-500 hover:text-emerald-400 transition" title="Adicionar Exercício">
+                                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </template>
+                      </tbody>
+                    </table>
+                  </div>
+                </template>
+              </div>
+            </div>
+
+            <!-- ===== FICHA INDIVIDUAL ===== -->
+            <div x-show="treinoView === 'ficha'">
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div class="w-full sm:w-72">
+                  <label class="block text-xs font-medium text-slate-400 mb-1.5">Selecionar Aluno</label>
+                  <select x-model="selectedTreinoAluno" class="w-full bg-slate-800/60 border border-slate-700 rounded-xl py-2.5 px-3 text-sm text-white transition hover:border-slate-500 input-glow">
+                    <option value="">-- Selecione um aluno --</option>
+                    <template x-for="a in alunos" :key="a.id">
+                      <option :value="a.id" x-text="a.nome"></option>
+                    </template>
+                  </select>
+                </div>
+              </div>
+
+              <div x-show="selectedTreinoAluno">
+                <template x-for="a in alunos" :key="a.id">
+                  <div x-show="a.id === selectedTreinoAluno" class="slide-up">
+                    <!-- Aluno Header -->
+                    <div class="gradient-border p-5 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500/30 to-cyan-500/20 flex items-center justify-center text-lg font-bold text-indigo-300" x-text="a.nome.charAt(0)"></div>
+                        <div>
+                          <p class="text-base font-semibold text-white" x-text="a.nome"></p>
+                          <p class="text-xs text-slate-500" x-text="'Plano: ' + a.plano + ' | CPF: ' + a.cpf"></p>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <button @click="printTreino(a)" class="flex items-center gap-1.5 bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-400 text-xs font-semibold px-3 py-1.5 rounded-lg transition border border-cyan-500/20 hover:border-cyan-500/40 no-print">
+                          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                          <span class="hidden sm:inline">Imprimir</span>
+                        </button>
+                        <span class="text-xs font-medium px-3 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                          Ficha de Treino
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Abas Treino -->
+                    <div class="flex gap-1.5 mb-4 flex-wrap">
+                      <template x-for="treino in ['A','B','C']" :key="treino">
+                        <button @click="treinoAba = treino"
+                          class="px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 flex items-center gap-1.5"
+                          :class="treinoAba === treino ? 'bg-gradient-to-r from-indigo-600/40 to-cyan-500/20 text-indigo-200 border border-indigo-500/30 shadow-lg shadow-indigo-500/10' : 'bg-slate-800/40 text-slate-400 hover:text-slate-200 border border-slate-700/30 hover:border-slate-600'">
+                          <i data-lucide="dumbbell" class="w-3.5 h-3.5" x-show="treinoAba === treino"></i>
+                          Treino <span x-text="treino"></span>
+                        </button>
+                      </template>
+                      <div class="flex-1"></div>
+                      <button @click="abrirAddExercicio(a)" class="flex items-center gap-1.5 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 text-xs font-semibold px-3 py-2 rounded-lg transition border border-emerald-500/20 hover:border-emerald-500/40 no-print">
+                        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                        <span class="hidden sm:inline">Exercício</span>
+                      </button>
+                    </div>
+
+                    <!-- Lista Exercícios -->
+                    <div class="glass-card-light rounded-2xl overflow-hidden">
+                      <template x-if="getTreino(a, treinoAba).length">
+                        <div>
+                          <table class="w-full text-sm">
+                            <thead>
+                              <tr class="border-b border-slate-700/30 text-slate-500 text-xs uppercase tracking-wider">
+                                <th class="text-left py-3 px-4 font-medium w-10">#</th>
+                                <th class="text-left py-3 px-4 font-medium">Exercício</th>
+                                <th class="text-left py-3 px-4 font-medium hidden sm:table-cell">Grupo</th>
+                                <th class="text-center py-3 px-4 font-medium">Séries</th>
+                                <th class="text-center py-3 px-4 font-medium hidden sm:table-cell">Reps</th>
+                                <th class="text-center py-3 px-4 font-medium hidden md:table-cell">Carga</th>
+                                <th class="text-right py-3 px-4 font-medium w-20">Ações</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-striped">
+                              <template x-for="(ex, idx) in getTreino(a, treinoAba)" :key="idx">
+                                <tr class="border-b border-slate-700/20 last:border-0 hover:bg-slate-700/15 transition-all duration-150 group">
+                                  <td class="py-3 px-4"><span class="step-number" x-text="idx + 1"></span></td>
+                                  <td class="py-3 px-4">
+                                    <p class="text-sm font-medium text-slate-200" x-text="ex.nome"></p>
+                                    <p class="text-xs text-slate-500 sm:hidden" x-text="ex.grupo + ' | ' + ex.series + 'x' + ex.repeticoes + ' | ' + ex.carga"></p>
+                                  </td>
+                                  <td class="py-3 px-4 text-slate-400 hidden sm:table-cell">
+                                    <span class="text-xs bg-slate-700/40 px-2 py-0.5 rounded" x-text="ex.grupo"></span>
+                                  </td>
+                                  <td class="py-3 px-4 text-center"><span class="text-sm font-semibold text-slate-200" x-text="ex.series"></span></td>
+                                  <td class="py-3 px-4 text-center text-slate-400 hidden sm:table-cell" x-text="ex.repeticoes"></td>
+                                  <td class="py-3 px-4 text-center text-cyan-300 font-medium hidden md:table-cell" x-text="ex.carga"></td>
+                                  <td class="py-3 px-4 text-right">
+                                    <div class="flex items-center justify-end gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 no-print">
+                                      <button @click="abrirEditExercicio(a, treinoAba, idx)" class="p-1.5 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-indigo-400 transition" title="Editar">
+                                        <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                                      </button>
+                                      <button @click="excluirExercicio(a, treinoAba, idx)" class="p-1.5 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-red-400 transition" title="Excluir">
+                                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </template>
+                            </tbody>
+                          </table>
+                        </div>
+                      </template>
+                      <template x-if="!getTreino(a, treinoAba).length">
+                        <div class="text-center py-10">
+                          <i data-lucide="clipboard-x" class="w-10 h-10 mx-auto mb-2 text-slate-600"></i>
+                          <p class="text-sm text-slate-500">Nenhum exercício cadastrado no Treino <span x-text="treinoAba"></span>.</p>
+                          <button @click="abrirAddExercicio(a)" class="mt-3 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition no-print">+ Adicionar exercício</button>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                </template>
+              </div>
+
+              <div x-show="!selectedTreinoAluno" class="text-center py-16 text-slate-500">
+                <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-slate-800/50 border border-slate-700/30 flex items-center justify-center">
+                  <i data-lucide="dumbbell" class="w-10 h-10 text-slate-600"></i>
+                </div>
+                <p class="text-base font-medium text-slate-400 mb-1">Selecione um Aluno</p>
+                <p class="text-sm text-slate-600">Escolha um aluno para visualizar e gerenciar a ficha de treino.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== CATRACA ===== -->
+          <div x-show="currentPage === 'catraca'" class="max-w-lg mx-auto pt-4 page-enter">
+            <div class="gradient-border p-8 text-center">
+              <div class="w-20 h-20 bg-slate-700/30 rounded-full flex items-center justify-center mx-auto mb-5">
+                <div class="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300"
+                  :class="acessoStatus === 'liberado' ? 'bg-gradient-to-br from-emerald-500 to-emerald-400 shadow-lg shadow-emerald-500/30' : acessoStatus === 'bloqueado' ? 'bg-gradient-to-br from-red-500 to-red-400 shadow-lg shadow-red-500/30' : 'bg-gradient-to-br from-indigo-500 to-cyan-400 shadow-lg shadow-indigo-500/30'">
+                  <i data-lucide="fingerprint" class="w-7 h-7 text-white"></i>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-1">Catraca Virtual</h3>
+              <p class="text-sm text-slate-400 mb-6">Digite o CPF do aluno para registrar a entrada</p>
+
+              <div class="relative mb-4 max-w-xs mx-auto">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
+                <input type="text" x-model="cpfInput" @keydown.enter="verificarAcesso" placeholder="000.000.000-00" maxlength="14" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-slate-500 text-center tracking-widest font-mono transition input-glow hover:border-slate-500">
+              </div>
+              <button @click="verificarAcesso" class="w-full bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                <i data-lucide="shield" class="w-4 h-4"></i>
+                Verificar Acesso
+              </button>
+
+              <!-- Resultado -->
+              <div x-show="acessoStatus" class="mt-6 p-5 rounded-2xl border transition-all duration-300"
+                :class="acessoStatus === 'liberado' ? 'bg-emerald-500/10 border-emerald-500/30 access-granted' : 'bg-red-500/10 border-red-500/30 blink-red'">
+                <div class="flex items-center justify-center gap-2.5 mb-1">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                    :class="acessoStatus === 'liberado' ? 'bg-emerald-500/20' : 'bg-red-500/20'">
+                    <i :data-lucide="acessoStatus === 'liberado' ? 'shield-check' : 'shield-off'" class="w-5 h-5"
+                      :class="acessoStatus === 'liberado' ? 'text-emerald-400' : 'text-red-400'"></i>
+                  </div>
+                  <div class="text-left">
+                    <p class="text-sm font-bold" :class="acessoStatus === 'liberado' ? 'text-emerald-400' : 'text-red-400'"
+                      x-text="acessoStatus === 'liberado' ? 'Acesso Liberado!' : 'Acesso Bloqueado'"></p>
+                    <p class="text-xs text-slate-400" x-text="acessoMensagem"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick list -->
+              <div class="mt-6 pt-4 border-t border-slate-700/30" x-show="acessoHistorico.length">
+                <p class="text-xs text-slate-500 mb-2">Últimos acessos:</p>
+                <div class="flex flex-wrap gap-2 justify-center">
+                  <template x-for="(a, i) in acessoHistorico.slice().reverse().slice(0,3)" :key="i">
+                    <span class="text-xs bg-slate-700/40 text-slate-400 px-2 py-1 rounded-lg" x-text="a.nome + ' - ' + a.hora"></span>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <!-- ===== MODAL ALUNO ===== -->
+    <div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm modal-overlay" @click.self="showModal = false">
+      <div class="bg-slate-800 border border-slate-700/50 rounded-2xl w-full max-w-lg shadow-2xl scale-in">
+        <div class="flex items-center justify-between p-5 border-b border-slate-700/50">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 bg-gradient-to-br from-indigo-500/30 to-cyan-500/20 rounded-lg flex items-center justify-center">
+              <i data-lucide="user-plus" class="w-3.5 h-3.5 text-indigo-300"></i>
+            </div>
+            <h3 class="text-base font-bold text-white" x-text="editando ? 'Editar Aluno' : 'Novo Aluno'"></h3>
+          </div>
+          <button @click="showModal = false" class="p-1 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-white transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+        <div class="p-5 space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-slate-400 mb-1">Nome Completo</label>
+              <input type="text" x-model="form.nome" class="w-full bg-slate-700/40 border border-slate-600/60 rounded-xl py-2.5 px-3 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="Nome do aluno">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">CPF</label>
+              <input type="text" x-model="form.cpf" class="w-full bg-slate-700/40 border border-slate-600/60 rounded-xl py-2.5 px-3 text-sm text-white placeholder-slate-500 transition input-glow font-mono" placeholder="000.000.000-00">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Contato</label>
+              <input type="text" x-model="form.contato" class="w-full bg-slate-700/40 border border-slate-600/60 rounded-xl py-2.5 px-3 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="(11) 99999-9999">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Plano</label>
+              <select x-model="form.plano" class="w-full bg-slate-700/40 border border-slate-600/60 rounded-xl py-2.5 px-3 text-sm text-white transition input-glow">
+                <option value="Básico">Básico - R$ 89,90</option>
+                <option value="Premium">Premium - R$ 129,90</option>
+                <option value="VIP">VIP - R$ 199,90</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Vencimento</label>
+              <input type="text" x-model="form.vencimento" class="w-full bg-slate-700/40 border border-slate-600/60 rounded-xl py-2.5 px-3 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="10/05/2026">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Status Financeiro</label>
+              <select x-model="form.status" class="w-full bg-slate-700/40 border border-slate-600/60 rounded-xl py-2.5 px-3 text-sm text-white transition input-glow">
+                <option value="pago">Pago</option>
+                <option value="devendo">Devendo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end gap-3 p-5 border-t border-slate-700/50">
+          <button @click="showModal = false" class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition">Cancelar</button>
+          <button @click="salvarAluno" class="px-5 py-2 bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white text-sm font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span x-text="editando ? 'Salvar' : 'Adicionar'"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MODAL EXERCÍCIO ===== -->
+    <div x-show="showExercicioModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm modal-overlay" @click.self="showExercicioModal = false">
+      <div class="bg-slate-800 border border-slate-700/50 rounded-2xl w-full max-w-md shadow-2xl scale-in">
+        <div class="flex items-center justify-between p-5 border-b border-slate-700/50">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 bg-gradient-to-br from-indigo-500/30 to-cyan-500/20 rounded-lg flex items-center justify-center"><i data-lucide="dumbbell" class="w-3.5 h-3.5 text-indigo-300"></i></div>
+            <h3 class="text-base font-bold text-white" x-text="exercicioEditando !== null ? 'Editar Exercício' : 'Novo Exercício'"></h3>
+          </div>
+          <button @click="showExercicioModal = false" class="p-1 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-white transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+        <div class="p-5 space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-slate-400 mb-1">Nome do Exercício</label>
+              <input type="text" x-model="exercicioForm.nome" @keydown.enter="salvarExercicio" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl py-2.5 px-3 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="Ex: Supino Reto">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Grupo Muscular</label>
+              <select x-model="exercicioForm.grupo" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl py-2.5 px-3 text-sm text-white transition">
+                <option value="Peito">Peito</option>
+                <option value="Costas">Costas</option>
+                <option value="Pernas">Pernas</option>
+                <option value="Ombros">Ombros</option>
+                <option value="Bíceps">Bíceps</option>
+                <option value="Tríceps">Tríceps</option>
+                <option value="Posterior">Posterior</option>
+                <option value="Panturrilha">Panturrilha</option>
+                <option value="Trapézio">Trapézio</option>
+                <option value="Abdômen">Abdômen</option>
+                <option value="Quadríceps">Quadríceps</option>
+                <option value="Completo">Completo</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Séries</label>
+              <input type="number" x-model="exercicioForm.series" min="1" max="10" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl py-2.5 px-3 text-sm text-white transition input-glow" placeholder="4">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Repetições</label>
+              <input type="number" x-model="exercicioForm.repeticoes" min="1" max="100" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl py-2.5 px-3 text-sm text-white transition input-glow" placeholder="12">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Carga</label>
+              <input type="text" x-model="exercicioForm.carga" class="w-full bg-slate-700/50 border border-slate-600 rounded-xl py-2.5 px-3 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="Ex: 40kg ou peso corporal">
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end gap-3 p-5 border-t border-slate-700/50">
+          <button @click="showExercicioModal = false" class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition">Cancelar</button>
+          <button @click="salvarExercicio" class="px-5 py-2 bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white text-sm font-semibold rounded-xl transition shadow-lg shadow-indigo-500/20 flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span x-text="exercicioEditando !== null ? 'Salvar' : 'Adicionar'"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="fixed top-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none">
+      <template x-for="(toast, i) in toasts" :key="i">
+        <div class="pointer-events-auto px-4 py-3 rounded-xl shadow-2xl border text-sm font-medium flex items-center gap-2.5 min-w-[280px] max-w-[380px]"
+          :class="toast.type === 'success' ? 'bg-emerald-900/90 border-emerald-700/50 text-emerald-200' : toast.type === 'error' ? 'bg-red-900/90 border-red-700/50 text-red-200' : 'bg-slate-800/90 border-slate-600/50 text-slate-200'"
+          x-init="setTimeout(() => { toasts = toasts.filter(t => t !== toast) }, 3500)">
+          <i :data-lucide="toast.type === 'success' ? 'check-circle' : toast.type === 'error' ? 'alert-circle' : 'info'" class="w-4 h-4 shrink-0"
+            :class="toast.type === 'success' ? 'text-emerald-400' : toast.type === 'error' ? 'text-red-400' : 'text-indigo-400'"></i>
+          <span class="flex-1" x-text="toast.message"></span>
+          <button @click="toasts = toasts.filter(t => t !== toast)" class="opacity-50 hover:opacity-100 transition">
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <script>
+    function app() {
+      return {
+        // --- Core ---
+        loggedIn: false,
+        loginForm: { user: '', pass: '' },
+        loginError: '',
+        sidebarOpen: true,
+        currentPage: 'dashboard',
+        toasts: [],
+
+        // --- Alunos ---
+        searchQuery: '',
+        showModal: false,
+        editando: null,
+        form: { nome: '', cpf: '', contato: '', plano: 'Básico', vencimento: '', status: 'pago' },
+
+        // --- Treinos ---
+        selectedTreinoAluno: '',
+        treinoAba: 'A',
+        treinoView: 'lista',
+        showExercicioModal: false,
+        exercicioEditando: null,
+        exercicioForm: { nome: '', grupo: 'Peito', series: 4, repeticoes: 12, carga: '' },
+        exercicioAlunoId: null,
+        exercicioAba: 'A',
+
+        // --- Catraca ---
+        cpfInput: '',
+        acessoStatus: '',
+        acessoMensagem: '',
+
+        // --- Menu ---
+        menuItems: [
+          { id: 'dashboard', label: 'Dashboard', icon: 'layout-dashboard' },
+          { id: 'alunos', label: 'Alunos', icon: 'users' },
+          { id: 'financeiro', label: 'Financeiro', icon: 'wallet' },
+          { id: 'treinos', label: 'Treinos', icon: 'dumbbell' },
+          { id: 'catraca', label: 'Catraca', icon: 'fingerprint' }
+        ],
+
+        // --- Dados ---
+        alunos: [
+          { id: 1, nome: 'João Silva', cpf: '111.111.111-11', contato: '(11) 91111-1111', plano: 'Premium', vencimento: '10/06/2026', status: 'pago' },
+          { id: 2, nome: 'Maria Santos', cpf: '222.222.222-22', contato: '(11) 92222-2222', plano: 'Básico', vencimento: '05/05/2026', status: 'devendo' },
+          { id: 3, nome: 'Pedro Oliveira', cpf: '333.333.333-33', contato: '(11) 93333-3333', plano: 'Premium', vencimento: '15/06/2026', status: 'pago' },
+          { id: 4, nome: 'Ana Costa', cpf: '444.444.444-44', contato: '(11) 94444-4444', plano: 'VIP', vencimento: '01/05/2026', status: 'devendo' },
+          { id: 5, nome: 'Lucas Pereira', cpf: '555.555.555-55', contato: '(11) 95555-5555', plano: 'Básico', vencimento: '20/06/2026', status: 'pago' }
+        ],
+
+        treinos: {
+          1: {
+            A: [
+              { nome: 'Supino Reto', grupo: 'Peito', series: 4, repeticoes: 12, carga: '40kg' },
+              { nome: 'Supino Inclinado', grupo: 'Peito', series: 3, repeticoes: 10, carga: '32kg' },
+              { nome: 'Cross Over', grupo: 'Peito', series: 3, repeticoes: 15, carga: '15kg' },
+              { nome: 'Tríceps Pulley', grupo: 'Tríceps', series: 3, repeticoes: 12, carga: '20kg' },
+              { nome: 'Tríceps Francês', grupo: 'Tríceps', series: 3, repeticoes: 10, carga: '14kg' }
+            ],
+            B: [
+              { nome: 'Puxada Aberta', grupo: 'Costas', series: 4, repeticoes: 12, carga: '50kg' },
+              { nome: 'Remada Curvada', grupo: 'Costas', series: 3, repeticoes: 10, carga: '36kg' },
+              { nome: 'Pull Down', grupo: 'Costas', series: 3, repeticoes: 12, carga: '40kg' },
+              { nome: 'Rosca Direta', grupo: 'Bíceps', series: 3, repeticoes: 12, carga: '12kg' },
+              { nome: 'Rosca Martelo', grupo: 'Bíceps', series: 3, repeticoes: 10, carga: '14kg' }
+            ],
+            C: [
+              { nome: 'Agachamento Livre', grupo: 'Pernas', series: 4, repeticoes: 10, carga: '60kg' },
+              { nome: 'Leg Press 45°', grupo: 'Pernas', series: 4, repeticoes: 12, carga: '120kg' },
+              { nome: 'Cadeira Extensora', grupo: 'Quadríceps', series: 3, repeticoes: 15, carga: '35kg' },
+              { nome: 'Desenvolvimento', grupo: 'Ombros', series: 3, repeticoes: 10, carga: '20kg' },
+              { nome: 'Elevação Lateral', grupo: 'Ombros', series: 3, repeticoes: 12, carga: '8kg' }
+            ]
+          },
+          2: {
+            A: [
+              { nome: 'Supino Reto', grupo: 'Peito', series: 3, repeticoes: 10, carga: '30kg' },
+              { nome: 'Crucifixo', grupo: 'Peito', series: 3, repeticoes: 12, carga: '12kg' },
+              { nome: 'Tríceps Testa', grupo: 'Tríceps', series: 3, repeticoes: 10, carga: '10kg' }
+            ],
+            B: [
+              { nome: 'Puxada Fechada', grupo: 'Costas', series: 3, repeticoes: 10, carga: '35kg' },
+              { nome: 'Remada Baixa', grupo: 'Costas', series: 3, repeticoes: 12, carga: '25kg' },
+              { nome: 'Rosca Scott', grupo: 'Bíceps', series: 3, repeticoes: 10, carga: '10kg' }
+            ],
+            C: [
+              { nome: 'Agachamento Guiado', grupo: 'Pernas', series: 3, repeticoes: 12, carga: '40kg' },
+              { nome: 'Cadeira Flexora', grupo: 'Posterior', series: 3, repeticoes: 12, carga: '20kg' },
+              { nome: 'Panturrilha', grupo: 'Panturrilha', series: 4, repeticoes: 20, carga: '30kg' },
+              { nome: 'Elevação Lateral', grupo: 'Ombros', series: 3, repeticoes: 12, carga: '6kg' }
+            ]
+          },
+          3: {
+            A: [
+              { nome: 'Supino Reto Barra', grupo: 'Peito', series: 4, repeticoes: 12, carga: '50kg' },
+              { nome: 'Supino Inclinado Halteres', grupo: 'Peito', series: 3, repeticoes: 10, carga: '20kg' },
+              { nome: 'Crossover Polia', grupo: 'Peito', series: 3, repeticoes: 15, carga: '12kg' },
+              { nome: 'Tríceps Corda', grupo: 'Tríceps', series: 3, repeticoes: 12, carga: '18kg' }
+            ],
+            B: [
+              { nome: 'Barra Fixa', grupo: 'Costas', series: 3, repeticoes: 8, carga: 'peso corporal' },
+              { nome: 'Remada Unilateral', grupo: 'Costas', series: 3, repeticoes: 10, carga: '22kg' },
+              { nome: 'Encolhimento', grupo: 'Trapézio', series: 3, repeticoes: 12, carga: '30kg' },
+              { nome: 'Rosca Alternada', grupo: 'Bíceps', series: 3, repeticoes: 10, carga: '12kg' }
+            ],
+            C: [
+              { nome: 'Agachamento Sumô', grupo: 'Pernas', series: 4, repeticoes: 10, carga: '50kg' },
+              { nome: 'Hack Squat', grupo: 'Pernas', series: 3, repeticoes: 12, carga: '80kg' },
+              { nome: 'Mesa Flexora', grupo: 'Posterior', series: 3, repeticoes: 15, carga: '25kg' },
+              { nome: 'Desenvolvimento Militar', grupo: 'Ombros', series: 3, repeticoes: 10, carga: '20kg' },
+              { nome: 'Elevação Frontal', grupo: 'Ombros', series: 3, repeticoes: 12, carga: '8kg' }
+            ]
+          },
+          4: {
+            A: [
+              { nome: 'Supino Declinado', grupo: 'Peito', series: 4, repeticoes: 10, carga: '35kg' },
+              { nome: 'Peck Deck', grupo: 'Peito', series: 3, repeticoes: 12, carga: '15kg' },
+              { nome: 'Tríceps Banco', grupo: 'Tríceps', series: 3, repeticoes: 15, carga: 'peso corporal' }
+            ],
+            B: [
+              { nome: 'Remada Maquina', grupo: 'Costas', series: 4, repeticoes: 12, carga: '40kg' },
+              { nome: 'Puxada Triângulo', grupo: 'Costas', series: 3, repeticoes: 10, carga: '30kg' },
+              { nome: 'Rosca Concentrada', grupo: 'Bíceps', series: 3, repeticoes: 10, carga: '8kg' }
+            ],
+            C: [
+              { nome: 'Leg Press Horizontal', grupo: 'Pernas', series: 4, repeticoes: 12, carga: '100kg' },
+              { nome: 'Afundo', grupo: 'Pernas', series: 3, repeticoes: 10, carga: '14kg cada' },
+              { nome: 'Stiff', grupo: 'Posterior', series: 3, repeticoes: 10, carga: '30kg' },
+              { nome: 'Elevação Lateral Polia', grupo: 'Ombros', series: 3, repeticoes: 12, carga: '5kg' }
+            ]
+          },
+          5: {
+            A: [
+              { nome: 'Supino Inclinado', grupo: 'Peito', series: 3, repeticoes: 10, carga: '28kg' },
+              { nome: 'Voador', grupo: 'Peito', series: 3, repeticoes: 12, carga: '10kg' },
+              { nome: 'Tríceps Coice', grupo: 'Tríceps', series: 3, repeticoes: 12, carga: '8kg' }
+            ],
+            B: [
+              { nome: 'Puxada Neutra', grupo: 'Costas', series: 3, repeticoes: 10, carga: '30kg' },
+              { nome: 'Remada Aberta', grupo: 'Costas', series: 3, repeticoes: 12, carga: '20kg' },
+              { nome: 'Rosca Inversa', grupo: 'Bíceps', series: 3, repeticoes: 10, carga: '8kg' }
+            ],
+            C: [
+              { nome: 'Agachamento Frontal', grupo: 'Pernas', series: 3, repeticoes: 10, carga: '30kg' },
+              { nome: 'Passada', grupo: 'Pernas', series: 3, repeticoes: 10, carga: '10kg cada' },
+              { nome: 'Panturrilha Sentado', grupo: 'Panturrilha', series: 4, repeticoes: 20, carga: '20kg' },
+              { nome: 'Desenvolvimento Arnolds', grupo: 'Ombros', series: 3, repeticoes: 10, carga: '14kg' }
+            ]
+          }
+        },
+
+        caixa: [],
+        acessoHistorico: [],
+
+        // --- Computed ---
+        get pageTitle() {
+          const map = { dashboard: 'Dashboard', alunos: 'Alunos', financeiro: 'Financeiro', treinos: 'Treinos', catraca: 'Catraca Virtual' };
+          return map[this.currentPage] || 'FitManager';
+        },
+        get pageSubtitle() {
+          const map = { dashboard: 'Visão geral da academia', alunos: 'Gerenciar alunos matriculados', financeiro: 'Controle de pagamentos e caixa', treinos: 'Fichas de treino dos alunos', catraca: 'Simulador de acesso por CPF' };
+          return map[this.currentPage] || '';
+        },
+        get alunosAtivos() {
+          return this.alunos.filter(a => a.status === 'pago').length;
+        },
+        get inadimplentes() {
+          return this.alunos.filter(a => a.status === 'devendo');
+        },
+        get faturamentoMes() {
+          return this.caixa.reduce((acc, p) => acc + p.valor, 0);
+        },
+        get filteredAlunos() {
+          const q = this.searchQuery.toLowerCase().trim();
+          if (!q) return this.alunos;
+          return this.alunos.filter(a => a.nome.toLowerCase().includes(q) || a.cpf.includes(q));
+        },
+
+        // --- Toast ---
+        addToast(message, type) {
+          this.toasts.push({ message, type: type || 'info' });
+          if (this.toasts.length > 5) this.toasts.shift();
+        },
+
+        // --- Treino helpers ---
+        getTreino(aluno, aba) {
+          if (!this.treinos[aluno.id]) this.treinos[aluno.id] = { A: [], B: [], C: [] };
+          if (!this.treinos[aluno.id][aba]) this.treinos[aluno.id][aba] = [];
+          return this.treinos[aluno.id][aba];
+        },
+
+        getTreinoCount(aluno, aba) {
+          return (this.treinos[aluno.id] && this.treinos[aluno.id][aba]) ? this.treinos[aluno.id][aba].length : 0;
+        },
+
+        printTreino(aluno) {
+          const treinos = this.treinos[aluno.id] || { A: [], B: [], C: [] };
+          const nome = aluno.nome;
+          const plano = aluno.plano;
+          const data = new Date().toLocaleDateString('pt-BR');
+          let html = `
+            <html>
+            <head><meta charset="UTF-8"><title>Ficha de Treino - ${nome}</title>
+            <style>
+              @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+              * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+              body { padding: 40px; color: #1e293b; background: #fff; }
+              .header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px solid #6366f1; }
+              .header h1 { font-size: 24px; color: #0f172a; margin-bottom: 4px; }
+              .header .sub { font-size: 14px; color: #64748b; }
+              .header .meta { font-size: 12px; color: #94a3b8; margin-top: 6px; }
+              .treino-card { margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; page-break-inside: avoid; }
+              .treino-card h3 { font-size: 14px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #6366f1, #06b6d4); padding: 10px 16px; }
+              table { width: 100%; border-collapse: collapse; font-size: 13px; }
+              th { background: #f1f5f9; color: #475569; padding: 8px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; }
+              td { padding: 7px 12px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+              tr:nth-child(even) td { background: #f8fafc; }
+              .empty { padding: 20px; text-align: center; color: #94a3b8; font-size: 13px; }
+              .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 30px; padding-top: 15px; border-top: 1px solid #e2e8f0; }
+              .badge { display: inline-block; background: #eef2ff; color: #4f46e5; font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+              .total-ex { font-size: 12px; color: #64748b; margin-top: 4px; }
+            </style>
+            </head><body>
+            <div class="header">
+              <h1>Ficha de Treino</h1>
+              <div class="sub">${nome}</div>
+              <div class="meta">Plano: ${plano} | CPF: ${aluno.cpf} | Emitido em: ${data}</div>
+            </div>`;
+
+          const labels = { A: 'Treino A', B: 'Treino B', C: 'Treino C' };
+          for (const aba of ['A', 'B', 'C']) {
+            const exs = treinos[aba] || [];
+            html += `<div class="treino-card"><h3>${labels[aba]}</h3>`;
+            if (exs.length) {
+              html += `<table><thead><tr><th style="width:40px">#</th><th>Exerc&iacute;cio</th><th>Grupo</th><th style="text-align:center">S&eacute;ries</th><th style="text-align:center">Reps</th><th style="text-align:center">Carga</th></tr></thead><tbody>`;
+              exs.forEach((ex, i) => {
+                html += `<tr><td style="text-align:center">${i+1}</td><td>${ex.nome}</td><td>${ex.grupo}</td><td style="text-align:center">${ex.series}</td><td style="text-align:center">${ex.repeticoes}</td><td style="text-align:center">${ex.carga}</td></tr>`;
+              });
+              html += `</tbody></table>`;
+            } else {
+              html += `<div class="empty">Nenhum exerc&iacute;cio cadastrado</div>`;
+            }
+            html += `</div>`;
+          }
+
+          const totalGeral = (treinos.A?.length||0) + (treinos.B?.length||0) + (treinos.C?.length||0);
+          html += `<div class="total-ex">Total: ${totalGeral} exerc&iacute;cios</div>`;
+          html += `<div class="footer">FitManager Pro — Ficha gerada em ${data}</div>`;
+          html += `</body></html>`;
+
+          const win = window.open('', '_blank');
+          if (win) {
+            win.document.write(html);
+            win.document.close();
+            setTimeout(() => { win.print(); }, 500);
+          }
+        },
+
+        abrirAddExercicio(aluno) {
+          this.exercicioEditando = null;
+          this.exercicioAlunoId = aluno.id;
+          this.exercicioAba = this.treinoAba;
+          this.exercicioForm = { nome: '', grupo: 'Peito', series: 4, repeticoes: 12, carga: '' };
+          this.showExercicioModal = true;
+        },
+
+        abrirEditExercicio(aluno, aba, idx) {
+          const ex = this.treinos[aluno.id][aba][idx];
+          this.exercicioEditando = { alunoId: aluno.id, aba, idx };
+          this.exercicioAlunoId = aluno.id;
+          this.exercicioAba = aba;
+          this.exercicioForm = { ...ex };
+          this.showExercicioModal = true;
+        },
+
+        salvarExercicio() {
+          if (!this.exercicioForm.nome || !this.exercicioForm.series) return;
+          if (!this.treinos[this.exercicioAlunoId]) this.treinos[this.exercicioAlunoId] = { A: [], B: [], C: [] };
+          if (!this.treinos[this.exercicioAlunoId][this.exercicioAba]) this.treinos[this.exercicioAlunoId][this.exercicioAba] = [];
+
+          if (this.exercicioEditando) {
+            const { alunoId, aba, idx } = this.exercicioEditando;
+            if (this.treinos[alunoId] && this.treinos[alunoId][aba] && this.treinos[alunoId][aba][idx]) {
+              Object.assign(this.treinos[alunoId][aba][idx], this.exercicioForm);
+              this.addToast('Exercício atualizado com sucesso!', 'success');
+            }
+          } else {
+            this.treinos[this.exercicioAlunoId][this.exercicioAba].push({ ...this.exercicioForm });
+            this.addToast('Exercício adicionado com sucesso!', 'success');
+          }
+          this.showExercicioModal = false;
+          this.exercicioEditando = null;
+        },
+
+        excluirExercicio(aluno, aba, idx) {
+          if (!this.treinos[aluno.id] || !this.treinos[aluno.id][aba]) return;
+          const nome = this.treinos[aluno.id][aba][idx]?.nome || 'Exercício';
+          if (confirm(`Excluir "${nome}" da ficha de ${aluno.nome}?`)) {
+            this.treinos[aluno.id][aba].splice(idx, 1);
+            this.addToast(`"${nome}" removido do treino!`, 'success');
+          }
+        },
+
+        // --- Auth ---
+        login() {
+          if (this.loginForm.user === 'admin' && this.loginForm.pass === 'admin') {
+            this.loggedIn = true;
+            this.loginError = '';
+            this.addToast('Login realizado com sucesso!', 'success');
+          } else {
+            this.loginError = 'Usuário ou senha inválidos.';
+          }
+        },
+        logout() {
+          this.loggedIn = false;
+          this.loginForm.user = '';
+          this.loginForm.pass = '';
+          this.addToast('Sessão encerrada.', 'info');
+        },
+
+        // --- Alunos CRUD ---
+        openAddAluno() {
+          this.editando = null;
+          this.form = { nome: '', cpf: '', contato: '', plano: 'Básico', vencimento: '', status: 'pago' };
+          this.showModal = true;
+        },
+        editAluno(aluno) {
+          this.editando = aluno;
+          this.form = { ...aluno };
+          this.showModal = true;
+        },
+        salvarAluno() {
+          if (!this.form.nome || !this.form.cpf) return;
+          if (this.editando) {
+            Object.assign(this.editando, this.form);
+            this.addToast('Aluno atualizado com sucesso!', 'success');
+          } else {
+            const nextId = Math.max(...this.alunos.map(a => a.id), 0) + 1;
+            this.alunos.push({ id: nextId, ...this.form });
+            this.treinos[nextId] = {
+              A: [{ nome: 'Supino Reto', grupo: 'Peito', series: 3, repeticoes: 10, carga: '20kg' }, { nome: 'Tríceps Pulley', grupo: 'Tríceps', series: 3, repeticoes: 12, carga: '15kg' }],
+              B: [{ nome: 'Puxada Aberta', grupo: 'Costas', series: 3, repeticoes: 10, carga: '30kg' }, { nome: 'Rosca Direta', grupo: 'Bíceps', series: 3, repeticoes: 10, carga: '8kg' }],
+              C: [{ nome: 'Agachamento', grupo: 'Pernas', series: 3, repeticoes: 12, carga: '30kg' }, { nome: 'Desenvolvimento', grupo: 'Ombros', series: 3, repeticoes: 10, carga: '12kg' }]
+            };
+            this.addToast('Aluno cadastrado com sucesso!', 'success');
+          }
+          this.showModal = false;
+        },
+        excluirAluno(aluno) {
+          if (confirm(`Excluir aluno ${aluno.nome}? Essa ação não pode ser desfeita.`)) {
+            this.alunos = this.alunos.filter(a => a.id !== aluno.id);
+            delete this.treinos[aluno.id];
+            this.addToast(`Aluno ${aluno.nome} removido.`, 'info');
+          }
+        },
+
+        // --- Financeiro ---
+        receberPagamento(aluno) {
+          const planos = { Básico: 89.90, Premium: 129.90, VIP: 199.90 };
+          const valor = planos[aluno.plano] || 89.90;
+          const formas = ['Pix', 'Cartão', 'Dinheiro'];
+          const forma = formas[Math.floor(Math.random() * formas.length)];
+          const hoje = new Date();
+          const data = hoje.toLocaleDateString('pt-BR');
+
+          this.caixa.push({ aluno: aluno.nome, data, forma, valor });
+          aluno.status = 'pago';
+          const partes = aluno.vencimento.split('/');
+          if (partes.length === 3) {
+            let mes = parseInt(partes[1]) + 1;
+            let ano = partes[2];
+            if (mes > 12) { mes = 1; ano = parseInt(ano) + 1; }
+            aluno.vencimento = partes[0] + '/' + String(mes).padStart(2, '0') + '/' + ano;
+          }
+          this.addToast(`Pagamento de R$ ${valor.toFixed(2).replace('.',',')} recebido via ${forma}!`, 'success');
+        },
+
+        // --- Catraca ---
+        verificarAcesso() {
+          const cpf = this.cpfInput.trim();
+          this.acessoStatus = '';
+          this.acessoMensagem = '';
+          if (!cpf) {
+            this.addToast('Digite um CPF para verificar.', 'info');
+            return;
+          }
+          const aluno = this.alunos.find(a => a.cpf === cpf);
+          if (!aluno) {
+            this.acessoStatus = 'bloqueado';
+            this.acessoMensagem = 'CPF não encontrado no sistema.';
+            this.addToast('CPF não cadastrado!', 'error');
+            return;
+          }
+          const hoje = new Date();
+          const hora = hoje.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+          if (aluno.status === 'pago') {
+            this.acessoStatus = 'liberado';
+            this.acessoMensagem = 'Bom treino, ' + aluno.nome + '!';
+            this.acessoHistorico.push({ nome: aluno.nome, hora, data: hoje.toLocaleDateString('pt-BR') });
+            if (this.acessoHistorico.length > 50) this.acessoHistorico.shift();
+            this.addToast('Acesso liberado! Bom treino!', 'success');
+          } else {
+            this.acessoStatus = 'bloqueado';
+            this.acessoMensagem = 'Mensalidade em atraso, procure a recepção.';
+            this.addToast('Acesso bloqueado! Mensalidade em atraso.', 'error');
+          }
+          setTimeout(() => { if (this.acessoStatus) { this.acessoStatus = ''; this.acessoMensagem = ''; } }, 4500);
+        }
+      };
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js">
+  </script>
+  <script>
+    document.addEventListener('alpine:init', () => {
+      setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 100);
+    });
+    setInterval(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 500);
+  </script>
+</body>
+</html>
