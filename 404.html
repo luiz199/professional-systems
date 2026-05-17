@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Página não encontrada</title>
+  <meta name="robots" content="noindex, follow">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#0a0a0a; color:#e0e0e0; font-family:'JetBrains Mono',monospace; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; padding:2rem; text-align:center; }
+    .code { font-size:6rem; font-weight:800; color:#00ff41; text-shadow:0 0 40px rgba(0,255,65,0.3); line-height:1; }
+    .msg { color:#666; margin:1rem 0 2rem; font-size:0.85rem; }
+    .link { display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.5rem; background:linear-gradient(135deg,#00ff41,#00cc33); color:#000; font-weight:700; border-radius:12px; text-decoration:none; font-size:0.85rem; transition:all 0.3s; }
+    .link:hover { box-shadow:0 0 30px rgba(0,255,65,0.4); transform:translateY(-2px); }
+    .cursor::after { content:'|'; animation:blink 1s step-end infinite; color:#00ff41; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  </style>
+</head>
+<body>
+  <div class="code">404</div>
+  <p class="msg">// página não encontrada<br>O arquivo que você procura não existe neste servidor.</p>
+  <a class="link" href="https://luiz199.github.io/professional-systems/portfolio/">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12h18M3 12l6-6M3 12l6 6"/></svg>
+    $ cd ~/portfolio
+  </a>
+  <p class="cursor" style="margin-top:2rem;color:#333;font-size:0.7rem">_</p>
+</body>
+</html>

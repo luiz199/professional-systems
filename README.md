@@ -1,15 +1,29 @@
-# Professional Systems — Portfólio de Projetos
+# Professional Systems
 
----
+Portfólio de projetos single-file de Luiz Henrique.
 
-# RESTAU MASTER PRO
+```
+/
+├── portfolio/          # Portfolio CS (Alpine.js, Tailwind, Canvas)
+├── restau-master-pro/  # Gestão de restaurantes (JS, LocalStorage)
+├── fitmanager-pro/     # Gestão de academia (Alpine.js, Tailwind)
+├── datamind-ai/        # SaaS de IA com chat + clima (Alpine.js, Ollama)
+├── assets/             # Imagens e recursos
+└── index.html          # Hub de navegação entre projetos
+```
 
-**Sistema profissional de gestão de pedidos para restaurantes e lanchonetes.**
+## Projetos
 
-Single-file HTML5 com dashboard, mapa visual de mesas, comanda digital, cardápio com fotos e painel admin completo. Zero dependências externas.
+| Projeto | Descrição | Stack |
+|---------|-----------|-------|
+| [Portfolio CS](https://luiz199.github.io/professional-systems/portfolio/) | Portfólio CS com blog, depoimentos, timeline | Alpine.js, Tailwind, Canvas |
+| [RESTAU MASTER PRO](https://github.com/luiz199/professional-systems/tree/master/restau-master-pro) | Gestão de restaurantes e lanchonetes | JavaScript, LocalStorage |
+| [FitManager Pro](https://github.com/luiz199/professional-systems/tree/master/fitmanager-pro) | Gestão de academia | Alpine.js, Tailwind, Lucide |
+| [DataMind AI](https://github.com/luiz199/professional-systems/tree/master/datamind-ai) | SaaS de IA com chat + clima | Alpine.js, Ollama, Open-Meteo |
 
-## Funcionalidades
+## Tecnologias
 
+<<<<<<< HEAD
 | Módulo | Descrição |
 |--------|-----------|
 | **Dashboard** | Estatísticas em tempo real com gráficos de faturamento diário/semanal/mensal |
@@ -139,7 +153,11 @@ Status indicado no header do chat (verde = Ollama conectado, cinza = modo local)
 5. Login painel:
 
 ---
+=======
+HTML5 · CSS3 · JavaScript · Alpine.js · Tailwind CSS · Canvas API · Ollama · Open-Meteo API · Lucide Icons · LocalStorage API · GitHub Pages
+>>>>>>> fcfd657 (Reorganiza repo em pastas, remove senhas hardcoded, adiciona SEO/PWA/READMEs/screenshots/acessibilidade)
 
 ## Licença
 
 Projetos pessoais — uso livre.
+

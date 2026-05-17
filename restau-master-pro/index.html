@@ -2576,6 +2576,7 @@ LOGIN SCREEN — PREMIUM SECURITY
         </div>
 
         <div class="login-divider"><span>Acesso</span></div>
+        <p id="firstRunMsg" style="text-align:center;color:var(--accent);font-size:12px;margin:8px 0 0;display:none;">Primeiro acesso — crie o administrador</p>
       </div>
 
       <div class="login-card-body">
@@ -2588,7 +2589,7 @@ LOGIN SCREEN — PREMIUM SECURITY
           <label>Usuário</label>
           <div class="input-wrap">
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-            <input type="text" id="loginUser" placeholder="Digite seu usuário" value="admin" autocomplete="username" spellcheck="false">
+            <input type="text" id="loginUser" placeholder="Digite seu usuário" autocomplete="username" spellcheck="false">
           </div>
         </div>
 
@@ -2596,7 +2597,7 @@ LOGIN SCREEN — PREMIUM SECURITY
           <label>Senha</label>
           <div class="input-wrap">
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-            <input type="password" id="loginPass" placeholder="Digite sua senha" value="2025" autocomplete="current-password">
+            <input type="password" id="loginPass" placeholder="Digite sua senha" autocomplete="current-password">
             <button class="pass-toggle" id="passToggle" type="button" title="Mostrar senha">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" id="passToggleIcon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             </button>
@@ -3230,18 +3231,11 @@ function loadState() {
     state.menu = DEFAULT_MENU;
     state.settings = { darkMode: true, taxRate: 0.10 };
   }
-  // Seed default admin if no users exist
+  // First-run setup: se nenhum usuário existe, cria admin com credenciais do primeiro login
   if (!state.users.length) {
-    state.users.push({
-      id: 'usr_' + Date.now(),
-      username: 'admin',
-      password: '2025',
-      name: 'Administrador',
-      role: 'admin',
-      subscription: 'active',
-      createdAt: new Date().toISOString(),
-      lastLogin: null
-    });
+    state._firstRun = true;
+    const msg = document.getElementById('firstRunMsg');
+    if (msg) msg.style.display = 'block';
   }
 }
 
@@ -3442,6 +3436,54 @@ function doLogin(e) {
 
   setTimeout(() => {
     btn.classList.remove('loading');
+
+    // First-run: create admin account with credentials entered
+    if (state._firstRun && !state.users.length) {
+      if (!user || !pass) {
+        errorText.textContent = 'Defina um usuário e senha para o administrador inicial.';
+        error.classList.add('show');
+        playErrorSound();
+        return;
+      }
+      if (pass.length < 4) {
+        errorText.textContent = 'A senha deve ter no mínimo 4 caracteres.';
+        error.classList.add('show');
+        playErrorSound();
+        return;
+      }
+      const newAdmin = {
+        id: 'usr_' + Date.now(),
+        username: user,
+        password: pass,
+        name: 'Administrador',
+        role: 'admin',
+        subscription: 'active',
+        createdAt: new Date().toISOString(),
+        lastLogin: null
+      };
+      state.users.push(newAdmin);
+      delete state._firstRun;
+      saveState();
+      // Log in as the new admin
+      loginAttempts = 0;
+      updateAttemptDisplay();
+      state.currentUser = newAdmin;
+      newAdmin.lastLogin = new Date().toISOString();
+      saveState();
+      error.classList.remove('show');
+      playSuccessSound();
+      if (loginTimer) clearInterval(loginTimer);
+      document.querySelector('.login-card').classList.add('exit');
+      document.getElementById('loginScreen').style.opacity = '0';
+      document.getElementById('loginScreen').style.transition = 'opacity 0.5s ease 0.3s';
+      setTimeout(() => {
+        document.querySelector('.login-card').classList.remove('exit');
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('app').classList.add('active');
+        initApp();
+      }, 700);
+      return;
+    }
 
     // Find user
     const foundUser = state.users.find(u => u.username === user && u.password === pass);

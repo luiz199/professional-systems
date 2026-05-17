@@ -140,7 +140,7 @@
                 <label class="block text-xs font-medium text-slate-400 mb-1.5">Usuário</label>
                 <div class="relative">
                   <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
-                  <input type="text" x-model="loginForm.user" class="w-full bg-slate-800/50 border border-slate-700/60 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="admin">
+                  <input type="text" x-model="loginForm.user" class="w-full bg-slate-800/50 border border-slate-700/60 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 transition input-glow" placeholder="usuário">
                 </div>
               </div>
               <div>
@@ -159,6 +159,7 @@
               <p x-text="loginError" class="text-red-400 text-xs text-center"></p>
             </div>
             <p class="text-center text-xs text-slate-600 mt-8">FitManager Pro v2.0</p>
+            <p x-show="_firstRun" class="text-center text-xs text-indigo-400 mt-2">Primeiro acesso — defina suas credenciais de administrador</p>
           </div>
         </div>
 
@@ -934,6 +935,10 @@
         sidebarOpen: true,
         currentPage: 'dashboard',
         toasts: [],
+        users: [],
+        _firstRun: false,
+
+        init() { this.initAuth(); },
 
         // --- Alunos ---
         searchQuery: '',
@@ -1228,8 +1233,41 @@
         },
 
         // --- Auth ---
+        initAuth() {
+          const stored = localStorage.getItem('fitmanagerUsers');
+          if (stored) {
+            try { this.users = JSON.parse(stored); } catch(e) { this.users = []; }
+          } else {
+            this.users = [];
+          }
+          if (!this.users.length) {
+            this.users.push({ user: '', pass: '', name: 'Administrador', role: 'admin' });
+            localStorage.setItem('fitmanagerUsers', JSON.stringify(this.users));
+            this._firstRun = true;
+          }
+        },
         login() {
-          if (this.loginForm.user === 'admin' && this.loginForm.pass === 'admin') {
+          if (!this.users.length) {
+            this.users.push({ user: '', pass: '', name: 'Administrador', role: 'admin' });
+          }
+          const first = this.users[0];
+          if (this._firstRun || !first.user) {
+            if (!this.loginForm.user.trim() || !this.loginForm.pass.trim()) {
+              this.loginError = 'Defina um usuário e senha para o administrador.';
+              return;
+            }
+            if (this.loginForm.pass.length < 4) {
+              this.loginError = 'A senha deve ter no mínimo 4 caracteres.';
+              return;
+            }
+            first.user = this.loginForm.user.trim();
+            first.pass = this.loginForm.pass.trim();
+            localStorage.setItem('fitmanagerUsers', JSON.stringify(this.users));
+            this._firstRun = false;
+            this.loggedIn = true;
+            this.loginError = '';
+            this.addToast('Administrador criado com sucesso!', 'success');
+          } else if (this.loginForm.user === first.user && this.loginForm.pass === first.pass) {
             this.loggedIn = true;
             this.loginError = '';
             this.addToast('Login realizado com sucesso!', 'success');

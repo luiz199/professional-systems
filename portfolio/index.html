@@ -1,9 +1,63 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — Computer Science</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+  <title>Luiz Henrique — Full-Stack Developer | Portfolio</title>
+  <meta name="description" content="Portfolio profissional de Luiz Henrique, Full-Stack Developer especializado em sistemas web, automação e inteligência artificial. Ciência da Computação | UNIBF">
+  <meta name="keywords" content="full-stack developer, portfolio, computer science, web development, alpine.js, tailwind css, AI, automation">
+  <meta name="author" content="Luiz Henrique">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://luiz199.github.io/professional-systems/portfolio/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Portfolio CS">
+  <meta property="og:title" content="Luiz Henrique — Full-Stack Developer">
+  <meta property="og:description" content="Portfolio profissional com tema Computer Science. Sistemas web, automação e IA.">
+  <meta property="og:url" content="https://luiz199.github.io/professional-systems/portfolio/">
+  <meta property="og:image" content="https://luiz199.github.io/professional-systems/assets/foto-perfil.jpeg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Luiz Henrique — Full-Stack Developer">
+  <meta name="twitter:description" content="Portfolio profissional com tema Computer Science">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Portfolio CS">
+  <link rel="apple-touch-icon" href="../assets/foto-perfil.jpeg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Luiz Henrique",
+    "alternateName": "luiz199",
+    "jobTitle": "Full-Stack Developer",
+    "url": "https://luiz199.github.io/professional-systems/portfolio/",
+    "sameAs": ["https://github.com/luiz199"],
+    "image": "https://luiz199.github.io/professional-systems/assets/foto-perfil.jpeg",
+    "knowsAbout": ["Web Development", "JavaScript", "Alpine.js", "Tailwind CSS", "Python", "Artificial Intelligence", "API Design"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Portfolio CS — Luiz Henrique",
+    "url": "https://luiz199.github.io/professional-systems/portfolio/",
+    "description": "Portfolio profissional de Full-Stack Developer com tema Computer Science",
+    "author": { "@type": "Person", "name": "Luiz Henrique" }
+  }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -68,6 +122,8 @@
 
     .lang-btn { padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; border: 1px solid transparent; background: transparent; color: var(--text3); }
     .lang-btn.active { background: rgba(0,255,65,0.1); border-color: rgba(0,255,65,0.3); color: #00ff41; }
+    *:focus-visible { outline: 2px solid #00ff41; outline-offset: 2px; border-radius: 4px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
   </style>
 </head>
 <body :class="!darkMode ? 'light' : ''">
@@ -75,20 +131,20 @@
   <canvas id="particles-canvas"></canvas>
   <div class="scanline"></div>
 
-  <div x-data="portfolio()" x-cloak class="relative z-10 min-h-screen" :class="!darkMode ? 'light' : ''">
+  <div x-data="portfolio()" x-cloak class="relative z-10 min-h-screen" :class="!darkMode ? 'light' : ''" role="main">
 
-    <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 z-40 glass border-b" :style="'border-color: var(--border)'">
+    
+    <nav aria-label="Navegação principal" class="fixed top-0 left-0 right-0 z-40 glass border-b" :style="'border-color: var(--border)'">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <a href="#" @click.prevent="section = 'home'" class="flex items-center gap-2.5 group">
+        <a href="#" @click.prevent="section = 'home'" class="flex items-center gap-2.5 group" aria-label="Ir para o início">
           <div class="w-8 h-8 rounded-lg bg-[#00ff41]/10 border border-[#00ff41]/30 flex items-center justify-center group-hover:bg-[#00ff41]/20 transition">
             <span class="text-[11px] font-bold text-[#00ff41]">&lt;/&gt;</span>
           </div>
           <span class="font-bold text-sm" :style="'color: var(--text)'"><span class="text-[#00ff41]">~</span>/portfolio</span>
         </a>
-        <div class="hidden md:flex items-center gap-1">
+        <div class="hidden md:flex items-center gap-1" role="menubar">
           <template x-for="item in navItems" :key="item.id">
-            <a href="#" @click.prevent="section = item.id"
+            <a href="#" @click.prevent="section = item.id" role="menuitem"
               class="px-3.5 py-2 rounded-lg text-xs font-medium transition-all duration-200"
               :class="section === item.id ? 'text-[#00ff41] bg-[#00ff41]/10' : ''"
               :style="section !== item.id ? 'color: var(--text3)' : ''">
@@ -110,9 +166,9 @@
           </button>
         </div>
       </div>
-      <div x-show="mobileOpen" class="md:hidden mobile-menu flex flex-col items-center justify-center gap-4">
+      <div x-show="mobileOpen" class="md:hidden mobile-menu flex flex-col items-center justify-center gap-4" role="menu" aria-label="Navegação mobile">
         <template x-for="item in navItems" :key="item.id">
-          <a href="#" @click.prevent="section = item.id; mobileOpen = false"
+          <a href="#" @click.prevent="section = item.id; mobileOpen = false" role="menuitem"
             class="text-lg font-medium transition font-mono"
             :class="section === item.id ? 'text-[#00ff41]' : ''"
             :style="section !== item.id ? 'color: var(--text3)' : ''">
@@ -123,8 +179,8 @@
       </div>
     </nav>
 
-    <!-- ===== HOME ===== -->
-    <div x-show="section === 'home'" class="pt-16">
+    
+    <div x-show="section === 'home'" role="region" aria-label="Início" class="pt-16">
       <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-[#00ff41]/8 via-transparent" :style="'to: var(--bg)'"></div>
         <div class="absolute inset-0 grid-bg opacity-60"></div>
@@ -133,8 +189,8 @@
             <span class="w-1.5 h-1.5 rounded-full bg-[#00ff41] pulse-dot"></span>
             <span class="font-mono">system.status: online</span>
           </div>
-          <div class="animated-border w-24 h-24 mx-auto mb-6 rounded-2xl overflow-hidden glow-pulse">
-            <div class="w-full h-full rounded-2xl overflow-hidden"><img src="foto-perfil.jpeg" alt="Profile" class="w-full h-full object-cover"></div>
+            <div class="animated-border w-24 h-24 mx-auto mb-6 rounded-2xl overflow-hidden glow-pulse">
+            <div class="w-full h-full rounded-2xl overflow-hidden"><img src="../assets/foto-perfil.jpeg" alt="Foto de perfil de Luiz Henrique" loading="lazy" class="w-full h-full object-cover"></div>
           </div>
           <div class="mb-4">
             <p class="text-sm font-mono mb-2" :style="'color: var(--text3)'"><span class="text-[#00ff41]">$</span> whoami</p>
@@ -165,8 +221,8 @@
       </section>
     </div>
 
-    <!-- ===== SOBRE ===== -->
-    <div x-show="section === 'sobre'" class="pt-16 min-h-screen py-20 px-4">
+    
+    <div x-show="section === 'sobre'" role="region" aria-label="Sobre" class="pt-16 min-h-screen py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -176,7 +232,7 @@
         <div class="glass-card rounded-2xl p-8 md:p-10">
           <div class="flex flex-col md:flex-row gap-8 items-start">
             <div class="w-32 h-32 rounded-2xl overflow-hidden shrink-0 mx-auto md:mx-0 border-2 border-[#00ff41]/20 glow-pulse">
-              <img src="foto-perfil.jpeg" alt="Profile" class="w-full h-full object-cover">
+              <img src="../assets/foto-perfil.jpeg" alt="Foto de perfil de Luiz Henrique" loading="lazy" class="w-full h-full object-cover">
             </div>
             <div class="space-y-4 font-mono text-sm">
               <p :style="'color: var(--text2)'">
@@ -188,7 +244,7 @@
               <p class="pl-4 mb-4" :style="'color: var(--text2)'">objetivo: <span class="text-[#00cc33]">'<span x-text="t('devGoal')"></span>'</span></p>
               <p :style="'color: var(--text2)'"><span class="text-[#00ff41]">}</span>;</p>
 
-              <!-- Formacao -->
+              
               <p class="mt-3" :style="'color: var(--text2)'">
                 <span class="text-[#00ff41]">const</span> <span class="text-white" :style="'color: var(--text)'">formacao</span> = <span :style="'color: var(--text2)'">[</span>
               </p>
@@ -216,8 +272,8 @@
       </div>
     </div>
 
-    <!-- ===== TIMELINE ===== -->
-    <div x-show="section === 'timeline'" class="pt-16 min-h-screen py-20 px-4">
+    
+    <div x-show="section === 'timeline'" role="region" aria-label="Carreira" class="pt-16 min-h-screen py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -240,7 +296,14 @@
                       <template x-for="tag in ev.tags" :key="tag">
                         <span class="tag-badge" x-text="tag"></span>
                       </template>
-                    </div>
+  </div>
+
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    aria-label="Voltar ao topo"
+    class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-xl bg-[#00ff41] text-black flex items-center justify-center shadow-lg shadow-[#00ff41]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#00ff41]/40"
+    style="opacity:0;transform:translateY(20px);pointer-events:none">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
                   </div>
                 </div>
               </div>
@@ -250,8 +313,8 @@
       </div>
     </div>
 
-    <!-- ===== PROJETOS ===== -->
-    <div x-show="section === 'projetos'" class="pt-16 min-h-screen py-20 px-4">
+    
+    <div x-show="section === 'projetos'" role="region" aria-label="Projetos" class="pt-16 min-h-screen py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-6xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -262,7 +325,7 @@
           <template x-for="(proj, i) in projetos" :key="proj.nome">
             <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300">
               <div class="h-44 overflow-hidden">
-                <img :src="proj.img" :alt="proj.nome" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <img :src="proj.img" :alt="proj.nome" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               </div>
               <div class="p-5">
                 <span class="tag-badge" x-text="proj.categoria"></span>
@@ -293,8 +356,8 @@
       </div>
     </div>
 
-    <!-- ===== BLOG ===== -->
-    <div x-show="section === 'blog'" class="pt-16 min-h-screen py-20 px-4">
+    
+    <div x-show="section === 'blog'" role="region" aria-label="Blog" class="pt-16 min-h-screen py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -322,8 +385,8 @@
       </div>
     </div>
 
-    <!-- ===== DEPOIMENTOS ===== -->
-    <div x-show="section === 'depoimentos'" class="pt-16 min-h-screen py-20 px-4">
+    
+    <div x-show="section === 'depoimentos'" role="region" aria-label="Depoimentos" class="pt-16 min-h-screen py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -352,8 +415,8 @@
       </div>
     </div>
 
-    <!-- ===== CONTATO ===== -->
-    <div x-show="section === 'contato'" class="pt-16 min-h-screen py-20 px-4" id="contato">
+    
+    <div x-show="section === 'contato'" role="region" aria-label="Contato" class="pt-16 min-h-screen py-20 px-4" id="contato">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-2xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -362,24 +425,31 @@
           <p class="mt-2 text-sm font-mono" :style="'color: var(--text3)'" x-text="t('contatoSub')"></p>
         </div>
         <div class="glass-card rounded-2xl p-8">
-          <form @submit.prevent="enviarForm" class="space-y-4">
+          <form @submit.prevent="enviarForm" class="space-y-4" action="https://api.web3forms.com/submit" method="POST" aria-label="Formulário de contato">
+            <input type="hidden" name="access_key" value="SUA_CHAVE_WEB3FORMS_AQUI">
+            <input type="hidden" name="subject" x-bind:value="'Contato Portfolio: ' + formAssunto">
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none">
             <div class="flex items-center gap-2 text-xs font-mono mb-1" :style="'color: var(--text3)'">
               <span class="text-[#00ff41]">$</span> ./form <span :style="'color: var(--text3)'">--interactive</span>
             </div>
             <div class="grid sm:grid-cols-2 gap-4">
-              <input type="text" x-model="formNome" :placeholder="t('formName')" required
+              <input type="text" name="name" x-model="formNome" :placeholder="t('formName')" required
                 class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition"
-                :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'">
-              <input type="email" x-model="formEmail" :placeholder="t('formEmail')" required
+                :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'"
+                aria-label="Nome">
+              <input type="email" name="email" x-model="formEmail" :placeholder="t('formEmail')" required
                 class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition"
-                :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'">
+                :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'"
+                aria-label="Email">
             </div>
-            <input type="text" x-model="formAssunto" :placeholder="t('formSubject')"
+            <input type="text" name="subject" x-model="formAssunto" :placeholder="t('formSubject')"
               class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition"
-              :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'">
-            <textarea x-model="formMsg" :placeholder="t('formMsg')" rows="4" required
+              :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'"
+              aria-label="Assunto">
+            <textarea name="message" x-model="formMsg" :placeholder="t('formMsg')" rows="4" required
               class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition resize-none"
-              :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'"></textarea>
+              :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'"
+              aria-label="Mensagem"></textarea>
             <button type="submit" class="w-full py-3 btn-neon rounded-xl text-sm font-bold font-mono"
               :disabled="!formNome.trim() || !formEmail.trim() || !formMsg.trim()">
               <span x-show="!enviado">$ ./send</span>
@@ -444,10 +514,10 @@
         depTitle:'Depoimentos',
         contatoTitle:'Contato', contatoSub:'Tem um projeto em mente? Mande uma mensagem.',
         formName:'nome', formEmail:'email', formSubject:'assunto', formMsg:'mensagem', formSent:'Mensagem enviada!',
-        t1ano:'2026', t1tit:'Portfolio CS & DataMind AI', t1desc:'Criação do portfolio profissional com tema Computer Science e plataforma SaaS DataMind AI com chatbot inteligente.',
+        t1ano:'2026', t1tit:'Portfolio CS & DataMind AI', t1desc:'criação do portfolio profissional com tema Computer Science e plataforma SaaS DataMind AI com chatbot inteligente.',
         t2ano:'2025', t2tit:'FitManager Pro & RESTAU MASTER', t2desc:'Desenvolvimento dos sistemas de gestão para academia e restaurante. Soluções single-file com Alpine.js e Tailwind.',
         t3ano:'2024', t3tit:'Primeiros Projetos Web', t3desc:'Início na criação de sistemas web completos. Foco em HTML5, CSS3, JavaScript puro e otimização de performance.',
-        t4ano:'2023', t4tit:'Fundação em Programação', t4desc:'Início dos estudos em lógica de programação, algoritmos e desenvolvimento web. Descoberta da paixão por tecnologia.',
+        t4ano:'2023', t4tit:'Fundação em Programação', t4desc:'Início dos estudos em lógica de Programação, algoritmos e desenvolvimento web. Descoberta da paixão por tecnologia.',
         b1tit:'Como criar sistemas single-file profissionais', b1res:'Aprenda a construir aplicações completas em um único arquivo HTML, sem frameworks pesados, usando Alpine.js e Tailwind CSS.',
         b2tit:'Automação com IA: o futuro dos processos', b2res:'Descubra como a inteligência artificial está transformando a automação de processos empresariais com RPA e machine learning.',
         b3tit:'Design responsivo sem frameworks', b3res:'Técnicas avançadas de CSS para criar layouts responsivos e animações performáticas sem depender de bibliotecas externas.',
@@ -540,7 +610,7 @@
             { data: i18n[l].t1ano, titulo: i18n[l].t1tit, desc: i18n[l].t1desc, tags: ['Alpine.js','Tailwind','Ollama','Canvas'] },
             { data: i18n[l].t2ano, titulo: i18n[l].t2tit, desc: i18n[l].t2desc, tags: ['Alpine.js','Tailwind','JavaScript','Lucide'] },
             { data: i18n[l].t3ano, titulo: i18n[l].t3tit, desc: i18n[l].t3desc, tags: ['HTML5','CSS3','JavaScript','LocalStorage'] },
-            { data: i18n[l].t4ano, titulo: i18n[l].t4tit, desc: i18n[l].t4desc, tags: ['Lógica','Algoritmos','Web','Git'] }
+            { data: i18n[l].t4ano, titulo: i18n[l].t4tit, desc: i18n[l].t4desc, tags: ['lógica','Algoritmos','Web','Git'] }
           ];
           this.blogPosts = [
             { data: '15 Mai 2026', tempo: 5, titulo: i18n[l].b1tit, resumo: i18n[l].b1res, tags: ['Alpine.js','Tailwind','Single-file'] },
@@ -563,11 +633,35 @@
 
         enviarForm() {
           if(!this.formNome.trim()||!this.formEmail.trim()||!this.formMsg.trim()) return;
-          this.enviado = true;
-          setTimeout(()=>{this.enviado=false;this.formNome='';this.formEmail='';this.formAssunto='';this.formMsg=''},3000);
+          const form = document.querySelector('form[action*="web3forms"]');
+          if (!form) return;
+          const data = new FormData(form);
+          fetch(form.action, { method: 'POST', body: data })
+            .then(r => r.json())
+            .then(d => {
+              if (d.success) {
+                this.enviado = true;
+                setTimeout(()=>{this.enviado=false;this.formNome='';this.formEmail='';this.formAssunto='';this.formMsg=''},3000);
+              }
+            }).catch(() => {});
         }
       };
     }
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('backToTop');
+      if (window.scrollY > 400) {
+        btn.style.opacity = '1'; btn.style.transform = 'translateY(0)'; btn.style.pointerEvents = 'auto';
+      } else {
+        btn.style.opacity = '0'; btn.style.transform = 'translateY(20px)'; btn.style.pointerEvents = 'none';
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
