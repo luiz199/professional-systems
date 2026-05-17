@@ -92,7 +92,7 @@
         <div class="absolute inset-0 bg-gradient-to-b from-[#00ff41]/5 via-transparent to-[#0a0a0a]"></div>
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
           <div class="w-20 h-20 rounded-2xl overflow-hidden mx-auto mb-6 glow-pulse border-2 border-[#00ff41]/30">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="Developer" class="w-full h-full object-cover">
+            <img src="foto-perfil.jpeg" alt="Profile" class="w-full h-full object-cover">
           </div>
           <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-[#00ff41] mb-6 border border-[#00ff41]/20">
             <span class="w-1.5 h-1.5 rounded-full bg-[#00ff41] pulse-dot"></span>
@@ -137,7 +137,7 @@
         <div class="glass-card rounded-2xl p-8 md:p-10">
           <div class="flex flex-col md:flex-row gap-8 items-start">
             <div class="w-32 h-32 rounded-2xl overflow-hidden shrink-0 mx-auto md:mx-0 border-2 border-[#00ff41]/20">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="Profile" class="w-full h-full object-cover">
+              <img src="foto-perfil.jpeg" alt="Profile" class="w-full h-full object-cover">
             </div>
             <div>
               <p class="text-zinc-300 leading-relaxed mb-4">
@@ -177,8 +177,9 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <template x-for="(proj, i) in projetos" :key="proj.nome">
             <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300">
-              <div class="h-44 overflow-hidden">
-                <img :src="proj.img" :alt="proj.nome" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="h-40 bg-gradient-to-br flex items-center justify-center text-4xl"
+                :class="proj.cor">
+                <span x-text="proj.icone"></span>
               </div>
               <div class="p-5">
                 <div class="flex items-center gap-2 mb-2">
@@ -291,7 +292,8 @@
             nome: 'RESTAU MASTER PRO',
             categoria: 'Sistema',
             desc: 'Gestão completa de restaurante com mapa de mesas, comanda digital, cardápio com fotos e painel admin. Zero dependências externas.',
-            img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=350&fit=crop',
+            icone: '🍽️',
+            cor: 'from-orange-900/30 to-amber-900/20',
             tags: ['HTML5', 'CSS3', 'JavaScript', 'LocalStorage'],
             link: 'https://github.com/luiz199/professional-systems'
           },
@@ -299,7 +301,8 @@
             nome: 'FitManager Pro',
             categoria: 'Sistema',
             desc: 'Gestão de academia com CRUD de alunos, controle financeiro, fichas de treino A/B/C e catraca virtual com acesso por CPF.',
-            img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=350&fit=crop',
+            icone: '💪',
+            cor: 'from-indigo-900/30 to-cyan-900/20',
             tags: ['Alpine.js', 'Tailwind CSS', 'Lucide Icons'],
             link: 'https://github.com/luiz199/professional-systems'
           },
@@ -307,7 +310,8 @@
             nome: 'DataMind AI',
             categoria: 'SaaS',
             desc: 'Site institucional com chat IA inteligente (Ollama + NLP local), previsão do tempo via Open-Meteo e dashboard administrativo.',
-            img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=350&fit=crop',
+            icone: '🧠',
+            cor: 'from-[#00ff41]/20 to-emerald-900/20',
             tags: ['Alpine.js', 'Tailwind CSS', 'Ollama', 'API'],
             link: 'https://github.com/luiz199/professional-systems'
           }
