@@ -36,7 +36,7 @@ Single-file HTML5 com dashboard, mapa visual de mesas, comanda digital, cardápi
 
 1. Baixe o arquivo `restau-master-pro.html`
 2. Abra no navegador
-3. Login: `admin` / `2025`
+3. Login:
 4. Pronto! Tudo funciona localmente, sem necessidade de servidor
 
 ---
