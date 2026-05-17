@@ -284,8 +284,8 @@
             <div>
               <p class="text-sm font-bold text-white">DataMind <span class="text-[#00ff41]">AI</span></p>
               <p class="text-[10px] text-zinc-500 flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#00ff41] pulse-dot"></span>
-                Online
+                <span class="w-1.5 h-1.5 rounded-full" :class="ollamaConectado ? 'bg-[#00ff41] pulse-dot' : (ollamaVerificando ? 'bg-yellow-400' : 'bg-zinc-500')"></span>
+                <span x-text="ollamaConectado ? ('Ollama: ' + ollamaModel) : (ollamaVerificando ? 'Verificando...' : 'Modo local')"></span>
               </p>
             </div>
           </div>
@@ -390,6 +390,112 @@
       </div>
     </div>
 
+    <!-- ===== CLIMA ===== -->
+    <div x-show="page === 'clima'" class="pt-16 min-h-screen grid-bg py-20 px-4">
+      <div class="max-w-3xl mx-auto pt-10">
+        <div class="text-center mb-10">
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase">Clima Tempo</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Previsão do Tempo</h2>
+          <p class="text-zinc-500 mt-2 text-sm">Dados em tempo real via Open-Meteo</p>
+        </div>
+
+        <!-- Search -->
+        <div class="max-w-md mx-auto mb-8">
+          <form @submit.prevent="buscarClima" class="flex gap-2">
+            <input type="text" x-model="climaCidade" placeholder="Digite o nome da cidade..."
+              class="flex-1 bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#00ff41]/30 transition">
+            <button type="submit" class="px-5 py-2.5 btn-neon rounded-xl text-sm font-bold whitespace-nowrap"
+              :disabled="climaCarregando || !climaCidade.trim()">
+              <span x-show="!climaCarregando">Buscar</span>
+              <span x-show="climaCarregando" class="flex items-center gap-1">
+                <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" class="opacity-25"/><path d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" fill="currentColor" class="opacity-75"/></svg>
+                Buscando
+              </span>
+            </button>
+          </form>
+
+          <!-- Suggestions -->
+          <div class="flex flex-wrap justify-center gap-1.5 mt-3">
+            <template x-for="c in climaBuscas.slice(0,5)" :key="c">
+              <button @click="climaCidade = c; buscarClima()" class="px-2.5 py-1 rounded-lg text-[10px] border border-zinc-700/50 text-zinc-500 hover:text-[#00ff41] hover:border-[#00ff41]/30 transition bg-zinc-800/30"
+                x-text="c"></button>
+            </template>
+          </div>
+          <p x-show="climaErro" class="text-red-400 text-xs mt-2 text-center" x-text="climaErro"></p>
+        </div>
+
+        <!-- Result -->
+        <div x-show="climaResultado" class="fade-in">
+          <div class="glass-card rounded-2xl p-6 mb-4">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="text-xl font-bold text-white" x-text="climaResultado.cidade"></h3>
+                <p class="text-xs text-zinc-500">
+                  <span x-text="climaResultado.estado"></span><span x-show="climaResultado.estado">, </span>
+                  <span x-text="climaResultado.pais"></span>
+                </p>
+              </div>
+              <div class="text-right">
+                <p class="text-4xl font-black text-[#00ff41]" x-text="Math.round(climaResultado.current.temperature_2m) + '°'"></p>
+                <p class="text-xs text-zinc-500">Sensação <span x-text="Math.round(climaResultado.current.apparent_temperature) + '°'"></span></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-3xl" x-text="climaIcone(climaResultado.current.weather_code)"></span>
+              <span class="text-sm text-zinc-300" x-text="climaDesc(climaResultado.current.weather_code)"></span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="bg-zinc-800/50 rounded-xl p-3 text-center">
+                <p class="text-[10px] text-zinc-500">Umidade</p>
+                <p class="text-sm font-bold text-white" x-text="climaResultado.current.relative_humidity_2m + '%'"></p>
+              </div>
+              <div class="bg-zinc-800/50 rounded-xl p-3 text-center">
+                <p class="text-[10px] text-zinc-500">Vento</p>
+                <p class="text-sm font-bold text-white" x-text="Math.round(climaResultado.current.wind_speed_10m) + ' km/h'"></p>
+                <p class="text-[10px] text-zinc-600" x-text="climaDir(climaResultado.current.wind_direction_10m)"></p>
+              </div>
+              <div class="bg-zinc-800/50 rounded-xl p-3 text-center">
+                <p class="text-[10px] text-zinc-500">Pressão</p>
+                <p class="text-sm font-bold text-white" x-text="Math.round(climaResultado.current.pressure_msl) + ' hPa'"></p>
+              </div>
+              <div class="bg-zinc-800/50 rounded-xl p-3 text-center">
+                <p class="text-[10px] text-zinc-500">UV</p>
+                <p class="text-sm font-bold text-white" x-text="climaResultado.current.uv_index"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Forecast -->
+          <div class="glass-card rounded-2xl p-6">
+            <h4 class="text-sm font-bold text-white mb-4">Próximos 5 Dias</h4>
+            <div class="grid grid-cols-5 gap-2">
+              <template x-for="(dia, i) in climaResultado.daily.time" :key="i">
+                <div class="bg-zinc-800/50 rounded-xl p-3 text-center">
+                  <p class="text-[10px] text-zinc-500 font-semibold" x-text="new Date(dia).toLocaleDateString('pt-BR', {weekday: 'short'})"></p>
+                  <p class="text-lg mt-1" x-text="climaIcone(climaResultado.daily.weather_code[i])"></p>
+                  <p class="text-xs font-bold text-white mt-1">
+                    <span x-text="Math.round(climaResultado.daily.temperature_2m_max[i]) + '°'"></span>
+                    <span class="text-zinc-600">/</span>
+                    <span class="text-zinc-500" x-text="Math.round(climaResultado.daily.temperature_2m_min[i]) + '°'"></span>
+                  </p>
+                  <p x-show="climaResultado.daily.precipitation_probability_max[i] > 0"
+                    class="text-[10px] text-cyan-400 mt-1">
+                    <span x-text="climaResultado.daily.precipitation_probability_max[i] + '%'"></span> 🌧
+                  </p>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty state -->
+        <div x-show="!climaResultado && !climaCarregando && !climaErro" class="text-center py-16">
+          <div class="text-5xl mb-4">🌤️</div>
+          <p class="text-zinc-500 text-sm">Digite o nome de uma cidade para ver a previsão do tempo.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- ===== LOGIN / DASHBOARD ===== -->
     <div x-show="page === 'login'" class="pt-16 min-h-screen grid-bg flex items-center justify-center px-4">
       <div x-show="!logado" class="w-full max-w-sm fade-in">
@@ -459,10 +565,14 @@
         digitando: false,
         chatInit: false,
         contextoChat: [],
+        ollamaModel: 'llama3.2',
+        ollamaConectado: false,
+        ollamaVerificando: false,
 
         navItems: [
           { id: 'home', label: 'Home' },
           { id: 'chat', label: 'IA Chat' },
+          { id: 'clima', label: 'Clima' },
           { id: 'planos', label: 'Planos' },
           { id: 'login', label: 'Painel' }
         ],
@@ -482,7 +592,86 @@
           { nome: 'Enterprise', preco: 'R$ 297', periodo: '/mês', destaque: false, itens: ['Tudo do Professional', 'Modelo premium', 'Suporte 24/7', 'SLA 99.9%', 'Treinamento equipe', 'IA personalizada'] }
         ],
 
+        // Weather
+        climaCidade: '',
+        climaResultado: null,
+        climaCarregando: false,
+        climaErro: '',
+        climaBuscas: ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Brasília', 'Salvador', 'Fortaleza', 'Curitiba', 'Porto Alegre', 'Recife', 'Manaus'],
+
+        async buscarClima() {
+          const cidade = this.climaCidade.trim();
+          if (!cidade) return;
+          this.climaCarregando = true;
+          this.climaErro = '';
+          this.climaResultado = null;
+          try {
+            // Geocode
+            const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt&format=json`);
+            const geoData = await geoRes.json();
+            if (!geoData.results || !geoData.results.length) {
+              this.climaErro = 'Cidade não encontrada. Tente novamente.';
+              this.climaCarregando = false;
+              return;
+            }
+            const loc = geoData.results[0];
+            // Weather
+            const wRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,pressure_msl,uv_index&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max,wind_speed_10m_max&timezone=auto&forecast_days=5`);
+            const wData = await wRes.json();
+            this.climaResultado = { ...wData, cidade: loc.name, pais: loc.country, estado: loc.admin1 || '' };
+          } catch(e) {
+            this.climaErro = 'Erro ao buscar clima. Verifique sua conexão.';
+          }
+          this.climaCarregando = false;
+        },
+
+        climaIcone(cod) {
+          const map = {
+            0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️',
+            51: '🌦️', 53: '🌦️', 55: '🌦️', 56: '🌧️', 57: '🌧️',
+            61: '🌧️', 63: '🌧️', 65: '🌧️', 66: '🌧️', 67: '🌧️',
+            71: '🌨️', 73: '🌨️', 75: '🌨️', 77: '🌨️',
+            80: '🌦️', 81: '🌦️', 82: '🌦️',
+            85: '🌨️', 86: '🌨️', 95: '⛈️', 96: '⛈️', 99: '⛈️'
+          };
+          return map[cod] || '🌤️';
+        },
+
+        climaDesc(cod) {
+          const map = {
+            0: 'Céu limpo', 1: 'Predominantemente limpo', 2: 'Parcialmente nublado', 3: 'Nublado',
+            45: 'Nevoeiro', 48: 'Nevoeiro com geada',
+            51: 'Garoa fraca', 53: 'Garoa moderada', 55: 'Garoa intensa',
+            56: 'Chuva congelante leve', 57: 'Chuva congelante intensa',
+            61: 'Chuva fraca', 63: 'Chuva moderada', 65: 'Chuva intensa',
+            66: 'Chuva congelante leve', 67: 'Chuva congelante intensa',
+            71: 'Neve fraca', 73: 'Neve moderada', 75: 'Neve intensa', 77: 'Grãos de neve',
+            80: 'Pancadas de chuva fracas', 81: 'Pancadas de chuva moderadas', 82: 'Pancadas de chuva violentas',
+            85: 'Pancadas de neve fracas', 86: 'Pancadas de neve intensas',
+            95: 'Tempestade', 96: 'Tempestade com granizo leve', 99: 'Tempestade com granizo intenso'
+          };
+          return map[cod] || 'Condição desconhecida';
+        },
+
+        climaDir(v) { const dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW']; return dirs[Math.round(v/22.5)%16] || 'N'; },
+
+        async verificarOllama() {
+          this.ollamaVerificando = true;
+          try {
+            const res = await fetch('http://localhost:11434/api/tags', { signal: AbortSignal.timeout(3000) });
+            if (res.ok) {
+              const data = await res.json();
+              this.ollamaConectado = data.models && data.models.length > 0;
+              if (this.ollamaConectado && !data.models.find(m => m.name.startsWith(this.ollamaModel))) {
+                this.ollamaModel = data.models[0].name.replace(/:latest$/, '');
+              }
+            }
+          } catch(e) { this.ollamaConectado = false; }
+          this.ollamaVerificando = false;
+        },
+
         init() {
+          this.verificarOllama();
           const saved = localStorage.getItem('datamindChat');
           if (saved) {
             try { this.mensagens = JSON.parse(saved); } catch(e) {}
@@ -529,7 +718,7 @@
           }
         },
 
-        enviarMensagem() {
+        async enviarMensagem() {
           const texto = this.chatInput.trim();
           if (!texto || this.digitando) return;
 
@@ -545,100 +734,60 @@
           this.digitando = true;
           this.contextoChat.push({ role: 'user', content: texto });
 
-          setTimeout(() => {
-            const resposta = this.gerarResposta(texto);
-            this.contextoChat.push({ role: 'assistant', content: resposta });
-            this.mensagens.push({
-              tipo: 'ia',
-              texto: resposta,
-              hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
-            });
-            this.digitando = false;
-            this.scrollChat();
-            this.salvarChat();
-            if (this.contextoChat.length > 20) this.contextoChat = this.contextoChat.slice(-20);
-          }, 600 + Math.random() * 800);
+          const resposta = await this.gerarResposta(texto);
+          this.contextoChat.push({ role: 'assistant', content: resposta });
+          this.mensagens.push({
+            tipo: 'ia',
+            texto: resposta,
+            hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+          });
+          this.digitando = false;
+          this.scrollChat();
+          this.salvarChat();
+          if (this.contextoChat.length > 20) this.contextoChat = this.contextoChat.slice(-20);
         },
 
-        gerarResposta(texto) {
-          const t = texto.toLowerCase().trim();
+        async gerarResposta(texto) {
+          if (this.ollamaConectado) {
+            try {
+              const res = await fetch('http://localhost:11434/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  model: this.ollamaModel,
+                  messages: [
+                    { role: 'system', content: 'Você é a DataMind AI, uma assistente inteligente especializada em tecnologia, análise de dados, automação e programação. Você trabalha para a empresa DataMind AI que transforma dados em decisões inteligentes. Responda em português brasileiro de forma natural e amigável. Seja concisa e direta.' },
+                    ...this.contextoChat.slice(-10)
+                  ],
+                  stream: false,
+                  options: { temperature: 0.7 }
+                }),
+                signal: AbortSignal.timeout(30000)
+              });
+              if (res.ok) {
+                const data = await res.json();
+                if (data.message && data.message.content) return data.message.content.trim();
+              }
+            } catch(e) { /* fallback */ }
+          }
+          return this.fallbackResposta(texto);
+        },
 
-          // Saudacoes
+        fallbackResposta(texto) {
+          const t = texto.toLowerCase().trim();
           if (/^(ola|oi|olá|hey|bom dia|boa tarde|boa noite|e aí|eai|salve|fala|opa|oie|ooi)/.test(t))
             return `Olá! Como posso te ajudar hoje? Sou a DataMind AI, sua assistente inteligente. Posso tirar dúvidas sobre tecnologia, análise de dados, automação, programação e soluções digitais.`;
-
-          // Quem é / o que é DataMind
-          if (/quem (é|e) (você|vc|a datamind)|o que (é|e) datamind|me fale sobre (a )?datamind|datamind (ai )?|conte (mais )?sobre/.test(t) && /datamind|você|vc|empresa/.test(t))
-            return `A DataMind AI é uma empresa de tecnologia focada em transformar dados em decisões inteligentes. Trabalhamos com:\n\n• Inteligência Artificial e Machine Learning\n• Automação Inteligente de processos\n• Análise de dados e dashboards\n• Desenvolvimento de sistemas personalizados\n\nNosso objetivo é democratizar o acesso à IA para empresas de todos os portes.`;
-
-          // Servicos
+          if (/quem (é|e) (você|vc|a datamind)|o que (é|e) datamind|me fale sobre (a )?datamind/.test(t))
+            return `A DataMind AI é uma empresa de tecnologia focada em transformar dados em decisões inteligentes. Trabalhamos com Inteligência Artificial, Automação, Análise de Dados e Desenvolvimento de sistemas personalizados.`;
           if (/serviços?|servicos?|soluções?|solucoes?|o que faz|produtos?/.test(t))
-            return `Oferecemos quatro pilares de soluções:\n\n1. 🤖 Inteligência Artificial — Modelos de ML para análise preditiva\n2. ⚡ Automação Inteligente — RPA com IA para otimizar processos\n3. 📊 Análise de Dados — Insights acionáveis com dashboards\n4. 💻 Soluções Digitais — Sistemas web e mobile personalizados\n\nQual área te interessa mais?`;
-
-          // Planos / precos
-          if (/planos?|preços?|precos?|valores?|quanto custa|assinatura|mensalidade|contratar|comprar/.test(t))
-            return `Temos três planos:\n\n🚀 Starter (Grátis): 10 consultas/dia, modelo básico\n💎 Professional (R$ 97/mês): Consultas ilimitadas, modelo avançado, API dedicada\n🏢 Enterprise (R$ 297/mês): modelo premium, suporte 24/7, IA personalizada\n\nO plano Professional é o mais popular!`;
-
-          // Programacao / codigo
-          if (/código|codigo|programação|programacao|programar|python|javascript|js|html|css|react|node|api|função|funcao|função|funcao|como fazer|exemplo de/.test(t))
-            return `Claro! Posso ajudar com programação. Aqui vai um exemplo:\n\n\`\`\`python\n# Exemplo simples\n\ndef saudacao(nome):\n    return f"Olá, {nome}! Bem-vindo à DataMind AI."\n\nprint(saudacao("Usuário"))\n\`\`\`\n\nPrecisa de ajuda com alguma linguagem ou tecnologia específica?`;
-
-          // Analise de dados
-          if (/dados|análise|analise|análise de dados|analise de dados|dashboard|gráfico|grafico|relatório|relatorio|big data|business intelligence|bi/.test(t))
-            return `Análise de dados é um dos nossos pilares! Trabalhamos com:\n\n• Coleta e tratamento de dados\n• Dashboards interativos em tempo real\n• Modelos preditivos com ML\n• Visualização de dados avançada\n• Relatórios inteligentes automatizados\n\nQuer ver um exemplo prático?`;
-
-          // Automacao
-          if (/automação|automacao|automatizar|rpa|robot|processos|fluxo|workflow|eficiencia|produtividade/.test(t))
-            return `Automação Inteligente é uma das nossas especialidades!\n\nBenefícios:\n• Redução de até 80% em tarefas manuais\n• Eliminação de erros operacionais\n• Processos 24/7 sem interrupção\n• ROI médio de 300% em 6 meses\n\nQuer saber mais sobre como podemos automatizar seus processos?`;
-
-          // Contato / suporte
-          if (/contato|suporte|falar com|email|telefone|whatsapp|ajuda|help|suport|fale conosco/.test(t))
-            return `Você pode entrar em contato conosco:\n\n📧 Email: contato@datamind.ai\n💬 Chat: disponível 24/7 no site\n📞 Tel: (11) 99999-9999\n\nOu continue aqui mesmo que eu posso ajudar!`;
-
-          // IA / inteligencia artificial
-          if (/ia|inteligência artificial|inteligencia artificial|machine learning|deep learning|ml|rede neural|gpt|chatgpt|openai|modelo|treinamento/.test(t))
-            return `Inteligência Artificial é nossa paixão! 🧠\n\nTrabalhamos com:\n• Modelos de Machine Learning personalizados\n• Processamento de Linguagem Natural (NLP)\n• Visão Computacional\n• Análise Preditiva\n• Chatbots inteligentes\n\nNossos modelos atingem 99.7% de precisão. Quer saber mais?`;
-
-          // Tempo / clima
-          if (/tempo|clima|previsão|previsao|chover|chuva|temperatura|sol/.test(t))
-            return `Não tenho acesso a informações climáticas em tempo real. Recomendo verificar em serviços especializados como Climatempo ou AccuWeather. Posso ajudar com outro assunto!`;
-
-          // Curso / aprendizado
-          if (/curso|aprender|estudar|aula|tutorial|treinamento|capacitação|capacitacao|educação|educacao/.test(t))
-            return `Ótima iniciativa! Oferecemos:\n\n• Treinamentos corporativos em IA\n• Workshops de análise de dados\n• Cursos de automação com RPA\n• Capacitação em Python e ML\n\nEntre em contato para mais informações sobre nossos programas!`;
-
-          // Empresa / negocio
-          if (/empresa|negócio|negocio|startup|pequena|média|media|grande|corporativo|corporacao/.test(t))
-            return `Sua empresa pode se beneficiar da DataMind AI de várias formas:\n\n1. Redução de custos operacionais com automação\n2. Decisões baseadas em dados reais\n3. Atendimento ao cliente com IA 24/7\n4. Previsão de tendências de mercado\n\nAgende uma demonstração personalizada para sua empresa!`;
-
-          // Tecnologia / inovacao
-          if (/tecnologia|tech|inovação|inovacao|futuro|digital|transformação|transformacao|indústria|industria|4\.0/.test(t))
-            return `A tecnologia está evoluindo mais rápido do que nunca! Na DataMind AI, estamos na vanguarda:\n\n• IA Generativa para criação de conteúdo\n• Automação inteligente de processos\n• Análise preditiva com ML\n• Transformação digital empresarial\n\nO futuro é impulsionado por dados. Estamos prontos para ele!`;
-
-          // Agradecimento
-          if (/obrigado|obrigada|brigado|valeu|thanks|thank|grato|gratidão|gratidao|show|legal|demais|top|muito bom/.test(t))
-            return `Por nada! 😊 Estou aqui para ajudar sempre que precisar. Se tiver mais dúvidas sobre tecnologia, dados ou inovação, é só chamar. Tenha um excelente dia!`;
-
-          // Despedida
-          if (/tchau|até|ate|logo|flw|falou|bye|goodbye|saindo|vou nessa|preciso ir|nos falamos/.test(t))
-            return `Até logo! Foi um prazer ajudar. Lembre-se: a DataMind AI está sempre aqui para transformar dados em decisões inteligentes. Volte sempre que precisar! 🚀`;
-
-          // Nome do usuario
-          if (/meu nome (é|e) |me chamo|sou (o|a) |prazer|chamo/.test(t)) {
-            const match = t.match(/(?:meu nome é |meu nome e |me chamo |sou (?:o|a) |chamo[- ]me |prazer[ ,]*)([\w\s]+)/i);
-            if (match) return `Prazer em conhecê-lo(a), ${match[1].trim()}! 😊 Sou a DataMind AI, sua assistente inteligente. Como posso te ajudar hoje?`;
-          }
-
-          // Resposta generica inteligente
-          const respostas = [
-            `Entendi sua pergunta! Com base no meu conhecimento, posso dizer que a DataMind AI oferece soluções completas em inteligência artificial, análise de dados e automação. Poderia detalhar mais sobre o que você precisa? Assim posso te ajudar melhor.`,
-            `Ótima pergunta! Na DataMind AI, temos expertise em transformar desafios complexos em soluções inteligentes. Quer explorar como podemos aplicar IA no seu contexto específico?`,
-            `Interessante! Isso me faz pensar em como a inteligência artificial pode agregar valor nessa área. Temos cases de sucesso em diversos segmentos. Gostaria de conhecer algum exemplo prático?`,
-            `Sobre isso, posso compartilhar que a DataMind AI desenvolve soluções personalizadas usando machine learning e automação inteligente. Cada projeto é único e desenhado para suas necessidades específicas.`,
-            `Que legal que você perguntou! Trabalhamos com tecnologias de ponta para criar soluções que realmente fazem a diferença. Conta mais sobre o seu cenário que posso dar uma orientação mais precisa!`,
-            `Essa é uma área que dominamos! Com nossa plataforma de IA, empresas conseguem automatizar processos, extrair insights de dados e tomar decisões mais inteligentes. Posso te mostrar como isso se aplica ao seu caso!`
-          ];
-          return respostas[Math.floor(Math.random() * respostas.length)];
+            return `Oferecemos quatro pilares: Inteligência Artificial, Automação Inteligente, Análise de Dados e Soluções Digitais. Qual te interessa?`;
+          if (/planos?|preços?|precos?|valores?|quanto custa/.test(t))
+            return `Temos três planos: Starter (Grátis), Professional (R$ 97/mês) e Enterprise (R$ 297/mês). O Professional é o mais popular!`;
+          if (/obrigado|obrigada|brigado|valeu|thanks/.test(t))
+            return `Por nada! Estou aqui para ajudar. Se tiver mais dúvidas, é só chamar!`;
+          if (/tchau|até|ate logo|flw|falou|bye/.test(t))
+            return `Até logo! A DataMind AI está sempre aqui para ajudar. Volte sempre!`;
+          return `Entendi! Sou a DataMind AI e posso ajudar com tecnologia, dados e automação. Pode me perguntar sobre planos, serviços ou qualquer assunto de tecnologia!`;
         }
       };
     }
