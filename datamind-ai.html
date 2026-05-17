@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataMind AI - Inteligência Artificial</title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer>
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e0e0e0; }
+    [x-cloak] { display: none !important; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 4px; }
+
+    /* Neon glow */
+    .neon-glow { box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), 0 0 40px rgba(0, 255, 65, 0.05); }
+    .neon-text { text-shadow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.3); }
+    .neon-border { border-color: rgba(0, 255, 65, 0.3); }
+    .neon-border:hover { border-color: rgba(0, 255, 65, 0.7); box-shadow: 0 0 15px rgba(0, 255, 65, 0.1); }
+    .neon-bg { background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 200, 50, 0.05)); }
+    .btn-neon { background: linear-gradient(135deg, #00ff41, #00cc33); color: #000; font-weight: 700; transition: all 0.3s; }
+    .btn-neon:hover { box-shadow: 0 0 30px rgba(0, 255, 65, 0.4); transform: translateY(-2px); }
+    .btn-outline-neon { border: 1px solid rgba(0, 255, 65, 0.5); color: #00ff41; background: transparent; transition: all 0.3s; }
+    .btn-outline-neon:hover { background: rgba(0, 255, 65, 0.1); box-shadow: 0 0 20px rgba(0, 255, 65, 0.15); }
+
+    /* Grid background */
+    .grid-bg { background-image: linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px); background-size: 60px 60px; }
+    .grid-bg-light { background-image: linear-gradient(rgba(0, 255, 65, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 65, 0.06) 1px, transparent 1px); background-size: 40px 40px; }
+
+    /* Animations */
+    .fade-in { animation: fadeIn 0.6s ease-out; }
+    .slide-up { animation: slideUp 0.5s ease-out; }
+    .scale-in { animation: scaleIn 0.3s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 20px rgba(0,255,65,0.1); } 50% { box-shadow: 0 0 40px rgba(0,255,65,0.2); } }
+    .float { animation: float 4s ease-in-out infinite; }
+    .pulse-dot { animation: pulse 1.5s ease-in-out infinite; }
+    .glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
+
+    /* Typing dots */
+    .typing-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #00ff41; margin: 0 2px; }
+    .typing-dot:nth-child(1) { animation: pulse 1s ease-in-out infinite; }
+    .typing-dot:nth-child(2) { animation: pulse 1s ease-in-out 0.2s infinite; }
+    .typing-dot:nth-child(3) { animation: pulse 1s ease-in-out 0.4s infinite; }
+
+    /* Chat */
+    .chat-msg-in { animation: slideInLeft 0.3s ease-out; }
+    .chat-msg-out { animation: slideInRight 0.3s ease-out; }
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+
+    /* Glass card */
+    .glass { background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0, 255, 65, 0.1); }
+    .glass-card { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(0, 255, 65, 0.12); }
+    .glass-card:hover { border-color: rgba(0, 255, 65, 0.3); }
+
+    /* Hero particle */
+    .particle { position: absolute; width: 2px; height: 2px; background: #00ff41; border-radius: 50%; opacity: 0.3; }
+    .particle:nth-child(1) { top: 20%; left: 10%; animation: float 5s ease-in-out infinite; }
+    .particle:nth-child(2) { top: 60%; left: 80%; animation: float 7s ease-in-out infinite 1s; }
+    .particle:nth-child(3) { top: 30%; right: 15%; animation: float 6s ease-in-out infinite 0.5s; }
+    .particle:nth-child(4) { bottom: 40%; left: 20%; animation: float 8s ease-in-out infinite 2s; }
+    .particle:nth-child(5) { top: 70%; right: 30%; animation: float 5s ease-in-out infinite 1.5s; }
+    .particle:nth-child(6) { top: 15%; right: 40%; animation: float 6s ease-in-out infinite 0.3s; }
+
+    /* Code block style */
+    .code-inline { background: rgba(0, 255, 65, 0.1); color: #00ff41; padding: 1px 6px; border-radius: 4px; font-size: 0.9em; }
+
+    /* Sidebar */
+    .sidebar-item { transition: all 0.2s; }
+    .sidebar-item:hover { background: rgba(0, 255, 65, 0.08); }
+    .sidebar-item.active { background: rgba(0, 255, 65, 0.12); border-left: 2px solid #00ff41; }
+
+    /* Avatar IA pulse */
+    .ia-avatar { animation: glowPulse 2s ease-in-out infinite; }
+
+    /* Modal */
+    .modal-overlay { animation: fadeIn 0.2s ease-out; }
+
+    @media (max-width: 768px) {
+      .mobile-menu { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); }
+    }
+  </style>
+</head>
+<body>
+
+  <div x-data="app()" x-cloak class="min-h-screen bg-[#0a0a0a]">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="fixed top-0 left-0 right-0 z-40 glass border-b border-[#00ff41]/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="#" @click.prevent="page = 'home'" class="flex items-center gap-2.5">
+          <div class="w-8 h-8 bg-gradient-to-br from-[#00ff41] to-[#00cc33] rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 0 10 10h-10V2Z"/><path d="M14 2a8 8 0 0 1 8 8h-8V2Z"/>
+            </svg>
+          </div>
+          <span class="font-bold text-white text-sm">DataMind <span class="text-[#00ff41]">AI</span></span>
+        </a>
+
+        <!-- Desktop menu -->
+        <div class="hidden md:flex items-center gap-1">
+          <template x-for="item in navItems" :key="item.id">
+            <a href="#" @click.prevent="page = item.id; if (item.id === 'chat') { initChat() }"
+              class="px-3.5 py-2 rounded-lg text-xs font-medium transition-all duration-200"
+              :class="page === item.id ? 'text-[#00ff41] bg-[#00ff41]/10' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'">
+              <span x-text="item.label"></span>
+            </a>
+          </template>
+          <a href="#" @click.prevent="page = 'chat'; initChat()" class="ml-3 px-4 py-2 btn-neon rounded-lg text-xs">Acessar IA</a>
+        </div>
+
+        <!-- Mobile toggle -->
+        <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition">
+          <svg x-show="!mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          <svg x-show="mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div x-show="mobileOpen" class="md:hidden mobile-menu flex flex-col items-center justify-center gap-4">
+        <template x-for="item in navItems" :key="item.id">
+          <a href="#" @click.prevent="page = item.id; mobileOpen = false; if (item.id === 'chat') { initChat() }"
+            class="text-lg font-medium transition"
+            :class="page === item.id ? 'text-[#00ff41]' : 'text-zinc-400 hover:text-white'">
+            <span x-text="item.label"></span>
+          </a>
+        </template>
+        <a href="#" @click.prevent="page = 'chat'; mobileOpen = false; initChat()" class="mt-4 px-6 py-3 btn-neon rounded-xl text-sm">Acessar IA</a>
+      </div>
+    </nav>
+
+    <!-- ===== HOME ===== -->
+    <div x-show="page === 'home'" class="pt-16">
+
+      <!-- Hero -->
+      <section class="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#00ff41]/5 via-transparent to-[#0a0a0a]"></div>
+        <div class="particles">
+          <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+          <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-[#00ff41] mb-8 border border-[#00ff41]/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00ff41] pulse-dot"></span>
+            IA de Próxima Geração
+          </div>
+
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
+            Transforme Dados em
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff41] to-[#00cc33] neon-text">Decisões</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            A DataMind AI desenvolve soluções inteligentes que automatizam processos,
+            analisam dados e impulsionam resultados com tecnologia de ponta.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#" @click.prevent="page = 'chat'; initChat()" class="px-8 py-3.5 btn-neon rounded-xl text-sm font-bold flex items-center gap-2">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Conversar com IA
+            </a>
+            <a href="#" @click.prevent="page = 'planos'" class="px-8 py-3.5 btn-outline-neon rounded-xl text-sm font-semibold">
+              Ver Planos
+            </a>
+          </div>
+
+          <div class="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
+            <div class="text-center">
+              <p class="text-3xl font-black text-[#00ff41]" x-text="stats.clientes"></p>
+              <p class="text-xs text-zinc-500 mt-1">Clientes</p>
+            </div>
+            <div class="text-center">
+              <p class="text-3xl font-black text-[#00ff41]" x-text="stats.modelos"></p>
+              <p class="text-xs text-zinc-500 mt-1">Modelos</p>
+            </div>
+            <div class="text-center">
+              <p class="text-3xl font-black text-[#00ff41]" x-text="stats.precisao"></p>
+              <p class="text-xs text-zinc-500 mt-1">Precisão</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
+      </section>
+
+      <!-- Services -->
+      <section class="py-24 px-4" id="servicos">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16">
+            <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase">Nossos Serviços</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Soluções Inteligentes</h2>
+            <p class="text-zinc-500 mt-3 max-w-xl mx-auto">Tecnologia de ponta para impulsionar seu negócio com inteligência artificial.</p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <template x-for="s in servicos" :key="s.titulo">
+              <div class="glass-card rounded-xl p-6 hover:border-[#00ff41]/30 transition-all duration-300 group card-lift">
+                <div class="w-10 h-10 rounded-lg bg-[#00ff41]/10 flex items-center justify-center mb-4 group-hover:bg-[#00ff41]/20 transition">
+                  <div x-html="s.icone" class="w-5 h-5 text-[#00ff41]"></div>
+                </div>
+                <h3 class="text-sm font-bold text-white mb-2" x-text="s.titulo"></h3>
+                <p class="text-xs text-zinc-500 leading-relaxed" x-text="s.desc"></p>
+              </div>
+            </template>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section class="py-24 px-4 grid-bg-light" id="planos">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-16">
+            <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase">Planos</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Escolha o Ideal</h2>
+            <p class="text-zinc-500 mt-3">Invista em inteligência artificial para transformar seus resultados.</p>
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-4">
+            <template x-for="(plano, i) in planos" :key="plano.nome">
+              <div class="glass-card rounded-xl p-6 text-center transition-all duration-300"
+                :class="plano.destaque ? 'border-[#00ff41]/40 neon-glow' : ''">
+                <div x-show="plano.destaque" class="text-[10px] font-bold text-[#00ff41] tracking-widest uppercase mb-2">Mais Popular</div>
+                <h3 class="text-lg font-bold text-white" x-text="plano.nome"></h3>
+                <p class="text-3xl font-black text-[#00ff41] mt-3"><span x-text="plano.preco"></span></p>
+                <p class="text-xs text-zinc-500 mt-1" x-text="plano.periodo"></p>
+                <ul class="mt-6 space-y-2.5 text-left">
+                  <template x-for="item in plano.itens" :key="item">
+                    <li class="flex items-start gap-2 text-xs text-zinc-400">
+                      <svg class="w-3.5 h-3.5 text-[#00ff41] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span x-text="item"></span>
+                    </li>
+                  </template>
+                </ul>
+                <button @click="page = 'chat'; initChat()" class="w-full mt-6 py-2.5 rounded-lg text-xs font-bold transition"
+                  :class="plano.destaque ? 'btn-neon' : 'btn-outline-neon'">
+                  Começar Agora
+                </button>
+              </div>
+            </template>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="border-t border-[#00ff41]/10 py-10 px-4">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 bg-gradient-to-br from-[#00ff41] to-[#00cc33] rounded flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10h-10V2Z"/><path d="M14 2a8 8 0 0 1 8 8h-8V2Z"/></svg>
+            </div>
+            <span class="text-xs text-zinc-500">© 2026 DataMind AI. Todos os direitos reservados.</span>
+          </div>
+          <div class="flex gap-4 text-xs text-zinc-600">
+            <span>Inteligência • Inovação • Impacto</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ===== CHAT IA ===== -->
+    <div x-show="page === 'chat'" class="pt-16 min-h-screen grid-bg">
+      <div class="max-w-5xl mx-auto px-4 py-6 h-[calc(100vh-80px)] flex flex-col">
+
+        <!-- Chat header -->
+        <div class="glass-card rounded-t-xl px-5 py-3.5 flex items-center justify-between border-b border-[#00ff41]/10">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-[#00ff41] to-[#00cc33] flex items-center justify-center ia-avatar">
+              <svg class="w-5 h-5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10h-10V2Z"/><path d="M14 2a8 8 0 0 1 8 8h-8V2Z"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-white">DataMind <span class="text-[#00ff41]">AI</span></p>
+              <p class="text-[10px] text-zinc-500 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#00ff41] pulse-dot"></span>
+                Online
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button @click="limparChat" class="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-500 hover:text-zinc-300 transition" title="Limpar histórico">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+            <a href="#" @click.prevent="page = 'home'" class="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-500 hover:text-zinc-300 transition">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-4 glass-card rounded-none scrollbar-thin" x-ref="chatContainer">
+          <template x-for="(msg, i) in mensagens" :key="i">
+            <div class="flex" :class="msg.tipo === 'user' ? 'justify-end' : 'justify-start'">
+              <div class="max-w-[85%] sm:max-w-[75%]"
+                :class="msg.tipo === 'user' ? 'chat-msg-out' : 'chat-msg-in'">
+
+                <div v-if="msg.tipo === 'user'"
+                  class="bg-[#00ff41]/10 border border-[#00ff41]/20 rounded-2xl rounded-br-md px-4 py-2.5">
+                  <p class="text-sm text-white" x-text="msg.texto"></p>
+                </div>
+
+                <div v-if="msg.tipo === 'ia'"
+                  class="glass rounded-2xl rounded-bl-md px-4 py-2.5 border border-zinc-800">
+                  <div class="flex items-start gap-2 mb-1">
+                    <div class="w-5 h-5 rounded bg-[#00ff41]/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <svg class="w-3 h-3 text-[#00ff41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10h-10V2Z"/><path d="M14 2a8 8 0 0 1 8 8h-8V2Z"/></svg>
+                    </div>
+                    <p class="text-xs font-semibold text-[#00ff41]">DataMind AI</p>
+                  </div>
+                  <p class="text-sm text-zinc-300 leading-relaxed" x-text="msg.texto"></p>
+                  <p class="text-[10px] text-zinc-600 mt-1.5 text-right" x-text="msg.hora"></p>
+                </div>
+
+              </div>
+            </div>
+          </template>
+
+          <!-- Typing -->
+          <div x-show="digitando" class="flex justify-start">
+            <div class="glass rounded-2xl rounded-bl-md px-4 py-3 border border-zinc-800 chat-msg-in">
+              <div class="flex items-center gap-1">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <div x-ref="chatEnd"></div>
+        </div>
+
+        <!-- Input -->
+        <div class="glass-card rounded-b-xl px-4 py-3 border-t border-[#00ff41]/10">
+          <form @submit.prevent="enviarMensagem" class="flex items-center gap-2">
+            <input type="text" x-model="chatInput" placeholder="Digite sua mensagem..." x-ref="chatInput"
+              class="flex-1 bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#00ff41]/30 transition-all"
+              :disabled="digitando">
+            <button type="submit"
+              class="w-10 h-10 rounded-xl btn-neon flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              :disabled="!chatInput.trim() || digitando">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+          <p class="text-[10px] text-zinc-600 mt-2 text-center">A IA pode cometer erros. Verifique informações importantes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PLANOS ===== -->
+    <div x-show="page === 'planos'" class="pt-16 min-h-screen grid-bg-light py-20 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16 pt-10">
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase">Planos</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Escolha o Ideal para Você</h2>
+          <p class="text-zinc-500 mt-3">Invista em inteligência artificial para transformar seus resultados.</p>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-4">
+          <template x-for="(plano, i) in planos" :key="plano.nome">
+            <div class="glass-card rounded-xl p-6 text-center transition-all duration-300"
+              :class="plano.destaque ? 'border-[#00ff41]/40 neon-glow' : ''">
+              <div x-show="plano.destaque" class="text-[10px] font-bold text-[#00ff41] tracking-widest uppercase mb-2">Mais Popular</div>
+              <h3 class="text-lg font-bold text-white" x-text="plano.nome"></h3>
+              <p class="text-3xl font-black text-[#00ff41] mt-3"><span x-text="plano.preco"></span></p>
+              <p class="text-xs text-zinc-500 mt-1" x-text="plano.periodo"></p>
+              <ul class="mt-6 space-y-2.5 text-left">
+                <template x-for="item in plano.itens" :key="item">
+                  <li class="flex items-start gap-2 text-xs text-zinc-400">
+                    <svg class="w-3.5 h-3.5 text-[#00ff41] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span x-text="item"></span>
+                  </li>
+                </template>
+              </ul>
+              <button @click="page = 'chat'; initChat()" class="w-full mt-6 py-2.5 rounded-lg text-xs font-bold transition"
+                :class="plano.destaque ? 'btn-neon' : 'btn-outline-neon'">Começar Agora</button>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LOGIN / DASHBOARD ===== -->
+    <div x-show="page === 'login'" class="pt-16 min-h-screen grid-bg flex items-center justify-center px-4">
+      <div x-show="!logado" class="w-full max-w-sm fade-in">
+        <div class="glass-card rounded-2xl p-8">
+          <div class="text-center mb-6">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00ff41] to-[#00cc33] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10h-10V2Z"/><path d="M14 2a8 8 0 0 1 8 8h-8V2Z"/></svg>
+            </div>
+            <h2 class="text-lg font-bold text-white">Painel DataMind</h2>
+            <p class="text-xs text-zinc-500 mt-1">Acesse sua conta</p>
+          </div>
+          <form @submit.prevent="logado = true" class="space-y-3">
+            <input type="email" x-model="loginEmail" placeholder="Email" class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#00ff41]/30 transition">
+            <input type="password" x-model="loginSenha" placeholder="Senha" class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#00ff41]/30 transition">
+            <button type="submit" class="w-full py-2.5 btn-neon rounded-xl text-sm font-bold">Entrar</button>
+          </form>
+          <p class="text-center text-xs text-zinc-600 mt-4">admin@datamind.ai / admin</p>
+          <a href="#" @click.prevent="page = 'home'" class="block text-center text-xs text-zinc-600 hover:text-zinc-400 mt-2">Voltar</a>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div x-show="logado" class="w-full max-w-2xl fade-in">
+        <div class="glass-card rounded-2xl p-8">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-lg font-bold text-white">Dashboard</h2>
+              <p class="text-xs text-zinc-500">Bem-vindo, <span x-text="loginEmail || 'Admin'"></span></p>
+            </div>
+            <button @click="logado = false" class="text-xs text-zinc-500 hover:text-zinc-300 transition">Sair</button>
+          </div>
+          <div class="grid grid-cols-3 gap-3 mb-6">
+            <div class="bg-zinc-800/50 rounded-xl p-4 text-center">
+              <p class="text-2xl font-black text-[#00ff41]" x-text="stats.clientes"></p>
+              <p class="text-[10px] text-zinc-500">Consultas</p>
+            </div>
+            <div class="bg-zinc-800/50 rounded-xl p-4 text-center">
+              <p class="text-2xl font-black text-[#00ff41]">99.7%</p>
+              <p class="text-[10px] text-zinc-500">Uptime</p>
+            </div>
+            <div class="bg-zinc-800/50 rounded-xl p-4 text-center">
+              <p class="text-2xl font-black text-[#00ff41]">24/7</p>
+              <p class="text-[10px] text-zinc-500">Suporte</p>
+            </div>
+          </div>
+          <a href="#" @click.prevent="page = 'chat'; initChat()" class="block w-full py-2.5 btn-neon rounded-xl text-sm font-bold text-center">Acessar IA</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js">
+  </script>
+  <script>
+    function app() {
+      return {
+        page: 'home',
+        mobileOpen: false,
+        logado: false,
+        loginEmail: '',
+        loginSenha: '',
+
+        // Chat
+        chatInput: '',
+        mensagens: [],
+        digitando: false,
+        chatInit: false,
+        contextoChat: [],
+
+        navItems: [
+          { id: 'home', label: 'Home' },
+          { id: 'chat', label: 'IA Chat' },
+          { id: 'planos', label: 'Planos' },
+          { id: 'login', label: 'Painel' }
+        ],
+
+        stats: { clientes: '500+', modelos: '12', precisao: '99.7%' },
+
+        servicos: [
+          { titulo: 'Inteligência Artificial', desc: 'Modelos avançados de machine learning para análise preditiva e classificação de dados.', icone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10h-10V2Z"/><path d="M14 2a8 8 0 0 1 8 8h-8V2Z"/><path d="M12 12 2 14.5"/><path d="M12 12 20 17"/><path d="M12 12v10"/></svg>' },
+          { titulo: 'Automação Inteligente', desc: 'Automatize processos repetitivos com RPA e IA, reduzindo custos e erros operacionais.', icone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>' },
+          { titulo: 'Análise de Dados', desc: 'Transforme dados brutos em insights acionáveis com dashboards interativos e relatórios inteligentes.', icone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' },
+          { titulo: 'Soluções Digitais', desc: 'Desenvolvimento de sistemas web e mobile personalizados para transformação digital do seu negócio.', icone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>' }
+        ],
+
+        planos: [
+          { nome: 'Starter', preco: 'Grátis', periodo: 'Para testes', destaque: false, itens: ['10 consultas/dia', 'Modelo básico', 'Suporte email', 'Histórico 7 dias'] },
+          { nome: 'Professional', preco: 'R$ 97', periodo: '/mês', destaque: true, itens: ['Consultas ilimitadas', 'Modelo avançado', 'Suporte prioritário', 'API dedicada', 'Histórico completo', 'Relatórios'] },
+          { nome: 'Enterprise', preco: 'R$ 297', periodo: '/mês', destaque: false, itens: ['Tudo do Professional', 'Modelo premium', 'Suporte 24/7', 'SLA 99.9%', 'Treinamento equipe', 'IA personalizada'] }
+        ],
+
+        init() {
+          const saved = localStorage.getItem('datamindChat');
+          if (saved) {
+            try { this.mensagens = JSON.parse(saved); } catch(e) {}
+          }
+          if (!this.mensagens.length) {
+            this.mensagens.push({
+              tipo: 'ia',
+              texto: 'Olá! Sou a DataMind AI, sua assistente inteligente. Posso ajudar com dúvidas sobre tecnologia, análise de dados, automação, programação e muito mais. Como posso te ajudar hoje?',
+              hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+            });
+          }
+        },
+
+        initChat() {
+          if (!this.chatInit) {
+            this.chatInit = true;
+            this.$nextTick(() => { this.scrollChat(); setTimeout(() => { try { this.$refs.chatInput.focus(); } catch(e) {} }, 300); });
+          } else {
+            this.$nextTick(() => { this.scrollChat(); setTimeout(() => { try { this.$refs.chatInput.focus(); } catch(e) {} }, 100); });
+          }
+        },
+
+        scrollChat() {
+          this.$nextTick(() => {
+            const el = this.$refs.chatEnd;
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 50);
+          });
+        },
+
+        salvarChat() {
+          try { localStorage.setItem('datamindChat', JSON.stringify(this.mensagens.slice(-50))); } catch(e) {}
+        },
+
+        limparChat() {
+          if (confirm('Limpar todo o histórico do chat?')) {
+            this.mensagens = [{
+              tipo: 'ia',
+              texto: 'Histórico limpo! Como posso ajudar?',
+              hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+            }];
+            this.contextoChat = [];
+            this.salvarChat();
+          }
+        },
+
+        enviarMensagem() {
+          const texto = this.chatInput.trim();
+          if (!texto || this.digitando) return;
+
+          this.mensagens.push({
+            tipo: 'user',
+            texto: texto,
+            hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+          });
+          this.chatInput = '';
+          this.scrollChat();
+          this.salvarChat();
+
+          this.digitando = true;
+          this.contextoChat.push({ role: 'user', content: texto });
+
+          setTimeout(() => {
+            const resposta = this.gerarResposta(texto);
+            this.contextoChat.push({ role: 'assistant', content: resposta });
+            this.mensagens.push({
+              tipo: 'ia',
+              texto: resposta,
+              hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+            });
+            this.digitando = false;
+            this.scrollChat();
+            this.salvarChat();
+            if (this.contextoChat.length > 20) this.contextoChat = this.contextoChat.slice(-20);
+          }, 600 + Math.random() * 800);
+        },
+
+        gerarResposta(texto) {
+          const t = texto.toLowerCase().trim();
+
+          // Saudacoes
+          if (/^(ola|oi|olá|hey|bom dia|boa tarde|boa noite|e aí|eai|salve|fala|opa|oie|ooi)/.test(t))
+            return `Olá! Como posso te ajudar hoje? Sou a DataMind AI, sua assistente inteligente. Posso tirar dúvidas sobre tecnologia, análise de dados, automação, programação e soluções digitais.`;
+
+          // Quem é / o que é DataMind
+          if (/quem (é|e) (você|vc|a datamind)|o que (é|e) datamind|me fale sobre (a )?datamind|datamind (ai )?|conte (mais )?sobre/.test(t) && /datamind|você|vc|empresa/.test(t))
+            return `A DataMind AI é uma empresa de tecnologia focada em transformar dados em decisões inteligentes. Trabalhamos com:\n\n• Inteligência Artificial e Machine Learning\n• Automação Inteligente de processos\n• Análise de dados e dashboards\n• Desenvolvimento de sistemas personalizados\n\nNosso objetivo é democratizar o acesso à IA para empresas de todos os portes.`;
+
+          // Servicos
+          if (/serviços?|servicos?|soluções?|solucoes?|o que faz|produtos?/.test(t))
+            return `Oferecemos quatro pilares de soluções:\n\n1. 🤖 Inteligência Artificial — Modelos de ML para análise preditiva\n2. ⚡ Automação Inteligente — RPA com IA para otimizar processos\n3. 📊 Análise de Dados — Insights acionáveis com dashboards\n4. 💻 Soluções Digitais — Sistemas web e mobile personalizados\n\nQual área te interessa mais?`;
+
+          // Planos / precos
+          if (/planos?|preços?|precos?|valores?|quanto custa|assinatura|mensalidade|contratar|comprar/.test(t))
+            return `Temos três planos:\n\n🚀 Starter (Grátis): 10 consultas/dia, modelo básico\n💎 Professional (R$ 97/mês): Consultas ilimitadas, modelo avançado, API dedicada\n🏢 Enterprise (R$ 297/mês): modelo premium, suporte 24/7, IA personalizada\n\nO plano Professional é o mais popular!`;
+
+          // Programacao / codigo
+          if (/código|codigo|programação|programacao|programar|python|javascript|js|html|css|react|node|api|função|funcao|função|funcao|como fazer|exemplo de/.test(t))
+            return `Claro! Posso ajudar com programação. Aqui vai um exemplo:\n\n\`\`\`python\n# Exemplo simples\n\ndef saudacao(nome):\n    return f"Olá, {nome}! Bem-vindo à DataMind AI."\n\nprint(saudacao("Usuário"))\n\`\`\`\n\nPrecisa de ajuda com alguma linguagem ou tecnologia específica?`;
+
+          // Analise de dados
+          if (/dados|análise|analise|análise de dados|analise de dados|dashboard|gráfico|grafico|relatório|relatorio|big data|business intelligence|bi/.test(t))
+            return `Análise de dados é um dos nossos pilares! Trabalhamos com:\n\n• Coleta e tratamento de dados\n• Dashboards interativos em tempo real\n• Modelos preditivos com ML\n• Visualização de dados avançada\n• Relatórios inteligentes automatizados\n\nQuer ver um exemplo prático?`;
+
+          // Automacao
+          if (/automação|automacao|automatizar|rpa|robot|processos|fluxo|workflow|eficiencia|produtividade/.test(t))
+            return `Automação Inteligente é uma das nossas especialidades!\n\nBenefícios:\n• Redução de até 80% em tarefas manuais\n• Eliminação de erros operacionais\n• Processos 24/7 sem interrupção\n• ROI médio de 300% em 6 meses\n\nQuer saber mais sobre como podemos automatizar seus processos?`;
+
+          // Contato / suporte
+          if (/contato|suporte|falar com|email|telefone|whatsapp|ajuda|help|suport|fale conosco/.test(t))
+            return `Você pode entrar em contato conosco:\n\n📧 Email: contato@datamind.ai\n💬 Chat: disponível 24/7 no site\n📞 Tel: (11) 99999-9999\n\nOu continue aqui mesmo que eu posso ajudar!`;
+
+          // IA / inteligencia artificial
+          if (/ia|inteligência artificial|inteligencia artificial|machine learning|deep learning|ml|rede neural|gpt|chatgpt|openai|modelo|treinamento/.test(t))
+            return `Inteligência Artificial é nossa paixão! 🧠\n\nTrabalhamos com:\n• Modelos de Machine Learning personalizados\n• Processamento de Linguagem Natural (NLP)\n• Visão Computacional\n• Análise Preditiva\n• Chatbots inteligentes\n\nNossos modelos atingem 99.7% de precisão. Quer saber mais?`;
+
+          // Tempo / clima
+          if (/tempo|clima|previsão|previsao|chover|chuva|temperatura|sol/.test(t))
+            return `Não tenho acesso a informações climáticas em tempo real. Recomendo verificar em serviços especializados como Climatempo ou AccuWeather. Posso ajudar com outro assunto!`;
+
+          // Curso / aprendizado
+          if (/curso|aprender|estudar|aula|tutorial|treinamento|capacitação|capacitacao|educação|educacao/.test(t))
+            return `Ótima iniciativa! Oferecemos:\n\n• Treinamentos corporativos em IA\n• Workshops de análise de dados\n• Cursos de automação com RPA\n• Capacitação em Python e ML\n\nEntre em contato para mais informações sobre nossos programas!`;
+
+          // Empresa / negocio
+          if (/empresa|negócio|negocio|startup|pequena|média|media|grande|corporativo|corporacao/.test(t))
+            return `Sua empresa pode se beneficiar da DataMind AI de várias formas:\n\n1. Redução de custos operacionais com automação\n2. Decisões baseadas em dados reais\n3. Atendimento ao cliente com IA 24/7\n4. Previsão de tendências de mercado\n\nAgende uma demonstração personalizada para sua empresa!`;
+
+          // Tecnologia / inovacao
+          if (/tecnologia|tech|inovação|inovacao|futuro|digital|transformação|transformacao|indústria|industria|4\.0/.test(t))
+            return `A tecnologia está evoluindo mais rápido do que nunca! Na DataMind AI, estamos na vanguarda:\n\n• IA Generativa para criação de conteúdo\n• Automação inteligente de processos\n• Análise preditiva com ML\n• Transformação digital empresarial\n\nO futuro é impulsionado por dados. Estamos prontos para ele!`;
+
+          // Agradecimento
+          if (/obrigado|obrigada|brigado|valeu|thanks|thank|grato|gratidão|gratidao|show|legal|demais|top|muito bom/.test(t))
+            return `Por nada! 😊 Estou aqui para ajudar sempre que precisar. Se tiver mais dúvidas sobre tecnologia, dados ou inovação, é só chamar. Tenha um excelente dia!`;
+
+          // Despedida
+          if (/tchau|até|ate|logo|flw|falou|bye|goodbye|saindo|vou nessa|preciso ir|nos falamos/.test(t))
+            return `Até logo! Foi um prazer ajudar. Lembre-se: a DataMind AI está sempre aqui para transformar dados em decisões inteligentes. Volte sempre que precisar! 🚀`;
+
+          // Nome do usuario
+          if (/meu nome (é|e) |me chamo|sou (o|a) |prazer|chamo/.test(t)) {
+            const match = t.match(/(?:meu nome é |meu nome e |me chamo |sou (?:o|a) |chamo[- ]me |prazer[ ,]*)([\w\s]+)/i);
+            if (match) return `Prazer em conhecê-lo(a), ${match[1].trim()}! 😊 Sou a DataMind AI, sua assistente inteligente. Como posso te ajudar hoje?`;
+          }
+
+          // Resposta generica inteligente
+          const respostas = [
+            `Entendi sua pergunta! Com base no meu conhecimento, posso dizer que a DataMind AI oferece soluções completas em inteligência artificial, análise de dados e automação. Poderia detalhar mais sobre o que você precisa? Assim posso te ajudar melhor.`,
+            `Ótima pergunta! Na DataMind AI, temos expertise em transformar desafios complexos em soluções inteligentes. Quer explorar como podemos aplicar IA no seu contexto específico?`,
+            `Interessante! Isso me faz pensar em como a inteligência artificial pode agregar valor nessa área. Temos cases de sucesso em diversos segmentos. Gostaria de conhecer algum exemplo prático?`,
+            `Sobre isso, posso compartilhar que a DataMind AI desenvolve soluções personalizadas usando machine learning e automação inteligente. Cada projeto é único e desenhado para suas necessidades específicas.`,
+            `Que legal que você perguntou! Trabalhamos com tecnologias de ponta para criar soluções que realmente fazem a diferença. Conta mais sobre o seu cenário que posso dar uma orientação mais precisa!`,
+            `Essa é uma área que dominamos! Com nossa plataforma de IA, empresas conseguem automatizar processos, extrair insights de dados e tomar decisões mais inteligentes. Posso te mostrar como isso se aplica ao seu caso!`
+          ];
+          return respostas[Math.floor(Math.random() * respostas.length)];
+        }
+      };
+    }
+  </script>
+  <script>
+    document.addEventListener('alpine:init', () => {
+      setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 200);
+    });
+    setInterval(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 600);
+  </script>
+</body>
+</html>
