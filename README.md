@@ -76,6 +76,66 @@ Single-file HTML5 com Tailwind CSS, Alpine.js e Lucide Icons. Dashboard, control
 
 ---
 
+# DATAMIND AI
+
+**Site institucional SaaS com inteligência artificial integrada.**
+
+Single-file HTML5 com Tailwind CSS, Alpine.js e Lucide Icons. Design futurista preto e neon verde, estilo NVIDIA. Chat IA inteligente, seção de clima e painel administrativo.
+
+## Funcionalidades
+
+| Módulo | Descrição |
+|--------|-----------|
+| **Hero** | Apresentação animada com partículas flutuantes e grid background |
+| **Navbar** | Navegação responsiva com menu mobile |
+| **Serviços** | 4 cards: IA, Automação, Análise de Dados, Soluções Digitais |
+| **Planos** | 3 planos (Starter Grátis, Professional R$ 97, Enterprise R$ 297) |
+| **Chat IA** | Assistente virtual com duas modalidades de resposta |
+| **Clima** | Previsão do tempo com busca por cidade e 5 dias de forecast |
+| **Painel** | Login e dashboard administrativo |
+| **Footer** | Rodapé com branding |
+
+## Chat IA — Duas Modalidades
+
+| Modo | Descrição |
+|------|-----------|
+| **Ollama Local** | Conecta-se ao Ollama rodando em `localhost:11434`. Usa modelo local (ex: `llama3.2`) para respostas inteligentes e naturais |
+| **Fallback Local** | Se o Ollama não estiver disponível, usa sistema próprio de NLP em português com respostas pré-programadas |
+
+Status indicado no header do chat (verde = Ollama conectado, cinza = modo local).
+
+## Clima
+
+- API **Open-Meteo** (gratuita, sem necessidade de chave)
+- Geocoding automático por nome de cidade
+- Temperatura atual, sensação térmica, umidade, vento, pressão, UV
+- Previsão para 5 dias com máximas/mínimas e chance de chuva
+- Sugestões de cidades populares
+
+## Características Técnicas
+
+- 100% **single-file** (único arquivo `.html`)
+- **Tailwind CSS** via CDN para estilização
+- **Alpine.js** para estado e interatividade em memória
+- **Lucide Icons** para iconografia profissional
+- Design **futurista** dark com neon green (#00ff41)
+- **Animações** CSS: fadeIn, slideUp, scaleIn, pulse, float, glowPulse
+- **Glassmorphism** com backdrop-filter e bordas translúcidas
+- **Responsivo** e mobile-first
+- **Chat com contexto** — mantém histórico da conversa
+- **Clima com dados reais** via Open-Meteo API
+- **Ollama integration** — respostas via modelo local de IA
+
+## Como usar
+
+1. Baixe o arquivo `datamind-ai.html`
+2. Abra no navegador
+3. Chat IA funciona imediatamente (modo fallback)
+4. Para modo Ollama: instale o [Ollama](https://ollama.ai), rode `ollama pull llama3.2`, e mantenha o serviço ativo
+5. Login painel: `admin@datamind.ai` / `admin`
+
+---
+
 ## Licença
 
 Projetos pessoais — uso livre.
