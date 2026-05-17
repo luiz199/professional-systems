@@ -3,37 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — Desenvolvedor Full-Stack</title>
+  <title>Portfolio — Computer Science</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e0e0e0; }
+    body { font-family: 'JetBrains Mono', monospace; background: #0a0a0a; color: #e0e0e0; overflow-x: hidden; }
     [x-cloak] { display: none !important; }
 
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: #0a0a0a; }
     ::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 4px; }
 
-    .glass { background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(0, 255, 65, 0.1); }
-    .glass-card { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0, 255, 65, 0.08); }
-    .glass-card:hover { border-color: rgba(0, 255, 65, 0.25); }
+    #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-    .neon-glow { box-shadow: 0 0 20px rgba(0, 255, 65, 0.1), 0 0 40px rgba(0, 255, 65, 0.05); }
-    .neon-text { text-shadow: 0 0 10px rgba(0, 255, 65, 0.3), 0 0 20px rgba(0, 255, 65, 0.1); }
-    .btn-neon { background: linear-gradient(135deg, #00ff41, #00cc33); color: #000; font-weight: 700; transition: all 0.3s; }
-    .btn-neon:hover { box-shadow: 0 0 30px rgba(0, 255, 65, 0.4); transform: translateY(-2px); }
-    .btn-outline { border: 1px solid rgba(0, 255, 65, 0.4); color: #00ff41; transition: all 0.3s; }
-    .btn-outline:hover { background: rgba(0, 255, 65, 0.1); box-shadow: 0 0 20px rgba(0, 255, 65, 0.1); }
+    .glass { background: rgba(8, 8, 8, 0.75); backdrop-filter: blur(20px); border: 1px solid rgba(0, 255, 65, 0.12); }
+    .glass-card { background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(0, 255, 65, 0.08); transition: all 0.3s; }
+    .glass-card:hover { border-color: rgba(0, 255, 65, 0.3); box-shadow: 0 0 30px rgba(0, 255, 65, 0.08); transform: translateY(-2px); }
 
-    .grid-bg { background-image: linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px); background-size: 60px 60px; }
+    .neon-glow { box-shadow: 0 0 20px rgba(0, 255, 65, 0.12), 0 0 40px rgba(0, 255, 65, 0.05); }
+    .neon-text { text-shadow: 0 0 10px rgba(0, 255, 65, 0.4), 0 0 30px rgba(0, 255, 65, 0.15); }
+    .btn-neon { background: linear-gradient(135deg, #00ff41, #00cc33); color: #000; font-weight: 700; transition: all 0.3s; position: relative; overflow: hidden; }
+    .btn-neon:hover { box-shadow: 0 0 35px rgba(0, 255, 65, 0.4); transform: translateY(-2px); }
+    .btn-neon::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15)); opacity: 0; transition: 0.3s; }
+    .btn-neon:hover::after { opacity: 1; }
+    .btn-outline { border: 1px solid rgba(0, 255, 65, 0.35); color: #00ff41; transition: all 0.3s; background: transparent; }
+    .btn-outline:hover { background: rgba(0, 255, 65, 0.08); box-shadow: 0 0 20px rgba(0, 255, 65, 0.1); }
+
+    .grid-bg { background-image: linear-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 65, 0.04) 1px, transparent 1px); background-size: 50px 50px; }
+
+    /* Terminal scanline */
+    .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.015) 2px, rgba(0,255,65,0.015) 4px); }
+
+    /* Code decoration */
+    .code-line::before { content: '> '; color: #00ff41; font-weight: 700; }
+    .comment-line { color: #525252; font-style: italic; }
+    .comment-line::before { content: '// '; color: #525252; }
+
+    .tag-badge { background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.15); color: #00ff41; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+
+    .cursor-blink::after { content: '|'; animation: blink 1s step-end infinite; color: #00ff41; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* Typing animation */
+    .typing-line { overflow: hidden; white-space: nowrap; border-right: 2px solid #00ff41; animation: typing 2s steps(30) forwards, blinkCursor 0.8s step-end infinite; width: 0; }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blinkCursor { 0%, 100% { border-color: #00ff41; } 50% { border-color: transparent; } }
+
+    /* Animated border for hero */
+    .animated-border { position: relative; }
+    .animated-border::before { content: ''; position: absolute; inset: -2px; border-radius: 16px; background: conic-gradient(from 0deg, transparent, #00ff41, transparent, #00ff41, transparent); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 3s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Circuit decoration */
+    .circuit-dots { background-image: radial-gradient(circle, #00ff41 1px, transparent 1px); background-size: 20px 20px; }
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-    @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 20px rgba(0,255,65,0.05); } 50% { box-shadow: 0 0 40px rgba(0,255,65,0.15); } }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 20px rgba(0,255,65,0.05); } 50% { box-shadow: 0 0 50px rgba(0,255,65,0.15); } }
 
     .fade-in { animation: fadeIn 0.6s ease-out; }
     .slide-up { animation: slideUp 0.5s ease-out; }
@@ -41,33 +71,41 @@
     .pulse-dot { animation: pulse 1.5s ease-in-out infinite; }
     .glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
 
+    /* Skill bar */
+    .skill-bar { height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
+    .skill-bar-fill { height: 100%; background: linear-gradient(90deg, #00cc33, #00ff41); border-radius: 2px; width: 0; transition: width 1s ease-out; }
+
     @media (max-width: 768px) {
-      .mobile-menu { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); }
+      .mobile-menu { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.96); backdrop-filter: blur(20px); }
     }
   </style>
 </head>
 <body>
 
-  <div x-data="portfolio()" x-cloak class="min-h-screen bg-[#0a0a0a]">
+  <!-- Particle canvas -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="scanline"></div>
+
+  <div x-data="portfolio()" x-cloak class="relative z-10 min-h-screen">
 
     <!-- Navbar -->
     <nav class="fixed top-0 left-0 right-0 z-40 glass border-b border-[#00ff41]/10">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <a href="#" @click.prevent="section = 'home'" class="flex items-center gap-2">
-          <div class="w-8 h-8 bg-gradient-to-br from-[#00ff41] to-[#00cc33] rounded-lg flex items-center justify-center">
-            <svg class="w-4 h-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <a href="#" @click.prevent="section = 'home'" class="flex items-center gap-2.5 group">
+          <div class="w-8 h-8 rounded-lg bg-[#00ff41]/10 border border-[#00ff41]/30 flex items-center justify-center group-hover:bg-[#00ff41]/20 transition">
+            <span class="text-[11px] font-bold text-[#00ff41]">&lt;/&gt;</span>
           </div>
-          <span class="font-bold text-sm text-white"><span class="text-[#00ff41]">Port</span>folio</span>
+          <span class="font-bold text-sm text-white"><span class="text-[#00ff41]">~</span>/portfolio</span>
         </a>
         <div class="hidden md:flex items-center gap-1">
           <template x-for="item in navItems" :key="item.id">
             <a href="#" @click.prevent="section = item.id"
               class="px-3.5 py-2 rounded-lg text-xs font-medium transition-all duration-200"
-              :class="section === item.id ? 'text-[#00ff41] bg-[#00ff41]/10' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'">
-              <span x-text="item.label"></span>
+              :class="section === item.id ? 'text-[#00ff41] bg-[#00ff41]/10' : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50'">
+              <span class="code-line" x-text="item.label"></span>
             </a>
           </template>
-          <a href="#contato" @click.prevent="section = 'contato'" class="ml-3 px-4 py-2 btn-neon rounded-lg text-xs">Contato</a>
+          <a href="#" @click.prevent="section = 'contato'" class="ml-3 px-4 py-2 btn-neon rounded-lg text-xs">Contato</a>
         </div>
         <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition">
           <svg x-show="!mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
@@ -77,9 +115,9 @@
       <div x-show="mobileOpen" class="md:hidden mobile-menu flex flex-col items-center justify-center gap-4">
         <template x-for="item in navItems" :key="item.id">
           <a href="#" @click.prevent="section = item.id; mobileOpen = false"
-            class="text-lg font-medium transition"
+            class="text-lg font-medium transition font-mono"
             :class="section === item.id ? 'text-[#00ff41]' : 'text-zinc-400 hover:text-white'">
-            <span x-text="item.label"></span>
+            <span x-text="'$ ' + item.label"></span>
           </a>
         </template>
         <a href="#" @click.prevent="section = 'contato'; mobileOpen = false" class="mt-4 px-6 py-3 btn-neon rounded-xl text-sm">Contato</a>
@@ -88,38 +126,55 @@
 
     <!-- ===== HOME ===== -->
     <div x-show="section === 'home'" class="pt-16">
-      <section class="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#00ff41]/5 via-transparent to-[#0a0a0a]"></div>
+      <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#00ff41]/8 via-transparent to-[#0a0a0a]"></div>
+        <div class="absolute inset-0 grid-bg opacity-60"></div>
+
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
-          <div class="w-20 h-20 rounded-2xl overflow-hidden mx-auto mb-6 glow-pulse border-2 border-[#00ff41]/30">
-            <img src="foto-perfil.jpeg" alt="Profile" class="w-full h-full object-cover">
-          </div>
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-[#00ff41] mb-6 border border-[#00ff41]/20">
+          <!-- Terminal badge -->
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-[#00ff41] mb-8 border border-[#00ff41]/20">
             <span class="w-1.5 h-1.5 rounded-full bg-[#00ff41] pulse-dot"></span>
-            Disponível para projetos
+            <span class="font-mono">system.status: online</span>
           </div>
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4">
-            Transformando Ideias em <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff41] to-[#00cc33]">Soluções Digitais</span>
-          </h1>
-          <p class="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-3 leading-relaxed">
-            Desenvolvedor Full-Stack especializado em sistemas web, automação e inteligência artificial.
+
+          <!-- Profile photo animated border -->
+          <div class="animated-border w-24 h-24 mx-auto mb-6 rounded-2xl overflow-hidden glow-pulse">
+            <div class="w-full h-full rounded-2xl overflow-hidden">
+              <img src="foto-perfil.jpeg" alt="Profile" class="w-full h-full object-cover">
+            </div>
+          </div>
+
+          <!-- Terminal typing effect -->
+          <div class="mb-4">
+            <p class="text-sm text-zinc-500 font-mono mb-2"><span class="text-[#00ff41]">$</span> whoami</p>
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-2 cursor-blink inline-block">
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff41] to-[#00cc33] neon-text">Full-Stack Developer</span>
+            </h1>
+          </div>
+
+          <p class="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto mb-2 leading-relaxed font-mono">
+            <span class="text-zinc-600">//</span> Transformando código em soluções reais
           </p>
-          <p class="text-sm text-zinc-500 max-w-xl mx-auto mb-10">
-            Sistemas profissionais single-file — do conceito à entrega.
+          <p class="text-sm text-zinc-600 max-w-xl mx-auto mb-10 font-mono">
+            Especializado em sistemas web, automação e inteligência artificial
           </p>
+
+          <!-- Binary decoration -->
+          <p class="text-[10px] text-[#00ff41]/20 font-mono mb-6 tracking-widest" x-text="binaryLine"></p>
+
           <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a href="#" @click.prevent="section = 'projetos'" class="px-8 py-3.5 btn-neon rounded-xl text-sm font-bold flex items-center gap-2">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-              Ver Projetos
+              $ cd projetos
             </a>
-            <a href="#" @click.prevent="section = 'contato'" class="px-8 py-3.5 btn-outline rounded-xl text-sm font-semibold">Entrar em Contato</a>
+            <a href="#" @click.prevent="section = 'contato'" class="px-8 py-3.5 btn-outline rounded-xl text-sm font-semibold font-mono">$ ./contato</a>
           </div>
-          <div class="mt-16 flex justify-center gap-6">
-            <a href="https://github.com/luiz199" target="_blank" class="text-zinc-500 hover:text-[#00ff41] transition">
-              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-            <a href="mailto:luiz@datamind.ai" class="text-zinc-500 hover:text-[#00ff41] transition">
-              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+
+          <!-- Social -->
+          <div class="mt-12 flex justify-center gap-5">
+            <a href="https://github.com/luiz199" target="_blank" class="glass-card rounded-xl px-4 py-2.5 flex items-center gap-2 text-xs text-zinc-500 hover:text-[#00ff41] hover:border-[#00ff41]/30 transition">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              github.com/luiz199
             </a>
           </div>
         </div>
@@ -128,24 +183,39 @@
     </div>
 
     <!-- ===== SOBRE ===== -->
-    <div x-show="section === 'sobre'" class="pt-16 min-h-screen grid-bg py-20 px-4">
-      <div class="max-w-4xl mx-auto pt-10">
+    <div x-show="section === 'sobre'" class="pt-16 min-h-screen py-20 px-4">
+      <div class="absolute inset-0 grid-bg opacity-30"></div>
+      <div class="max-w-4xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase">Sobre</span>
-          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Quem Sou</h2>
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat about.md</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 font-mono">
+            <span class="text-[#00ff41]">//</span> Sobre
+          </h2>
         </div>
         <div class="glass-card rounded-2xl p-8 md:p-10">
           <div class="flex flex-col md:flex-row gap-8 items-start">
-            <div class="w-32 h-32 rounded-2xl overflow-hidden shrink-0 mx-auto md:mx-0 border-2 border-[#00ff41]/20">
+            <div class="w-32 h-32 rounded-2xl overflow-hidden shrink-0 mx-auto md:mx-0 border-2 border-[#00ff41]/20 glow-pulse">
               <img src="foto-perfil.jpeg" alt="Profile" class="w-full h-full object-cover">
             </div>
-            <div>
-              <p class="text-zinc-300 leading-relaxed mb-4">
-                Desenvolvedor full-stack com experiência em criar sistemas web completos — do frontend ao backend.
-                Especializado em <span class="text-[#00ff41] font-semibold">JavaScript, Python, Alpine.js, Tailwind CSS</span>
-                e integração com <span class="text-[#00ff41] font-semibold">APIs e Inteligência Artificial</span>.
+            <div class="space-y-4 font-mono text-sm">
+              <p class="text-zinc-400">
+                <span class="text-[#00ff41]">const</span> <span class="text-white">dev</span> = <span class="text-zinc-300">{</span>
               </p>
-              <p class="text-zinc-400 leading-relaxed">
+              <p class="pl-4 text-zinc-300">
+                nome: <span class="text-[#00cc33]">'Desenvolvedor Full-Stack'</span>,
+              </p>
+              <p class="pl-4 text-zinc-300">
+                foco: <span class="text-[#00cc33]">'Sistemas Web, Automação, IA'</span>,
+              </p>
+              <p class="pl-4 text-zinc-300">
+                stack: <span class="text-[#00cc33]">['JavaScript', 'Python', 'Alpine.js', 'Tailwind']</span>,
+              </p>
+              <p class="pl-4 text-zinc-300 mb-4">
+                objetivo: <span class="text-[#00cc33]">'Transformar ideias em soluções digitais'</span>
+              </p>
+              <p class="text-zinc-400"><span class="text-[#00ff41]">}</span>;</p>
+
+              <p class="text-zinc-500 mt-4 leading-relaxed border-t border-[#00ff41]/10 pt-4">
                 Cada projeto é construído do zero com foco em performance, design responsivo e experiência do usuário.
                 Sistemas profissionais single-file para os setores de alimentação, fitness e tecnologia.
               </p>
@@ -154,12 +224,14 @@
         </div>
 
         <!-- Skills -->
-        <h3 class="text-xl font-bold text-white mt-12 mb-6 text-center">Tecnologias</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <h3 class="text-xl font-bold text-white mt-14 mb-8 text-center font-mono">
+          <span class="text-[#00ff41]">></span> tech_stack
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           <template x-for="tech in skills" :key="tech.nome">
-            <div class="glass-card rounded-xl p-4 text-center hover:border-[#00ff41]/30 transition">
-              <div class="text-2xl mb-2" x-text="tech.icone"></div>
-              <p class="text-xs font-medium text-zinc-300" x-text="tech.nome"></p>
+            <div class="glass-card rounded-xl p-4 text-center hover:border-[#00ff41]/30 transition group">
+              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform" x-text="tech.icone"></div>
+              <p class="text-xs font-mono text-zinc-400 group-hover:text-[#00ff41] transition" x-text="tech.nome"></p>
             </div>
           </template>
         </div>
@@ -167,71 +239,83 @@
     </div>
 
     <!-- ===== PROJETOS ===== -->
-    <div x-show="section === 'projetos'" class="pt-16 min-h-screen grid-bg py-20 px-4">
-      <div class="max-w-6xl mx-auto pt-10">
+    <div x-show="section === 'projetos'" class="pt-16 min-h-screen py-20 px-4">
+      <div class="absolute inset-0 grid-bg opacity-30"></div>
+      <div class="max-w-6xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase">Portfólio</span>
-          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Projetos</h2>
-          <p class="text-zinc-500 mt-2 text-sm">Sistemas profissionais single-file</p>
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ ls -la projects/</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 font-mono">
+            <span class="text-[#00ff41]">//</span> Projetos
+          </h2>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <template x-for="(proj, i) in projetos" :key="proj.nome">
             <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300">
-              <div class="h-40 bg-gradient-to-br flex items-center justify-center text-4xl"
+              <div class="h-40 bg-gradient-to-br flex items-center justify-center text-4xl relative overflow-hidden"
                 :class="proj.cor">
-                <span x-text="proj.icone"></span>
+                <div class="absolute inset-0 opacity-30 circuit-dots"></div>
+                <span class="relative z-10" x-text="proj.icone"></span>
               </div>
               <div class="p-5">
                 <div class="flex items-center gap-2 mb-2">
-                  <span class="text-[10px] font-semibold text-[#00ff41] uppercase tracking-wider" x-text="proj.categoria"></span>
+                  <span class="tag-badge" x-text="proj.categoria"></span>
                 </div>
-                <h3 class="text-base font-bold text-white mb-2" x-text="proj.nome"></h3>
-                <p class="text-xs text-zinc-400 leading-relaxed mb-4" x-text="proj.desc"></p>
+                <h3 class="text-base font-bold text-white mb-2 font-mono" x-text="proj.nome"></h3>
+                <p class="text-xs text-zinc-500 leading-relaxed mb-4 font-mono" x-text="proj.desc"></p>
                 <div class="flex flex-wrap gap-1.5 mb-4">
                   <template x-for="tag in proj.tags" :key="tag">
-                    <span class="px-2 py-0.5 rounded-md text-[10px] bg-zinc-800 text-zinc-400 border border-zinc-700/50" x-text="tag"></span>
+                    <span class="tag-badge" x-text="tag"></span>
                   </template>
                 </div>
-                <a :href="proj.link" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00ff41] hover:underline">
-                  Ver no GitHub
-                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-                </a>
+                <div class="flex items-center justify-between">
+                  <a :href="proj.link" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono text-[#00ff41] hover:underline group">
+                    <span>$ ver codigo</span>
+                    <svg class="w-3 h-3 group-hover:translate-x-0.5 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                  </a>
+                  <span class="text-[10px] text-zinc-700 font-mono" x-text="'v1.0'"></span>
+                </div>
               </div>
             </div>
           </template>
         </div>
         <div class="text-center mt-10">
-          <a href="https://github.com/luiz199/professional-systems" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 btn-outline rounded-xl text-sm font-semibold">
+          <a href="https://github.com/luiz199/professional-systems" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 btn-outline rounded-xl text-sm font-mono">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            Ver repositório completo
-          </a>
+              $ cat repository
+            </a>
+          </div>
         </div>
       </div>
-    </div>
 
     <!-- ===== CONTATO ===== -->
-    <div x-show="section === 'contato'" class="pt-16 min-h-screen grid-bg py-20 px-4" id="contato">
-      <div class="max-w-2xl mx-auto pt-10">
+    <div x-show="section === 'contato'" class="pt-16 min-h-screen py-20 px-4" id="contato">
+      <div class="absolute inset-0 grid-bg opacity-30"></div>
+      <div class="max-w-2xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase">Contato</span>
-          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Vamos Conversar</h2>
-          <p class="text-zinc-500 mt-2 text-sm">Tem um projeto em mente? Entre em contato.</p>
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ ./send_message</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 font-mono">
+            <span class="text-[#00ff41]">//</span> Contato
+          </h2>
+          <p class="text-zinc-600 mt-2 text-sm font-mono">Tem um projeto em mente? Mande uma mensagem.</p>
         </div>
         <div class="glass-card rounded-2xl p-8">
           <form @submit.prevent="enviarForm" class="space-y-4">
-            <div class="grid sm:grid-cols-2 gap-4">
-              <input type="text" x-model="formNome" placeholder="Seu nome" required
-                class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#00ff41]/30 transition">
-              <input type="email" x-model="formEmail" placeholder="Seu email" required
-                class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#00ff41]/30 transition">
+            <div class="flex items-center gap-2 text-xs text-zinc-500 font-mono mb-1">
+              <span class="text-[#00ff41]">$</span> ./form <span class="text-zinc-700">--interactive</span>
             </div>
-            <input type="text" x-model="formAssunto" placeholder="Assunto"
-              class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#00ff41]/30 transition">
-            <textarea x-model="formMsg" placeholder="Sua mensagem..." rows="4" required
-              class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#00ff41]/30 transition resize-none"></textarea>
-            <button type="submit" class="w-full py-3 btn-neon rounded-xl text-sm font-bold"
+            <div class="grid sm:grid-cols-2 gap-4">
+              <input type="text" x-model="formNome" placeholder="nome" required
+                class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 font-mono focus:outline-none focus:border-[#00ff41]/30 transition">
+              <input type="email" x-model="formEmail" placeholder="email" required
+                class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 font-mono focus:outline-none focus:border-[#00ff41]/30 transition">
+            </div>
+            <input type="text" x-model="formAssunto" placeholder="assunto"
+              class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 font-mono focus:outline-none focus:border-[#00ff41]/30 transition">
+            <textarea x-model="formMsg" placeholder="mensagem" rows="4" required
+              class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 font-mono focus:outline-none focus:border-[#00ff41]/30 transition resize-none"></textarea>
+            <button type="submit" class="w-full py-3 btn-neon rounded-xl text-sm font-bold font-mono"
               :disabled="!formNome.trim() || !formEmail.trim() || !formMsg.trim()">
-              <span x-show="!enviado">Enviar Mensagem</span>
+              <span x-show="!enviado">$ ./send</span>
               <span x-show="enviado" class="flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 Mensagem enviada!
@@ -240,14 +324,14 @@
           </form>
         </div>
         <div class="flex justify-center gap-6 mt-8">
-          <a href="https://github.com/luiz199" target="_blank" class="glass-card rounded-xl px-5 py-3 flex items-center gap-2 text-sm text-zinc-400 hover:text-[#00ff41] hover:border-[#00ff41]/30 transition">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub
-          </a>
-          <a href="mailto:luiz@datamind.ai" class="glass-card rounded-xl px-5 py-3 flex items-center gap-2 text-sm text-zinc-400 hover:text-[#00ff41] hover:border-[#00ff41]/30 transition">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Email
-          </a>
+          <a href="https://github.com/luiz199" target="_blank" class="glass-card rounded-xl px-5 py-3 flex items-center gap-2 text-sm font-mono text-zinc-500 hover:text-[#00ff41] hover:border-[#00ff41]/30 transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          <a href="mailto:contato@example.com" class="glass-card rounded-xl px-5 py-3 flex items-center gap-2 text-sm font-mono text-zinc-500 hover:text-[#00ff41] hover:border-[#00ff41]/30 transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
         </div>
       </div>
     </div>
@@ -255,6 +339,60 @@
   </div>
 
   <script>
+    // Particle network
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.r = Math.random() * 1.5 + 0.5;
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 255, 65, 0.4)'; ctx.fill();
+      }
+    }
+
+    const count = Math.min(80, Math.floor(canvas.width * canvas.height / 15000));
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(0, 255, 65, ${0.1 * (1 - dist / 150)})`;
+            ctx.lineWidth = 0.5; ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
     function portfolio() {
       return {
         section: 'home',
@@ -265,11 +403,13 @@
         formMsg: '',
         enviado: false,
 
+        binaryLine: '',
+
         navItems: [
-          { id: 'home', label: 'Início' },
-          { id: 'sobre', label: 'Sobre' },
-          { id: 'projetos', label: 'Projetos' },
-          { id: 'contato', label: 'Contato' }
+          { id: 'home', label: 'inicio' },
+          { id: 'sobre', label: 'sobre' },
+          { id: 'projetos', label: 'projetos' },
+          { id: 'contato', label: 'contato' }
         ],
 
         skills: [
@@ -289,43 +429,40 @@
 
         projetos: [
           {
-            nome: 'RESTAU MASTER PRO',
-            categoria: 'Sistema',
-            desc: 'Gestão completa de restaurante com mapa de mesas, comanda digital, cardápio com fotos e painel admin. Zero dependências externas.',
-            icone: '🍽️',
-            cor: 'from-orange-900/30 to-amber-900/20',
-            tags: ['HTML5', 'CSS3', 'JavaScript', 'LocalStorage'],
+            nome: 'RESTAU MASTER PRO', categoria: 'Sistema',
+            desc: 'Gestão completa de restaurante com mapa de mesas, comanda digital e painel admin.',
+            icone: '🍽️', cor: 'from-orange-900/30 to-amber-900/20',
+            tags: ['HTML5', 'JavaScript', 'LocalStorage'],
             link: 'https://github.com/luiz199/professional-systems'
           },
           {
-            nome: 'FitManager Pro',
-            categoria: 'Sistema',
-            desc: 'Gestão de academia com CRUD de alunos, controle financeiro, fichas de treino A/B/C e catraca virtual com acesso por CPF.',
-            icone: '💪',
-            cor: 'from-indigo-900/30 to-cyan-900/20',
-            tags: ['Alpine.js', 'Tailwind CSS', 'Lucide Icons'],
+            nome: 'FitManager Pro', categoria: 'Sistema',
+            desc: 'Gestão de academia com alunos, financeiro, fichas de treino e catraca virtual.',
+            icone: '💪', cor: 'from-indigo-900/30 to-cyan-900/20',
+            tags: ['Alpine.js', 'Tailwind', 'Lucide'],
             link: 'https://github.com/luiz199/professional-systems'
           },
           {
-            nome: 'DataMind AI',
-            categoria: 'SaaS',
-            desc: 'Site institucional com chat IA inteligente (Ollama + NLP local), previsão do tempo via Open-Meteo e dashboard administrativo.',
-            icone: '🧠',
-            cor: 'from-[#00ff41]/20 to-emerald-900/20',
-            tags: ['Alpine.js', 'Tailwind CSS', 'Ollama', 'API'],
+            nome: 'DataMind AI', categoria: 'SaaS',
+            desc: 'Site SaaS com chat IA (Ollama + NLP), clima em tempo real e dashboard.',
+            icone: '🧠', cor: 'from-[#00ff41]/20 to-emerald-900/20',
+            tags: ['Alpine.js', 'Tailwind', 'Ollama'],
             link: 'https://github.com/luiz199/professional-systems'
           }
         ],
+
+        init() {
+          let bin = '';
+          for (let i = 0; i < 60; i++) bin += Math.random() > 0.5 ? '1' : '0';
+          this.binaryLine = bin + ' ' + bin;
+        },
 
         enviarForm() {
           if (!this.formNome.trim() || !this.formEmail.trim() || !this.formMsg.trim()) return;
           this.enviado = true;
           setTimeout(() => {
             this.enviado = false;
-            this.formNome = '';
-            this.formEmail = '';
-            this.formAssunto = '';
-            this.formMsg = '';
+            this.formNome = ''; this.formEmail = ''; this.formAssunto = ''; this.formMsg = '';
           }, 3000);
         }
       };
