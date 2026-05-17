@@ -251,10 +251,8 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <template x-for="(proj, i) in projetos" :key="proj.nome">
             <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300">
-              <div class="h-40 bg-gradient-to-br flex items-center justify-center text-4xl relative overflow-hidden"
-                :class="proj.cor">
-                <div class="absolute inset-0 opacity-30 circuit-dots"></div>
-                <span class="relative z-10" x-text="proj.icone"></span>
+              <div class="h-44 overflow-hidden">
+                <img :src="proj.img" :alt="proj.nome" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               </div>
               <div class="p-5">
                 <div class="flex items-center gap-2 mb-2">
@@ -431,21 +429,21 @@
           {
             nome: 'RESTAU MASTER PRO', categoria: 'Sistema',
             desc: 'Gestão completa de restaurante com mapa de mesas, comanda digital e painel admin.',
-            icone: '🍽️', cor: 'from-orange-900/30 to-amber-900/20',
+            img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=350&fit=crop',
             tags: ['HTML5', 'JavaScript', 'LocalStorage'],
             link: 'https://github.com/luiz199/professional-systems'
           },
           {
             nome: 'FitManager Pro', categoria: 'Sistema',
             desc: 'Gestão de academia com alunos, financeiro, fichas de treino e catraca virtual.',
-            icone: '💪', cor: 'from-indigo-900/30 to-cyan-900/20',
+            img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=350&fit=crop',
             tags: ['Alpine.js', 'Tailwind', 'Lucide'],
             link: 'https://github.com/luiz199/professional-systems'
           },
           {
             nome: 'DataMind AI', categoria: 'SaaS',
             desc: 'Site SaaS com chat IA (Ollama + NLP), clima em tempo real e dashboard.',
-            icone: '🧠', cor: 'from-[#00ff41]/20 to-emerald-900/20',
+            img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=350&fit=crop',
             tags: ['Alpine.js', 'Tailwind', 'Ollama'],
             link: 'https://github.com/luiz199/professional-systems'
           }
