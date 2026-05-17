@@ -75,7 +75,7 @@ Single-file HTML5 com Tailwind CSS, Alpine.js e Lucide Icons. Dashboard, control
 
 1. Baixe o arquivo `fitmanager-pro.html`
 2. Abra no navegador
-3. Login: `admin` / `admin`
+3. Login:
 4. Pronto! Tudo funciona localmente, sem necessidade de servidor
 
 ---
@@ -136,7 +136,7 @@ Status indicado no header do chat (verde = Ollama conectado, cinza = modo local)
 2. Abra no navegador
 3. Chat IA funciona imediatamente (modo fallback)
 4. Para modo Ollama: instale o [Ollama](https://ollama.ai), rode `ollama pull llama3.2`, e mantenha o serviço ativo
-5. Login painel: `admin@datamind.ai` / `admin`
+5. Login painel:
 
 ---
 
