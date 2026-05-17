@@ -1,0 +1,13 @@
+[Config] Loaded server.properties
+===================================
+  AvatarWorld Server v1.0.0
+===================================
+[DB] Connection pool initialized: jdbc:mysql://localhost:3306/avatarworld?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+[OK] Database pool initialized
+[OK] Game server listening on port 8080
+[Admin] HTTP server started on port 8081
+===================================
+  Server is running!
+  Game: ws://localhost:8080/ws
+  Admin: http://localhost:8081
+===================================
