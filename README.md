@@ -32,21 +32,50 @@ Single-file HTML5 com dashboard, mapa visual de mesas, comanda digital, cardápi
 
 1. Baixe o arquivo `restau-master-pro.html`
 2. Abra no navegador
-3. Pronto! Tudo funciona localmente, sem necessidade de servidor
+3. Login: `admin` / `2025`
+4. Pronto! Tudo funciona localmente, sem necessidade de servidor
 
-## Preview
+---
 
-```
-┌─────────────────────────────────────────────────┐
-│  RESTAU MASTER PRO                              │
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐           │
-│  │  Mesa 1 │ │  Mesa 2 │ │  Mesa 3 │           │
-│  │  LIVRE  │ │ OCUPADA │ │RESERVADA│           │
-│  └─────────┘ └─────────┘ └─────────┘           │
-│  Dashboard │ Pedidos │ Cardápio │ Admin         │
-└─────────────────────────────────────────────────┘
-```
+# FITMANAGER PRO
+
+**Sistema profissional de gestão de academia.**
+
+Single-file HTML5 com Tailwind CSS, Alpine.js e Lucide Icons. Dashboard, controle de alunos, módulo financeiro, fichas de treino e catraca virtual.
+
+## Funcionalidades
+
+| Módulo | Descrição |
+|--------|-----------|
+| **Dashboard** | Métricas em tempo real: total de alunos, ativos, inadimplentes, faturamento mensal |
+| **Alunos** | CRUD completo com tabela, busca por nome/CPF, modal de cadastro |
+| **Financeiro** | Controle de inadimplência, histórico de caixa, recebimento com atualização automática |
+| **Treinos** | Lista geral e ficha individual com abas A/B/C, gerenciamento completo de exercícios |
+| **Catraca** | Simulador de acesso por CPF com liberação/bloqueio automático |
+| **Alertas** | Painel de cobrança destacando alunos em atraso |
+| **Fluxo** | Registro de entrada com histórico de acessos |
+
+## Características Técnicas
+
+- 100% **single-file** (único arquivo `.html`)
+- **Tailwind CSS** via CDN para estilização
+- **Alpine.js** para estado e interatividade em memória
+- **Lucide Icons** para iconografia profissional
+- Design **glassmorphism** com gradientes e animações
+- **Toast notifications** para feedback de ações
+- **Impressão profissional** de fichas de treino
+- **Split login** com branding DataMind AI
+- **5 alunos fictícios** pré-carregados
+
+## Como usar
+
+1. Baixe o arquivo `fitmanager-pro.html`
+2. Abra no navegador
+3. Login: `admin` / `admin`
+4. Pronto! Tudo funciona localmente, sem necessidade de servidor
+
+---
 
 ## Licença
 
-Projeto pessoal — uso livre.
+Projetos pessoais — uso livre.
