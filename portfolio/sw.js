@@ -1,4 +1,4 @@
-const CACHE = 'portfolio-cs-v2';
+const CACHE = 'portfolio-cs-v3';
 const URLS = [
   'index.html',
   'manifest.json',
@@ -8,9 +8,7 @@ const URLS = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(URLS))
-  );
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(URLS)));
   self.skipWaiting();
 });
 
@@ -24,15 +22,13 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+  if (!url.protocol.startsWith('http') || url.origin !== self.location.origin) return;
   e.respondWith(
-    fetch(e.request)
-      .then(res => {
-        const clone = res.clone();
-        caches.open(CACHE).then(c => {
-          if (e.request.method === 'GET') c.put(e.request, clone);
-        });
-        return res;
-      })
-      .catch(() => caches.match(e.request))
+    fetch(e.request).then(res => {
+      const clone = res.clone();
+      caches.open(CACHE).then(c => c.put(e.request, clone).catch(() => {}));
+      return res;
+    }).catch(() => caches.match(e.request).then(r => r || new Response('', {status: 503})))
   );
 });

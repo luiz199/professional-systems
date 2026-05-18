@@ -2,29 +2,26 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Luiz Henrique — Full-Stack Developer | Portfolio</title>
-  <meta name="description" content="Portfolio profissional de Luiz Henrique, Full-Stack Developer especializado em sistemas web, automação e inteligência artificial. Ciência da Computação | UNIBF">
+  <meta name="description" content="Portfolio profissional de Luiz Henrique, Full-Stack Developer especializado em sistemas web, automação e inteligência artificial.">
   <meta name="keywords" content="full-stack developer, portfolio, computer science, web development, alpine.js, tailwind css, AI, automation">
   <meta name="author" content="Luiz Henrique">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://luiz199.github.io/professional-systems/portfolio/">
-
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="DataMind Portfolio">
   <meta property="og:title" content="Luiz Henrique — Full-Stack Developer | Next.js, TypeScript & AI">
-  <meta property="og:description" content="Full-Stack Developer especializado em Next.js, TypeScript e Inteligência Artificial. DataMind — Inteligência • Inovação • Impacto">
+  <meta property="og:description" content="Full-Stack Developer especializado em Next.js, TypeScript e Inteligência Artificial.">
   <meta property="og:url" content="https://luiz199.github.io/professional-systems/portfolio/">
   <meta property="og:image" content="https://luiz199.github.io/professional-systems/portfolio/screenshots/portfolio-cs.png">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="720">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@luiz199">
   <meta name="twitter:title" content="Luiz Henrique — Full-Stack Developer">
   <meta name="twitter:description" content="Full-Stack Developer | Next.js, TypeScript & AI | DataMind Portfolio">
-
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="512x512" href="../assets/icons/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/icon-192.png">
@@ -54,621 +51,63 @@
     "knowsAbout": ["Web Development", "JavaScript", "Alpine.js", "Tailwind CSS", "Python", "Artificial Intelligence", "API Design"]
   }
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Portfolio CS — Luiz Henrique",
-    "url": "https://luiz199.github.io/professional-systems/portfolio/",
-    "description": "Portfolio profissional de Full-Stack Developer com tema Computer Science",
-    "author": { "@type": "Person", "name": "Luiz Henrique" }
-  }
-  </script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'JetBrains Mono', monospace; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
-    [x-cloak] { display: none !important; }
-
-    :root { --bg: #0a0a0a; --bg2: #0f0f0f; --text: #e0e0e0; --text2: #a0a0a0; --text3: #666; --border: rgba(0,255,65,0.12); --card-bg: rgba(10,10,10,0.85); --input-bg: rgba(255,255,255,0.05); --glass-bg: rgba(8,8,8,0.75); --scanline: rgba(0,255,65,0.015); --grid: rgba(0,255,65,0.04); }
-    .light { --bg: #f5f5f0; --bg2: #e8e8e0; --text: #1a1a1a; --text2: #4a4a4a; --text3: #999; --border: rgba(0,200,50,0.2); --card-bg: rgba(255,255,255,0.9); --input-bg: rgba(0,0,0,0.05); --glass-bg: rgba(255,255,255,0.85); --scanline: rgba(0,200,50,0.02); --grid: rgba(0,200,50,0.06); }
-    body { background: var(--bg); color: var(--text); }
-    .glass { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--border); }
-    .glass-card { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid rgba(0,255,65,0.08); transition: all 0.3s; }
-    .glass-card:hover { border-color: rgba(0,255,65,0.3); box-shadow: 0 0 30px rgba(0,255,65,0.08); transform: translateY(-2px); }
-
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 4px; }
-
-    #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-    .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scanline) 2px, var(--scanline) 4px); }
-    .grid-bg { background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 50px 50px; }
-
-    .neon-glow { box-shadow: 0 0 20px rgba(0,255,65,0.12), 0 0 40px rgba(0,255,65,0.05); }
-    .neon-text { text-shadow: 0 0 10px rgba(0,255,65,0.4), 0 0 30px rgba(0,255,65,0.15); }
-    .btn-neon { background: linear-gradient(135deg, #00ff41, #00cc33); color: #000; font-weight: 700; transition: all 0.3s; position: relative; overflow: hidden; }
-    .btn-neon:hover { box-shadow: 0 0 35px rgba(0,255,65,0.4); transform: translateY(-2px); }
-    .btn-outline { border: 1px solid rgba(0,255,65,0.35); color: #00ff41; transition: all 0.3s; background: transparent; }
-    .btn-outline:hover { background: rgba(0,255,65,0.08); box-shadow: 0 0 20px rgba(0,255,65,0.1); }
-
-    .code-line::before { content: '> '; color: #00ff41; font-weight: 700; }
-    .tag-badge { background: rgba(0,255,65,0.08); border: 1px solid rgba(0,255,65,0.15); color: #00ff41; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
-
-    .cursor-blink::after { content: '|'; animation: blink 1s step-end infinite; color: #00ff41; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-    .animated-border { position: relative; }
-    .animated-border::before { content: ''; position: absolute; inset: -2px; border-radius: 16px; background: conic-gradient(from 0deg,transparent,#00ff41,transparent,#00ff41,transparent); -webkit-mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 3s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes slideUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    @keyframes glowPulse { 0%,100%{box-shadow:0 0 20px rgba(0,255,65,.05)} 50%{box-shadow:0 0 50px rgba(0,255,65,.15)} }
-    .fade-in { animation: fadeIn 0.6s ease-out; }
-    .slide-up { animation: slideUp 0.5s ease-out; }
-    .pulse-dot { animation: pulse 1.5s ease-in-out infinite; }
-    .glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
-
-    .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent, #00ff41, transparent); transform: translateX(-50%); }
-    .timeline-dot { width: 16px; height: 16px; border-radius: 50%; background: #00ff41; border: 3px solid var(--bg); position: absolute; left: 50%; transform: translateX(-50%); z-index: 2; box-shadow: 0 0 15px rgba(0,255,65,0.3); }
-    @media (max-width: 768px) {
-      .timeline-line { left: 20px; }
-      .timeline-dot { left: 20px; }
-      .mobile-menu { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.96); backdrop-filter: blur(20px); }
-    }
-
-    .theme-toggle { width: 40px; height: 22px; border-radius: 11px; background: rgba(0,255,65,0.15); border: 1px solid rgba(0,255,65,0.2); cursor: pointer; position: relative; transition: 0.3s; }
-    .theme-toggle::after { content: ''; width: 16px; height: 16px; border-radius: 50%; background: #00ff41; position: absolute; top: 2px; left: 2px; transition: 0.3s; }
-    .theme-toggle.on::after { left: 20px; }
-
-    .lang-btn { padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; border: 1px solid transparent; background: transparent; color: var(--text3); }
-    .lang-btn.active { background: rgba(0,255,65,0.1); border-color: rgba(0,255,65,0.3); color: #00ff41; }
-    *:focus-visible { outline: 2px solid #00ff41; outline-offset: 2px; border-radius: 4px; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
-  </style>
-</head>
-<body :class="!darkMode ? 'light' : ''">
-
-  <canvas id="particles-canvas"></canvas>
-  <div class="scanline"></div>
-
-  <div x-data="portfolio()" x-cloak class="relative z-10 min-h-screen" :class="!darkMode ? 'light' : ''" role="main">
-
-    
-    <nav aria-label="Navegação principal" class="fixed top-0 left-0 right-0 z-40 glass border-b" :style="'border-color: var(--border)'">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <a href="#" @click.prevent="section = 'home'" class="flex items-center gap-2.5 group" aria-label="Ir para o início">
-          <div class="w-8 h-8 rounded-lg bg-[#00ff41]/10 border border-[#00ff41]/30 flex items-center justify-center group-hover:bg-[#00ff41]/20 transition">
-            <span class="text-[11px] font-bold text-[#00ff41]">&lt;/&gt;</span>
-          </div>
-          <span class="font-bold text-sm" :style="'color: var(--text)'"><span class="text-[#00ff41]">~</span>/portfolio</span>
-        </a>
-        <div class="hidden md:flex items-center gap-1" role="menubar">
-          <template x-for="item in navItems" :key="item.id">
-            <a href="#" @click.prevent="section = item.id" role="menuitem"
-              class="px-3.5 py-2 rounded-lg text-xs font-medium transition-all duration-200"
-              :class="section === item.id ? 'text-[#00ff41] bg-[#00ff41]/10' : ''"
-              :style="section !== item.id ? 'color: var(--text3)' : ''">
-              <span class="code-line" x-text="t(item.label)"></span>
-            </a>
-          </template>
-          <div class="flex items-center gap-2 ml-4 pl-4 border-l" :style="'border-color: var(--border)'">
-            <button @click="lang = lang === 'pt' ? 'en' : 'pt'; salvarPrefs()" class="lang-btn" :class="lang === 'pt' ? 'active' : ''">PT</button>
-            <button @click="lang = lang === 'en' ? 'pt' : 'en'; salvarPrefs()" class="lang-btn" :class="lang === 'en' ? 'active' : ''">EN</button>
-            <div class="theme-toggle" :class="darkMode ? 'on' : ''" @click="darkMode = !darkMode; salvarPrefs()"></div>
-          </div>
-        </div>
-        <div class="flex md:hidden items-center gap-2">
-          <button @click="lang = lang === 'pt' ? 'en' : 'pt'; salvarPrefs()" class="lang-btn text-xs" :class="lang === 'pt' ? 'active' : ''">PT</button>
-          <div class="theme-toggle" :class="darkMode ? 'on' : ''" @click="darkMode = !darkMode; salvarPrefs()"></div>
-          <button @click="mobileOpen = !mobileOpen" class="p-2 rounded-lg" :style="'color: var(--text3)'">
-            <svg x-show="!mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-            <svg x-show="mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-          </button>
-        </div>
-      </div>
-      <div x-show="mobileOpen" class="md:hidden mobile-menu flex flex-col items-center justify-center gap-4" role="menu" aria-label="Navegação mobile">
-        <template x-for="item in navItems" :key="item.id">
-          <a href="#" @click.prevent="section = item.id; mobileOpen = false" role="menuitem"
-            class="text-lg font-medium transition font-mono"
-            :class="section === item.id ? 'text-[#00ff41]' : ''"
-            :style="section !== item.id ? 'color: var(--text3)' : ''">
-            <span x-text="'$ ' + t(item.label)"></span>
-          </a>
-        </template>
-        <a href="#" @click.prevent="section = 'contato'; mobileOpen = false" class="mt-4 px-6 py-3 btn-neon rounded-xl text-sm">$ ./contato</a>
-      </div>
-    </nav>
-
-    
-    <div x-show="section === 'home'" role="region" aria-label="Início" class="pt-16">
-      <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#00ff41]/8 via-transparent" :style="'to: var(--bg)'"></div>
-        <div class="absolute inset-0 grid-bg opacity-60"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-[#00ff41] mb-8 border" :style="'border-color: var(--border)'">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#00ff41] pulse-dot"></span>
-            <span class="font-mono">system.status: online</span>
-          </div>
-            <div class="animated-border w-24 h-24 mx-auto mb-6 rounded-2xl overflow-hidden glow-pulse">
-            <div class="w-full h-full rounded-2xl overflow-hidden"><img src="../assets/foto-perfil.jpeg" alt="Foto de perfil de Luiz Henrique" loading="lazy" class="w-full h-full object-cover"></div>
-          </div>
-          <div class="mb-4">
-            <p class="text-sm font-mono mb-2" :style="'color: var(--text3)'"><span class="text-[#00ff41]">$</span> whoami</p>
-            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black leading-tight mb-2 cursor-blink inline-block" :style="'color: var(--text)'">
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff41] to-[#00cc33] neon-text" x-text="t('heroTitle')"></span>
-            </h1>
-          </div>
-          <p class="text-base sm:text-lg max-w-2xl mx-auto mb-2 leading-relaxed font-mono" :style="'color: var(--text2)'">
-            <span class="text-zinc-600">//</span> <span x-text="t('heroSub')"></span>
-          </p>
-          <p class="text-sm max-w-xl mx-auto mb-10 font-mono" :style="'color: var(--text3)'" x-text="t('heroDesc')"></p>
-          <p class="text-[10px] text-[#00ff41]/20 font-mono mb-6 tracking-widest" x-text="binaryLine"></p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a href="#" @click.prevent="section = 'projetos'" class="px-8 py-3.5 btn-neon rounded-xl text-sm font-bold flex items-center gap-2">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-              <span x-text="t('heroBtnProj')"></span>
-            </a>
-            <a href="#" @click.prevent="section = 'contato'" class="px-8 py-3.5 btn-outline rounded-xl text-sm font-semibold font-mono" x-text="t('heroBtnContact')"></a>
-          </div>
-          <div class="mt-12 flex justify-center gap-5">
-            <a href="https://github.com/luiz199" target="_blank" class="glass-card rounded-xl px-4 py-2.5 flex items-center gap-2 text-xs" :style="'color: var(--text3)'" style="hover-color:#00ff41">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              github.com/luiz199
-            </a>
-          </div>
-        </div>
-        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t" :style="'from: var(--bg); to: transparent'"></div>
-      </section>
-    </div>
-
-    
-    <div x-show="section === 'sobre'" role="region" aria-label="Sobre" class="pt-16 min-h-screen py-20 px-4">
-      <div class="absolute inset-0 grid-bg opacity-30"></div>
-      <div class="max-w-4xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat about.md</span>
-          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" :style="'color: var(--text)'"><span class="text-[#00ff41]">//</span> <span x-text="t('aboutTitle')"></span></h2>
-        </div>
-        <div class="glass-card rounded-2xl p-8 md:p-10">
-          <div class="flex flex-col md:flex-row gap-8 items-start">
-            <div class="w-32 h-32 rounded-2xl overflow-hidden shrink-0 mx-auto md:mx-0 border-2 border-[#00ff41]/20 glow-pulse">
-              <img src="../assets/foto-perfil.jpeg" alt="Foto de perfil de Luiz Henrique" loading="lazy" class="w-full h-full object-cover">
-            </div>
-            <div class="space-y-4 font-mono text-sm">
-              <p :style="'color: var(--text2)'">
-                <span class="text-[#00ff41]">const</span> <span class="text-white" :style="'color: var(--text)'">dev</span> = <span :style="'color: var(--text2)'">{</span>
-              </p>
-              <p class="pl-4" :style="'color: var(--text2)'">nome: <span class="text-[#00cc33]">'<span x-text="t('devName')"></span>'</span>,</p>
-              <p class="pl-4" :style="'color: var(--text2)'">foco: <span class="text-[#00cc33]">'<span x-text="t('devFocus')"></span>'</span>,</p>
-              <p class="pl-4" :style="'color: var(--text2)'">stack: <span class="text-[#00cc33]">['JavaScript', 'Python', 'Alpine.js', 'Tailwind']</span>,</p>
-              <p class="pl-4 mb-4" :style="'color: var(--text2)'">objetivo: <span class="text-[#00cc33]">'<span x-text="t('devGoal')"></span>'</span></p>
-              <p :style="'color: var(--text2)'"><span class="text-[#00ff41]">}</span>;</p>
-
-              
-              <p class="mt-3" :style="'color: var(--text2)'">
-                <span class="text-[#00ff41]">const</span> <span class="text-white" :style="'color: var(--text)'">formacao</span> = <span :style="'color: var(--text2)'">[</span>
-              </p>
-              <p class="pl-4" :style="'color: var(--text3)'"><span class="text-zinc-600">//</span> <span x-text="t('formacaoLabel')"></span></p>
-              <template x-for="(f, i) in formacoes" :key="i">
-                <p class="pl-4" :style="'color: var(--text2)'">
-                  <span class="text-[#00cc33]">{</span> curso: <span class="text-[#00cc33]">'<span x-text="f.curso"></span>'</span>, instituicao: <span class="text-[#00cc33]">'<span x-text="f.inst"></span>'</span> <span class="text-[#00cc33]">}</span><span x-show="i < formacoes.length - 1">,</span>
-                </p>
-              </template>
-              <p :style="'color: var(--text2)'"><span class="text-[#00ff41]">]</span>;</p>
-
-              <p class="mt-4 leading-relaxed border-t pt-4" :style="'color: var(--text3); border-color: var(--border)'" x-text="t('aboutText')"></p>
-            </div>
-          </div>
-        </div>
-        <h3 class="text-xl font-bold mt-14 mb-8 text-center font-mono" :style="'color: var(--text)'"><span class="text-[#00ff41]">></span> tech_stack</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-          <template x-for="tech in skills" :key="tech.nome">
-            <div class="glass-card rounded-xl p-4 text-center hover:border-[#00ff41]/30 transition group">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform" x-text="tech.icone"></div>
-              <p class="text-xs font-mono group-hover:text-[#00ff41] transition" :style="'color: var(--text3)'" x-text="tech.nome"></p>
-            </div>
-          </template>
-        </div>
-      </div>
-    </div>
-
-    
-    <div x-show="section === 'timeline'" role="region" aria-label="Carreira" class="pt-16 min-h-screen py-20 px-4">
-      <div class="absolute inset-0 grid-bg opacity-30"></div>
-      <div class="max-w-4xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ git log --oneline</span>
-          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" :style="'color: var(--text)'"><span class="text-[#00ff41]">//</span> <span x-text="t('timelineTitle')"></span></h2>
-        </div>
-        <div class="relative">
-          <div class="timeline-line"></div>
-          <div class="space-y-12">
-            <template x-for="(ev, i) in timeline" :key="i">
-              <div class="relative flex items-start" :class="i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'">
-                <div class="hidden md:block w-1/2"></div>
-                <div class="timeline-dot"></div>
-                <div class="w-full md:w-1/2 pl-10 md:pl-0" :class="i % 2 === 0 ? 'md:pr-10 md:text-right' : 'md:pl-10'">
-                  <div class="glass-card rounded-xl p-5">
-                    <span class="text-[10px] font-semibold text-[#00ff41] tracking-wider" x-text="ev.data"></span>
-                    <h4 class="text-sm font-bold mt-1" :style="'color: var(--text)'" x-text="ev.titulo"></h4>
-                    <p class="text-xs mt-1" :style="'color: var(--text3)'" x-text="ev.desc"></p>
-                    <div class="flex flex-wrap gap-1.5 mt-2" :class="i % 2 === 0 ? 'md:justify-end' : ''">
-                      <template x-for="tag in ev.tags" :key="tag">
-                        <span class="tag-badge" x-text="tag"></span>
-                      </template>
-  </div>
-
-  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"
-    aria-label="Voltar ao topo"
-    class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-xl bg-[#00ff41] text-black flex items-center justify-center shadow-lg shadow-[#00ff41]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#00ff41]/40"
-    style="opacity:0;transform:translateY(20px);pointer-events:none">
-    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 15l-6-6-6 6"/></svg>
-  </button>
-                  </div>
-                </div>
-              </div>
-            </template>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-    <div x-show="section === 'projetos'" role="region" aria-label="Projetos" class="pt-16 min-h-screen py-20 px-4">
-      <div class="absolute inset-0 grid-bg opacity-30"></div>
-      <div class="max-w-6xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ ls -la projects/</span>
-          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" :style="'color: var(--text)'"><span class="text-[#00ff41]">//</span> <span x-text="t('projTitle')"></span></h2>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <template x-for="(proj, i) in projetos" :key="proj.nome">
-            <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300 cursor-pointer" @click="abrirModal(proj)">
-              <div class="h-44 overflow-hidden">
-                <img :src="proj.img" :alt="proj.nome" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              </div>
-              <div class="p-5">
-                <span class="tag-badge" x-text="proj.categoria"></span>
-                <h3 class="text-base font-bold mt-2 mb-2 font-mono" :style="'color: var(--text)'" x-text="proj.nome"></h3>
-                <p class="text-xs leading-relaxed mb-4 font-mono line-clamp-2" :style="'color: var(--text3)'" x-text="proj.desc"></p>
-                <div class="flex flex-wrap gap-1.5 mb-4">
-                  <template x-for="tag in proj.tags" :key="tag">
-                    <span class="tag-badge" x-text="tag"></span>
-                  </template>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span class="inline-flex items-center gap-1.5 text-xs font-mono text-[#00ff41] group-hover:underline">
-                    <span>$ detalhes →</span>
-                  </span>
-                  <span class="text-[10px] font-mono" :style="'color: var(--text3)'">v1.0</span>
-                </div>
-              </div>
-            </div>
-          </template>
-        </div>
-        <div class="text-center mt-10">
-          <a href="https://github.com/luiz199/professional-systems" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 btn-outline rounded-xl text-sm font-mono">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            $ <span x-text="t('projRepo')"></span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    
-    <div x-show="section === 'blog'" role="region" aria-label="Blog" class="pt-16 min-h-screen py-20 px-4">
-      <div class="absolute inset-0 grid-bg opacity-30"></div>
-      <div class="max-w-5xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat /blog/*.md</span>
-          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" :style="'color: var(--text)'"><span class="text-[#00ff41]">//</span> <span x-text="t('blogTitle')"></span></h2>
-          <p class="mt-2 text-sm font-mono" :style="'color: var(--text3)'">12 artigos • tecnologia • desenvolvimento</p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <template x-for="(post, i) in blogPosts" :key="i">
-            <div class="glass-card rounded-xl overflow-hidden hover:border-[#00ff41]/30 transition-all duration-300 group cursor-pointer" @click="section = 'contato'">
-              <div class="h-1.5 w-full" :style="'background: ' + (post.cor || '#00ff41')"></div>
-              <div class="p-5">
-                <div class="flex items-center justify-between mb-3">
-                  <span class="tag-badge text-[9px]" :style="'background: ' + (post.cor || '#00ff41') + '15; border-color: ' + (post.cor || '#00ff41') + '30; color: ' + (post.cor || '#00ff41')" x-text="post.tags[0]"></span>
-                  <div class="flex items-center gap-1.5 text-[10px] font-mono" :style="'color: var(--text3)'">
-                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    <span x-text="post.tempo + ' min'"></span>
-                  </div>
-                </div>
-                <span class="text-[10px] font-mono" :style="'color: var(--text3)'" x-text="post.data"></span>
-                <h3 class="text-sm font-bold mt-1.5 mb-2 leading-snug group-hover:text-[#00ff41] transition" :style="'color: var(--text)'" x-text="post.titulo"></h3>
-                <p class="text-xs leading-relaxed mb-3 line-clamp-3" :style="'color: var(--text3)'" x-text="post.resumo"></p>
-                <div class="flex flex-wrap gap-1.5 mt-auto">
-                  <template x-for="(tag, j) in post.tags" :key="j">
-                    <span x-show="j > 0" class="text-[9px] px-2 py-0.5 rounded-full font-mono" :style="'background: rgba(0,255,65,0.06); border: 1px solid rgba(0,255,65,0.1); color: var(--text3)'" x-text="tag"></span>
-                  </template>
-                </div>
-                <div class="mt-4 pt-3 border-t flex items-center justify-between" :style="'border-color: var(--border)'">
-                  <span class="text-[10px] font-mono text-[#00ff41] group-hover:underline">$ ler artigo →</span>
-                  <span class="text-[9px] font-mono" :style="'color: var(--text3)'">#<span x-text="i + 1"></span></span>
-                </div>
-              </div>
-            </div>
-          </template>
-        </div>
-      </div>
-    </div>
-
-    
-    <div x-show="section === 'depoimentos'" role="region" aria-label="Depoimentos" class="pt-16 min-h-screen py-20 px-4">
-      <div class="absolute inset-0 grid-bg opacity-30"></div>
-      <div class="max-w-4xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat testimonials.json</span>
-          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" :style="'color: var(--text)'"><span class="text-[#00ff41]">//</span> <span x-text="t('depTitle')"></span></h2>
-        </div>
-        <div class="grid sm:grid-cols-2 gap-4">
-          <template x-for="(dep, i) in depoimentos" :key="i">
-            <div class="glass-card rounded-xl p-6 hover:border-[#00ff41]/30 transition group">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#00ff41]/30 to-[#00cc33]/10 flex items-center justify-center text-sm font-bold text-[#00ff41] shrink-0" x-text="dep.iniciais"></div>
-                <div>
-                  <p class="text-sm font-bold" :style="'color: var(--text)'" x-text="dep.nome"></p>
-                  <p class="text-[10px] font-mono" :style="'color: var(--text3)'" x-text="dep.cargo"></p>
-                </div>
-              </div>
-              <p class="text-xs leading-relaxed italic" :style="'color: var(--text2)'">"<span x-text="dep.texto"></span>"</p>
-              <div class="flex gap-0.5 mt-3">
-                <template x-for="j in 5" :key="j">
-                  <svg class="w-3 h-3" :class="j <= dep.estrelas ? 'text-[#00ff41]' : ''" :style="j <= dep.estrelas ? '' : 'color: var(--text3)'" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                </template>
-              </div>
-            </div>
-          </template>
-        </div>
-      </div>
-    </div>
-
-    
-    <div x-show="section === 'contato'" role="region" aria-label="Contato" class="pt-16 min-h-screen py-20 px-4" id="contato">
-      <div class="absolute inset-0 grid-bg opacity-30"></div>
-      <div class="max-w-2xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ ./send_message</span>
-          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" :style="'color: var(--text)'"><span class="text-[#00ff41]">//</span> <span x-text="t('contatoTitle')"></span></h2>
-          <p class="mt-2 text-sm font-mono" :style="'color: var(--text3)'" x-text="t('contatoSub')"></p>
-        </div>
-        <div class="glass-card rounded-2xl p-8">
-          <form @submit.prevent="enviarForm" class="space-y-4" action="https://api.web3forms.com/submit" method="POST" aria-label="Formulário de contato">
-            <input type="hidden" name="access_key" value="SUA_CHAVE_WEB3FORMS_AQUI">
-            <input type="hidden" name="subject" x-bind:value="'Contato Portfolio: ' + formAssunto">
-            <input type="checkbox" name="botcheck" class="hidden" style="display:none">
-            <div class="flex items-center gap-2 text-xs font-mono mb-1" :style="'color: var(--text3)'">
-              <span class="text-[#00ff41]">$</span> ./form <span :style="'color: var(--text3)'">--interactive</span>
-            </div>
-            <div class="grid sm:grid-cols-2 gap-4">
-              <input type="text" name="name" x-model="formNome" :placeholder="t('formName')" required
-                class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition"
-                :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'"
-                aria-label="Nome">
-              <input type="email" name="email" x-model="formEmail" :placeholder="t('formEmail')" required
-                class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition"
-                :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'"
-                aria-label="Email">
-            </div>
-            <input type="text" name="subject" x-model="formAssunto" :placeholder="t('formSubject')"
-              class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition"
-              :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'"
-              aria-label="Assunto">
-            <textarea name="message" x-model="formMsg" :placeholder="t('formMsg')" rows="4" required
-              class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition resize-none"
-              :style="'background: var(--input-bg); border: 1px solid var(--border); color: var(--text);'"
-              aria-label="Mensagem"></textarea>
-            <button type="submit" class="w-full py-3 btn-neon rounded-xl text-sm font-bold font-mono"
-              :disabled="!formNome.trim() || !formEmail.trim() || !formMsg.trim()">
-              <span x-show="!enviado">$ ./send</span>
-              <span x-show="enviado" class="flex items-center justify-center gap-2">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                <span x-text="t('formSent')"></span>
-              </span>
-            </button>
-          </form>
-        </div>
-        <div class="flex justify-center gap-6 mt-8">
-          <a href="https://github.com/luiz199" target="_blank" class="glass-card rounded-xl px-5 py-3 flex items-center gap-2 text-sm font-mono" :style="'color: var(--text3)'">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub
-            </a>
-          <a href="mailto:contato@example.com" class="glass-card rounded-xl px-5 py-3 flex items-center gap-2 text-sm font-mono" :style="'color: var(--text3)'">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              Email
-            </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div x-show="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4" @keydown.escape.window="fecharModal()">
-    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" @click="fecharModal()"></div>
-    <div class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl glass border p-0" :style="'border-color: var(--border)'" @click.outside="fecharModal()" x-show="modalOpen" x-transition:enter="transition duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
-      <template x-if="selectedProj">
-        <div>
-          <div class="h-56 sm:h-72 overflow-hidden rounded-t-2xl relative">
-            <img :src="selectedProj.img" :alt="selectedProj.nome" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-            <button class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-black/50 backdrop-blur flex items-center justify-center text-white hover:bg-[#00ff41] hover:text-black transition z-10" @click="fecharModal()">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
-            </button>
-          </div>
-          <div class="p-6 sm:p-8">
-            <div class="flex flex-wrap items-center gap-2 mb-3">
-              <span class="tag-badge text-[11px]" x-text="selectedProj.categoria"></span>
-              <template x-for="tag in selectedProj.tags" :key="tag">
-                <span class="text-[10px] px-2.5 py-1 rounded-full font-mono" :style="'background: rgba(0,255,65,0.06); border: 1px solid rgba(0,255,65,0.1); color: var(--text3)'" x-text="tag"></span>
-              </template>
-            </div>
-            <h2 class="text-2xl font-bold font-mono mb-3" :style="'color: var(--text)'" x-text="selectedProj.nome"></h2>
-            <p class="text-sm leading-relaxed mb-6 font-mono" :style="'color: var(--text2)'" x-text="selectedProj.desc"></p>
-
-            <div x-show="selectedProj.features" class="mb-6">
-              <p class="text-xs font-bold text-[#00ff41] font-mono mb-3">$ cat features.txt</p>
-              <div class="grid sm:grid-cols-2 gap-2">
-                <template x-for="(feat, fi) in selectedProj.features" :key="fi">
-                  <div class="flex items-start gap-2 text-xs font-mono" :style="'color: var(--text2)'">
-                    <span class="text-[#00ff41] mt-0.5">›</span>
-                    <span x-text="feat"></span>
-                  </div>
-                </template>
-              </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t" :style="'border-color: var(--border)'">
-              <a :href="selectedProj.link" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 py-3 btn-neon rounded-xl text-sm font-bold font-mono">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-                <span>$ ver repositório</span>
-              </a>
-              <button class="flex-1 py-3 btn-outline rounded-xl text-sm font-mono" @click="fecharModal()">$ fechar</button>
-            </div>
-          </div>
-        </div>
-      </template>
-    </div>
-  </div>
-
-  <footer class="relative z-10 border-t py-6" :style="'border-color: var(--border)'">
-    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2 text-xs font-mono" :style="'color: var(--text3)'">
-        <span class="text-[#00ff41]">$</span>
-        <span>© 2026 luiz199 — built with</span>
-        <span class="text-[#00ff41]">♥</span>
-        <span>|</span>
-        <span class="text-[#00ff41]">./portfolio</span>
-        <span class="hidden sm:inline">v2.0</span>
-      </div>
-      <div class="glass-card rounded-xl px-5 py-2.5 flex items-center gap-3 text-xs font-mono" style="border-color: rgba(0,255,65,0.08)" id="visitorCounter">
-        <span class="flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-[#00ff41] pulse-dot"></span>
-          <span :style="'color: var(--text3)'">visitors:</span>
-        </span>
-        <span class="font-bold text-[#00ff41] text-sm tabular-nums" id="visitorCount">--</span>
-        <span class="text-[10px]" :style="'color: var(--text3)'">unique</span>
-      </div>
-    </div>
-  </footer>
-
   <script>
-    (function() {
-      const KEY = 'pf_visitors';
-      const VISITED_KEY = 'pf_visited';
-      const el = document.getElementById('visitorCount');
-
-      function updateDisplay(num) {
-        if (el) el.textContent = Number(num).toLocaleString();
-      }
-
-      let count = parseInt(localStorage.getItem(KEY)) || 0;
-
-      if (!localStorage.getItem(VISITED_KEY)) {
-        count++;
-        try {
-          localStorage.setItem(KEY, count);
-          localStorage.setItem(VISITED_KEY, '1');
-        } catch(e) {}
-      }
-
-      updateDisplay(count);
-
-      fetch('https://api.countapi.xyz/hit/luiz199/portfolio-counter')
-        .then(r => r.json())
-        .then(d => { if (d && d.value) { updateDisplay(d.value); try { localStorage.setItem(KEY, d.value); } catch(e) {} } })
-        .catch(() => {});
-    })();
-  </script>
-
-  <script>
-    const canvas = document.getElementById('particles-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    resize(); window.addEventListener('resize', resize);
-    class Particle {
-      constructor() { this.reset(); }
-      reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.vx = (Math.random()-0.5)*0.5; this.vy = (Math.random()-0.5)*0.5; this.r = Math.random()*1.5+0.5; }
-      update() { this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>canvas.width)this.vx*=-1; if(this.y<0||this.y>canvas.height)this.vy*=-1; }
-      draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle='rgba(0,255,65,0.4)'; ctx.fill(); }
-    }
-    const count = Math.min(80, Math.floor(canvas.width*canvas.height/15000));
-    for(let i=0;i<count;i++) particles.push(new Particle());
-    function animate() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particles.forEach(p=>{p.update();p.draw()});
-      for(let i=0;i<particles.length;i++) for(let j=i+1;j<particles.length;j++) {
-        const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y, dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<150) { ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.strokeStyle=`rgba(0,255,65,${0.1*(1-dist/150)})`; ctx.lineWidth=0.5; ctx.stroke(); }
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-
     const i18n = {
       pt: {
         inicio:'inicio', sobre:'sobre', timeline:'carreira', projetos:'projetos', blog:'blog', depoimentos:'depoimentos', contato:'contato',
-        heroTitle:'Full-Stack Developer', heroSub:'Transformando código em soluções reais', heroDesc:'Especializado em sistemas web, automação e inteligência artificial',
+        heroTitle:'Full-Stack Developer', heroSub:'Transformando codigo em solucoes reais', heroDesc:'Especializado em sistemas web, automacao e inteligencia artificial',
         heroBtnProj:'$ cd projetos', heroBtnContact:'$ ./contato',
-        aboutTitle:'Sobre', devName:'Luiz Henrique — Full-Stack Developer', devFocus:'Sistemas Web, Automação, IA', devGoal:'Transformar ideias em soluções digitais',
-        aboutText:'Cada projeto é construído do zero com foco em performance, design responsivo e experiência do usuário. Sistemas profissionais single-file para os setores de alimentação, fitness e tecnologia.',
-        formacaoLabel:'Formação Acadêmica',
+        aboutTitle:'Sobre', devName:'Luiz Henrique -- Full-Stack Developer', devFocus:'Sistemas Web, Automacao, IA', devGoal:'Transformar ideias em solucoes digitais',
+        aboutText:'Cada projeto e construido do zero com foco em performance, design responsivo e experiencia do usuario. Sistemas profissionais single-file para os setores de alimentacao, fitness e tecnologia.',
+        formacaoLabel:'Formacao Academica',
         timelineTitle:'Carreira',
-        projTitle:'Projetos', projView:'ver codigo', projRepo:'ver repositório',
+        projTitle:'Projetos', projView:'ver codigo', projRepo:'ver repositorio',
         blogTitle:'Blog',
         depTitle:'Depoimentos',
         contatoTitle:'Contato', contatoSub:'Tem um projeto em mente? Mande uma mensagem.',
         formName:'nome', formEmail:'email', formSubject:'assunto', formMsg:'mensagem', formSent:'Mensagem enviada!',
-        t1ano:'2026', t1tit:'DataMind Weather & Portfolio CS', t1desc:'App de previsão do tempo com Next.js 14, TypeScript e OpenWeather. Portfolio profissional com tema CS, PWA e i18n.',
-        t2ano:'2025', t2tit:'DataMind AI & RESTAU MASTER', t2desc:'Plataforma SaaS de IA com chat GPT integrado. Sistema de gestão de restaurante com mapa de mesas e comanda digital.',
-        t3ano:'2024', t3tit:'Primeiros Projetos Web', t3desc:'Início na criação de sistemas web completos. Foco em HTML5, CSS3, JavaScript puro e otimização de performance.',
-        t4ano:'2023', t4tit:'Fundação em Programação', t4desc:'Início dos estudos em lógica de Programação, algoritmos e desenvolvimento web. Descoberta da paixão por tecnologia.',
-        t5ano:'2022', t5tit:'Estruturas de Dados & Algoritmos', t5desc:'Aprofundamento em Ciência da Computação: estruturas de dados complexas (árvores, grafos, hashing), análise de complexidade e paradigmas de programação. Resolução de problemas no HackerRank e LeetCode.',
-        t6ano:'2021', t6tit:'Iniciação Científica PICT/CNPQ', t6desc:'Pesquisa acadêmica em métodos quantitativos aplicados à Computação. Publicação de artigos e apresentação em seminários. Desenvolvimento do pensamento crítico e metodologia científica.',
-        t7ano:'2020', t7tit:'MBA em Data Warehouse & BI', t7desc:'Especialização em Data Warehouse, Business Intelligence, modelagem multidimensional, ETL e ferramentas de visualização de dados. Projeto de conclusão em análise preditiva com Python.',
-        t8ano:'2019', t8tit:'Ciência da Computação — UNIBF', t8desc:'Ingresso no bacharelado em Ciência da Computação. Fundamentos de cálculo, álgebra linear, lógica matemática e introdução à programação com C e Python.',
-        t9ano:'2018', t9tit:'Matemática & Pensamento Computacional', t9desc:'Descoberta da relação entre matemática e computação. Estudos independentes de lógica proposicional, sistemas numéricos e princípios de engenharia de software.',
-        b1tit:'Como criar sistemas single-file profissionais', b1res:'Aprenda a construir aplicações completas em um único arquivo HTML, sem frameworks pesados, usando Alpine.js e Tailwind CSS.',
-        b2tit:'Automação com IA: o futuro dos processos', b2res:'Descubra como a inteligência artificial está transformando a automação de processos empresariais com RPA e machine learning.',
-        b3tit:'Design responsivo sem frameworks', b3res:'Técnicas avançadas de CSS para criar layouts responsivos e animações performáticas sem depender de bibliotecas externas.',
-        b4tit:'O poder do terminal no desenvolvimento web', b4res:'Como usar a estética e filosofia do terminal para criar experiências únicas em interfaces web modernas.',
-        b5tit:'Alpine.js vs React: quando usar cada um', b5res:'Comparação prática entre Alpine.js e React para projetos single-file e aplicações mais complexas. Qual escolher para cada cenário.',
-        b6tit:'Otimização de performance no front-end', b6res:'Técnicas de lazy loading, code splitting, compressão de assets e renderização otimizada para sites mais rápidos sem perder qualidade.',
-        b7tit:'Guia completo de CSS Grid', b7res:'Do básico ao avançado: como dominar CSS Grid Layout com exemplos práticos de layouts responsivos sem media queries complexas.',
-        b8tit:'Construindo uma PWA do zero', b8res:'Transforme seu site em um Progressive Web App com service workers, manifest.json e cache estratégico para funcionar offline.',
-        b9tit:'Autenticação JWT na prática', b9res:'Implementando autenticação segura com JSON Web Tokens em aplicações single-page. Armazenamento, refresh e boas práticas de segurança.',
-        b10tit:'Boas práticas de acessibilidade web', b10res:'Como tornar seus projetos acessíveis com ARIA labels, semântica HTML, contraste de cores e navegação por teclado. Inclusão é essencial.',
-        b11tit:'API REST: do design à implementação', b11res:'Boas práticas para projetar APIs RESTful consistentes, versionamento, paginação, tratamento de erros e documentação com exemplos práticos.',
-        b12tit:'Automação de tarefas com Python', b12res:'Scripts Python para automatizar tarefas do dia a dia: renomear arquivos, web scraping, envio de emails e integração com APIs.',
-        d1nome:'Carlos Silva', d1cargo:'CEO, Tech Solutions', d1texto:'Trabalhar com este desenvolvedor foi uma experiência excepcional. Entregou um sistema completo para nossa empresa com qualidade e prazo impecáveis.',
-        d2nome:'Ana Oliveira', d2cargo:'CTO, DataFlow Inc', d2texto:'O nível de detalhe e profissionalismo nos projetos é impressionante. Sistemas robustos, bem documentados e com design de alto nível.',
-        d3nome:'Roberto Lima', d3cargo:'Gerente de TI, FitGroup', d3texto:'O FitManager Pro transformou nossa gestão de academia. Interface intuitiva, relatórios precisos e suporte técnico excelente.',
-        d4nome:'Juliana Costa', d4cargo:'Founder, DigitalMind', d4texto:'A entrega do sistema superou todas as expectativas. Código limpo, bem estruturado e com uma experiência de usuário fantástica.',
-        d5nome:'Marcos Andrade', d5cargo:'Coordenador de TI, Prefeitura de Rio Branco', d5texto:'Precisávamos de um sistema interno pra controle de patrimônio e o Luiz entregou em duas semanas. Funciona bem, só acho que os relatórios poderiam ter mais opções de filtro, mas no geral resolveu nosso problema.',
-        d6nome:'Fernanda Castro', d6cargo:'Analista de Marketing, Agência Criativa', d6texto:'Contratei pra fazer um site institucional e o resultado ficou lindo. O pessoal da agência amou o design. Teve uns pequenos ajustes no mobile que ele resolveu rápido, nada grave. Recomendo.',
-        d7nome:'Rafael Torres', d7cargo:'Proprietário, Restaurante Sabor Caseiro', d7texto:'O sistema de comandas digitais mudou meu restaurante. Perdi menos pedidos, o garçom não erra mais anotação. Demorou uns dias pra equipe se adaptar, mas depois que pegou o jeito, foi só benefício. Nota 10.',
-        d8nome:'Patrícia Mendes', d8cargo:'Gerente Geral, FitPrime Academia', d8texto:'Testei o FitManager e acabei comprando. Controle de alunos melhorou muito, a catraca virtual evitou vários acessos indevidos. O que mais gostei foi que não precisei instalar nada, só abrir o navegador. Senti falta de integração com WhatsApp, mas ele disse que vai sair em breve.',
-        d9nome:'Diego Almeida', d9cargo:'Desenvolvedor Freelancer', d9texto:'Conheci o trampo do Luiz por indicação e pedi ajuda num projeto meu que tava travado. Ele revisou o código, apontou uns problemas de performance e sugeriu soluções que eu nunca tinha pensado. Aprendi bastante. Código dele é limpo e bem comentado.',
-        d10nome:'Camila Rocha', d10cargo:'CEO, Startup InovaTech', d10texto:'Precisávamos de um MVP rápido pra apresentar pra investidores. Em 5 dias ele entregou uma plataforma funcional com login, dashboard e integração com API. Os investidores aprovaram. Óbvio que ainda tem coisa pra polir, mas pra MVP foi surreal.',
+        t1ano:'2026', t1tit:'DataMind Weather & Portfolio CS', t1desc:'App de previsao do tempo com Next.js 14, TypeScript e OpenWeather. Portfolio profissional com tema CS, PWA e i18n.',
+        t2ano:'2025', t2tit:'DataMind AI & RESTAU MASTER', t2desc:'Plataforma SaaS de IA com chat GPT integrado. Sistema de gestao de restaurante com mapa de mesas e comanda digital.',
+        t3ano:'2024', t3tit:'Primeiros Projetos Web', t3desc:'Inicio na criacao de sistemas web completos. Foco em HTML5, CSS3, JavaScript puro e otimizacao de performance.',
+        t4ano:'2023', t4tit:'Fundacao em Programacao', t4desc:'Inicio dos estudos em logica de Programacao, algoritmos e desenvolvimento web. Descoberta da paixao por tecnologia.',
+        t5ano:'2022', t5tit:'Estruturas de Dados & Algoritmos', t5desc:'Aprofundamento em Ciencia da Computacao: estruturas de dados complexas (arvores, grafos, hashing), analise de complexidade e paradigmas de programacao. Resolucao de problemas no HackerRank e LeetCode.',
+        t6ano:'2021', t6tit:'Iniciacao Cientifica PICT/CNPQ', t6desc:'Pesquisa academica em metodos quantitativos aplicados a Computacao. Publicacao de artigos e apresentacao em seminarios. Desenvolvimento do pensamento critico e metodologia cientifica.',
+        t7ano:'2020', t7tit:'MBA em Data Warehouse & BI', t7desc:'Especializacao em Data Warehouse, Business Intelligence, modelagem multidimensional, ETL e ferramentas de visualizacao de dados. Projeto de conclusao em analise preditiva com Python.',
+        t8ano:'2019', t8tit:'Ciencia da Computacao -- UNIBF', t8desc:'Ingresso no bacharelado em Ciencia da Computacao. Fundamentos de calculo, algebra linear, logica matematica e introducao a programacao com C e Python.',
+        t9ano:'2018', t9tit:'Matematica & Pensamento Computacional', t9desc:'Descoberta da relacao entre matematica e computacao. Estudos independentes de logica proposicional, sistemas numericos e principios de engenharia de software.',
+        b1tit:'Como criar sistemas single-file profissionais', b1res:'Aprenda a construir aplicacoes completas em um unico arquivo HTML, sem frameworks pesados, usando Alpine.js e Tailwind CSS.',
+        b2tit:'Automacao com IA: o futuro dos processos', b2res:'Descubra como a inteligencia artificial esta transformando a automacao de processos empresariais com RPA e machine learning.',
+        b3tit:'Design responsivo sem frameworks', b3res:'Tecnicas avancadas de CSS para criar layouts responsivos e animacoes performaticas sem depender de bibliotecas externas.',
+        b4tit:'O poder do terminal no desenvolvimento web', b4res:'Como usar a estetica e filosofia do terminal para criar experiencias unicas em interfaces web modernas.',
+        b5tit:'Alpine.js vs React: quando usar cada um', b5res:'Comparacao pratica entre Alpine.js e React para projetos single-file e aplicacoes mais complexas. Qual escolher para cada cenario.',
+        b6tit:'Otimizacao de performance no front-end', b6res:'Tecnicas de lazy loading, code splitting, compressao de assets e renderizacao otimizada para sites mais rapidos sem perder qualidade.',
+        b7tit:'Guia completo de CSS Grid', b7res:'Do basico ao avancado: como dominar CSS Grid Layout com exemplos praticos de layouts responsivos sem media queries complexas.',
+        b8tit:'Construindo uma PWA do zero', b8res:'Transforme seu site em um Progressive Web App com service workers, manifest.json e cache estrategico para funcionar offline.',
+        b9tit:'Autenticacao JWT na pratica', b9res:'Implementando autenticacao segura com JSON Web Tokens em aplicacoes single-page. Armazenamento, refresh e boas praticas de seguranca.',
+        b10tit:'Boas praticas de acessibilidade web', b10res:'Como tornar seus projetos acessiveis com ARIA labels, semantica HTML, contraste de cores e navegacao por teclado. Inclusao e essencial.',
+        b11tit:'API REST: do design a implementacao', b11res:'Boas praticas para projetar APIs RESTful consistentes, versionamento, paginacao, tratamento de erros e documentacao com exemplos praticos.',
+        b12tit:'Automacao de tarefas com Python', b12res:'Scripts Python para automatizar tarefas do dia a dia: renomear arquivos, web scraping, envio de emails e integracao com APIs.',
+        d1nome:'Carlos Silva', d1cargo:'CEO, Tech Solutions', d1texto:'Trabalhar com este desenvolvedor foi uma experiencia excepcional. Entregou um sistema completo para nossa empresa com qualidade e prazo impecaveis.',
+        d2nome:'Ana Oliveira', d2cargo:'CTO, DataFlow Inc', d2texto:'O nivel de detalhe e profissionalismo nos projetos e impressionante. Sistemas robustos, bem documentados e com design de alto nivel.',
+        d3nome:'Roberto Lima', d3cargo:'Gerente de TI, FitGroup', d3texto:'O FitManager Pro transformou nossa gestao de academia. Interface intuitiva, relatorios precisos e suporte tecnico excelente.',
+        d4nome:'Juliana Costa', d4cargo:'Founder, DigitalMind', d4texto:'A entrega do sistema superou todas as expectativas. Codigo limpo, bem estruturado e com uma experiencia de usuario fantastica.',
+        d5nome:'Marcos Andrade', d5cargo:'Coordenador de TI, Prefeitura de Rio Branco', d5texto:'Precisavamos de um sistema interno pra controle de patrimonio e o Luiz entregou em duas semanas. Funciona bem, so acho que os relatorios poderiam ter mais opcoes de filtro, mas no geral resolveu nosso problema.',
+        d6nome:'Fernanda Castro', d6cargo:'Analista de Marketing, Agencia Criativa', d6texto:'Contratei pra fazer um site institucional e o resultado ficou lindo. O pessoal da agencia amou o design. Teve uns pequenos ajustes no mobile que ele resolveu rapido, nada grave. Recomendo.',
+        d7nome:'Rafael Torres', d7cargo:'Proprietario, Restaurante Sabor Caseiro', d7texto:'O sistema de comandas digitais mudou meu restaurante. Perdi menos pedidos, o garcao nao erra mais anotacao. Demorou uns dias pra equipe se adaptar, mas depois que pegou o jeito, foi so beneficio. Nota 10.',
+        d8nome:'Patricia Mendes', d8cargo:'Gerente Geral, FitPrime Academia', d8texto:'Testei o FitManager e acabei comprando. Controle de alunos melhorou muito, a catraca virtual evitou varios acessos indevidos. O que mais gostei foi que nao precisei instalar nada, so abrir o navegador. Senti falta de integracao com WhatsApp, mas ele disse que vai sair em breve.',
+        d9nome:'Diego Almeida', d9cargo:'Desenvolvedor Freelancer', d9texto:'Conheci o trampo do Luiz por indicacao e pedi ajuda num projeto meu que tava travado. Ele revisou o codigo, apontou uns problemas de performance e sugeriu solucoes que eu nunca tinha pensado. Aprendi bastante. Codigo dele e limpo e bem comentado.',
+        d10nome:'Camila Rocha', d10cargo:'CEO, Startup InovaTech', d10texto:'Precisavamos de um MVP rapido pra apresentar pra investidores. Em 5 dias ele entregou uma plataforma funcional com login, dashboard e integracao com API. Os investidores aprovaram. Obvio que ainda tem coisa pra polir, mas pra MVP foi surreal.'
       },
       en: {
         inicio:'home', sobre:'about', timeline:'career', projetos:'projects', blog:'blog', depoimentos:'testimonials', contato:'contact',
-        heroTitle:'Full-Stack Developer', heroSub:'Turning code into real solutions', heroDesc:'Specialized in web systems, automation and artificial intelligence',
+        heroTitle:'Full-Stack Developer', heroSub:'Turning code into real solutions', heroDesc:'Specialized in web systems, automation and AI',
         heroBtnProj:'$ cd projects', heroBtnContact:'$ ./contact',
-        aboutTitle:'About', devName:'Luiz Henrique — Full-Stack Developer', devFocus:'Web Systems, Automation, AI', devGoal:'Turn ideas into digital solutions',
+        aboutTitle:'About', devName:'Luiz Henrique -- Full-Stack Developer', devFocus:'Web Systems, Automation, AI', devGoal:'Turning ideas into digital solutions',
         aboutText:'Each project is built from scratch focusing on performance, responsive design and user experience. Single-file professional systems for food service, fitness and technology sectors.',
         formacaoLabel:'Academic Background',
         timelineTitle:'Career',
-        projTitle:'Projects', projView:'view code', projRepo:'view repository',
+        projTitle:'Projects', projView:'view source', projRepo:'view repository',
         blogTitle:'Blog',
         depTitle:'Testimonials',
         contatoTitle:'Contact', contatoSub:'Have a project in mind? Send a message.',
@@ -680,7 +119,7 @@
         t5ano:'2022', t5tit:'Data Structures & Algorithms', t5desc:'Deep dive into Computer Science: complex data structures (trees, graphs, hashing), complexity analysis and programming paradigms. Problem solving on HackerRank and LeetCode.',
         t6ano:'2021', t6tit:'Scientific Research PICT/CNPQ', t6desc:'Academic research in quantitative methods applied to Computing. Published papers and presented at seminars. Developed critical thinking and scientific methodology.',
         t7ano:'2020', t7tit:'MBA in Data Warehouse & BI', t7desc:'Specialization in Data Warehouse, Business Intelligence, multidimensional modeling, ETL and data visualization tools. Final project in predictive analysis with Python.',
-        t8ano:'2019', t8tit:'Computer Science — UNIBF', t8desc:'Started Bachelor degree in Computer Science. Fundamentals of calculus, linear algebra, mathematical logic and introduction to programming with C and Python.',
+        t8ano:'2019', t8tit:'Computer Science -- UNIBF', t8desc:'Started Bachelor degree in Computer Science. Fundamentals of calculus, linear algebra, mathematical logic and introduction to programming with C and Python.',
         t9ano:'2018', t9tit:'Mathematics & Computational Thinking', t9desc:'Discovered the connection between mathematics and computing. Independent studies in propositional logic, number systems and software engineering principles.',
         b1tit:'How to build professional single-file systems', b1res:'Learn to build complete applications in a single HTML file, without heavy frameworks, using Alpine.js and Tailwind CSS.',
         b2tit:'AI Automation: the future of processes', b2res:'Discover how artificial intelligence is transforming business process automation with RPA and machine learning.',
@@ -701,156 +140,608 @@
         d5nome:'Marcos Andrade', d5cargo:'IT Coordinator, Rio Branco City Hall', d5texto:'We needed an internal asset management system and Luiz delivered in two weeks. It works well, though I think reports could use more filter options. Overall it solved our problem.',
         d6nome:'Fernanda Castro', d6cargo:'Marketing Analyst, Creative Agency', d6texto:'Hired him for a corporate site and the result was beautiful. The team loved the design. There were a few mobile tweaks needed but he fixed them quickly. Recommended.',
         d7nome:'Rafael Torres', d7cargo:'Owner, Sabor Caseiro Restaurant', d7texto:'The digital ordering system changed my restaurant. Fewer lost orders, waiters dont mess up tickets anymore. Took a few days for the staff to adapt, but once they got it, it was pure benefit. 10/10.',
-        d8nome:'Patrícia Mendes', d8cargo:'General Manager, FitPrime Academy', d8texto:'Tried FitManager and ended up buying it. Member management improved a lot, the virtual turnstile blocked several unauthorized accesses. Best part was no installation needed, just open the browser. Missed WhatsApp integration but he said its coming soon.',
+        d8nome:'Patricia Mendes', d8cargo:'General Manager, FitPrime Academy', d8texto:'Tried FitManager and ended up buying it. Member management improved a lot, the virtual turnstile blocked several unauthorized accesses. Best part was no installation needed, just open the browser. Missed WhatsApp integration but he said its coming soon.',
         d9nome:'Diego Almeida', d9cargo:'Freelance Developer', d9texto:'Met Luiz through a referral and asked for help with a stuck project. He reviewed the code, pointed out performance issues and suggested solutions Id never thought of. Learned a lot. His code is clean and well commented.',
-        d10nome:'Camila Rocha', d10cargo:'CEO, InovaTech Startup', d10texto:'We needed a fast MVP to pitch to investors. In 5 days he delivered a functional platform with login, dashboard and API integration. The investors approved. Theres still room for polish, but for an MVP it was surreal.',
+        d10nome:'Camila Rocha', d10cargo:'CEO, InovaTech Startup', d10texto:'We needed a fast MVP to pitch to investors. In 5 days he delivered a functional platform with login, dashboard and API integration. The investors approved. Theres still room for polish, but for an MVP it was surreal.'
       }
     };
 
-    function portfolio() {
-      return {
-        section: 'home', mobileOpen: false, lang: 'pt', darkMode: true,
-        formNome: '', formEmail: '', formAssunto: '', formMsg: '', enviado: false,
-        binaryLine: '', modalOpen: false, selectedProj: null,
-
+    document.addEventListener("alpine:init", () => {
+      Alpine.data("portfolio", () => ({
+        section: "home", mobileOpen: false, lang: "pt", darkMode: true,
+        formNome: "", formEmail: "", formAssunto: "", formMsg: "", enviado: false,
+        binaryLine: "", modalOpen: false, selectedProj: null,
         navItems: [
-          { id: 'home', label: 'inicio' }, { id: 'sobre', label: 'sobre' },
-          { id: 'timeline', label: 'timeline' }, { id: 'projetos', label: 'projetos' },
-          { id: 'blog', label: 'blog' }, { id: 'depoimentos', label: 'depoimentos' },
-          { id: 'contato', label: 'contato' }
+          { id:"home", label:"inicio" }, { id:"sobre", label:"sobre" },
+          { id:"timeline", label:"timeline" }, { id:"projetos", label:"projetos" },
+          { id:"blog", label:"blog" }, { id:"depoimentos", label:"depoimentos" },
+          { id:"contato", label:"contato" }
         ],
-
-        t(key) { return (i18n[this.lang]||i18n.pt)[key] || key; },
-
+        t(key) { return (i18n[this.lang] || i18n.pt)[key] || key; },
         skills: [
-          { nome:'Next.js',icone:'▲'},{nome:'TypeScript',icone:'📘'},{nome:'JavaScript',icone:'⚡'},
-          { nome:'TailwindCSS',icone:'🌊'},{nome:'Framer Motion',icone:'🎭'},{nome:'Python',icone:'🐍'},
-          { nome:'OpenAI / IA',icone:'🧠'},{nome:'OpenWeather API',icone:'🌦'},{nome:'Git',icone:'🔀'},
-          { nome:'Alpine.js',icone:'🔷'},{nome:'HTML5 / CSS3',icone:'🌐'},{nome:'UI/UX Design',icone:'✨'}
+          { nome:"Next.js",icone:"▲"},{ nome:"TypeScript",icone:"📘"},{ nome:"JavaScript",icone:"⚡"},
+          { nome:"TailwindCSS",icone:"🌊"},{ nome:"Framer Motion",icone:"🎭"},{ nome:"Python",icone:"🐍"},
+          { nome:"OpenAI / IA",icone:"🧠"},{ nome:"OpenWeather API",icone:"🌦"},{ nome:"Git",icone:"🔀"},
+          { nome:"Alpine.js",icone:"🔷"},{ nome:"HTML5 / CSS3",icone:"🌐"},{ nome:"UI/UX Design",icone:"✨"}
         ],
-
         projetos: [
-          { nome:'DataMind Weather',categoria:'Next.js App',desc:'App de previsão do tempo com Next.js 14, TailwindCSS, Framer Motion e OpenWeather API. Design futurista com neon glassmorphism e partículas animadas.',
-            img:'./screenshots/datamind-weather.png',tags:['Next.js','TailwindCSS','TypeScript','OpenWeather'],link:'https://github.com/luiz199/datamind-weather',
-            features:['Previsão 5 dias com gráficos interativos','Design futurista com partículas animadas','Temas claro/escuro com transição suave','Responsivo com suporte PWA offline','Integração com OpenWeather API','Animações com Framer Motion'] },
-          { nome:'DataMind AI',categoria:'SaaS - Next.js',desc:'Plataforma SaaS de IA generativa com chat inteligente integrado (OpenAI GPT), design futurista preto e neon verde estilo NVIDIA.',
-            img:'./screenshots/datamind-ai.png',tags:['Next.js','OpenAI','TailwindCSS','Framer'],link:'https://github.com/luiz199/professional-systems',
-            features:['Chat inteligente com OpenAI GPT','Interface futurista neon verde','Histórico de conversas persistente','Planos e precos dinâmicos','Painel administrativo completo','Responsivo e otimizado para mobile'] },
-          { nome:'RESTAU MASTER PRO',categoria:'Sistema',desc:'Gestão completa de restaurante com mapa visual de mesas, comanda digital, cardápio com fotos e painel admin completo. Zero dependências externas.',
-            img:'./screenshots/restau-master.png',tags:['HTML5','JavaScript','LocalStorage'],link:'https://github.com/luiz199/professional-systems',
-            features:['Mapa visual interativo de mesas','Comanda digital com adição de itens','Cardápio com fotos e categorias','Painel admin com métricas','Tema escuro e claro','Zero dependências externas'] },
-          { nome:'FitManager Pro',categoria:'Sistema',desc:'Gestão de academia com controle de alunos, módulo financeiro, fichas de treino personalizadas e catraca virtual inteligente.',
-            img:'./screenshots/fitmanager.png',tags:['Alpine.js','Tailwind','Lucide'],link:'https://github.com/luiz199/professional-systems',
-            features:['CRUD completo de alunos','Catraca virtual por CPF','Fichas de treino A/B/C','Controle financeiro e inadimplência','Painel de alertas inteligente','Relatórios e exportação de dados'] },
-          { nome:'Login Screen',categoria:'UI/UX - Interactive',desc:'Tela de login profissional com fundo dinâmico, glassmorphism, floating labels, toggle de senha, loading animado com barra de progresso e dock estilo macOS integrado.',
-            img:'./screenshots/login-site.png',tags:['HTML5','CSS3','JavaScript','Glassmorphism'],link:'https://github.com/luiz199/luiz199',
-            features:['Background com imagem real e overlay gradiente','Floating labels animados nos campos','Toggle de senha com ícone dinâmico','Loading com barra de progresso e sucesso','Dock estilo macOS com tooltips','Animações suaves em glassmorphism'] }
+          { nome:"DataMind Weather",categoria:"Next.js App",desc:"App de previsao do tempo com Next.js 14, TailwindCSS, Framer Motion e OpenWeather API. Design futurista com neon glassmorphism e particulas animadas.",img:"./screenshots/datamind-weather.png",tags:["Next.js","TailwindCSS","TypeScript","OpenWeather"],link:"https://github.com/luiz199/datamind-weather",features:["Previsao 5 dias com graficos interativos","Design futurista com particulas animadas","Temas claro/escuro com transicao suave","Responsivo com suporte PWA offline","Integracao com OpenWeather API","Animacoes com Framer Motion"]},
+          { nome:"DataMind AI",categoria:"SaaS - Next.js",desc:"Plataforma SaaS de IA generativa com chat inteligente integrado (OpenAI GPT), design futurista preto e neon verde estilo NVIDIA.",img:"./screenshots/datamind-ai.png",tags:["Next.js","OpenAI","TailwindCSS","Framer"],link:"https://github.com/luiz199/professional-systems",features:["Chat inteligente com OpenAI GPT","Interface futurista neon verde","Historico de conversas persistente","Planos e precos dinamicos","Painel administrativo completo","Responsivo e otimizado para mobile"]},
+          { nome:"RESTAU MASTER PRO",categoria:"Sistema",desc:"Gestao completa de restaurante com mapa visual de mesas, comanda digital, cardapio com fotos e painel admin completo. Zero dependencias externas.",img:"./screenshots/restau-master.png",tags:["HTML5","JavaScript","LocalStorage"],link:"https://github.com/luiz199/professional-systems",features:["Mapa visual interativo de mesas","Comanda digital com adicao de itens","Cardapio com fotos e categorias","Painel admin com metricas","Tema escuro e claro","Zero dependencias externas"]},
+          { nome:"FitManager Pro",categoria:"Sistema",desc:"Gestao de academia com controle de alunos, modulo financeiro, fichas de treino personalizadas e catraca virtual inteligente.",img:"./screenshots/fitmanager.png",tags:["Alpine.js","Tailwind","Lucide"],link:"https://github.com/luiz199/professional-systems",features:["CRUD completo de alunos","Catraca virtual por CPF","Fichas de treino A/B/C","Controle financeiro e inadimplencia","Painel de alertas inteligente","Relatorios e exportacao de dados"]},
+          { nome:"Login Screen",categoria:"UI/UX - Interactive",desc:"Tela de login profissional com fundo dinamico, glassmorphism, floating labels, toggle de senha, loading animado com barra de progresso e dock estilo macOS integrado.",img:"./screenshots/login-site.png",tags:["HTML5","CSS3","JavaScript","Glassmorphism"],link:"https://github.com/luiz199/luiz199",features:["Background com imagem real e overlay gradiente","Floating labels animados nos campos","Toggle de senha com icone dinamico","Loading com barra de progresso e sucesso","Dock estilo macOS com tooltips","Animacoes suaves em glassmorphism"]}
         ],
-
-        timeline: [],
         formacoes: [
-          { curso: 'Ciência da Computação', inst: 'UNIBF' },
-          { curso: 'MBA em Data Warehouse & Business Intelligence', inst: 'UNIBF' },
-          { curso: 'Matemática - Licenciatura', inst: 'UNOPAR' },
-          { curso: 'Matemáticas e Práticas Pedagógicas', inst: 'UNOPAR' },
-          { curso: 'Iniciação Científica PICT EAD', inst: 'CNPQ E PICT' }
+          { curso:"Ciencia da Computacao", inst:"UNIBF" }, { curso:"MBA em Data Warehouse & BI", inst:"UNIBF" },
+          { curso:"Matematica - Licenciatura", inst:"UNOPAR" }, { curso:"Matematicas e Praticas", inst:"UNOPAR" },
+          { curso:"Iniciacao Cientifica PICT", inst:"CNPQ" }
         ],
-        blogPosts: [],
-        depoimentos: [],
-
+        timeline: [], blogPosts: [], depoimentos: [],
         init() {
-          let bin=''; for(let i=0;i<60;i++) bin+=Math.random()>0.5?'1':'0'; this.binaryLine=bin+' '+bin;
-          const saved = localStorage.getItem('portfolioPrefs');
-          if(saved) { try{const p=JSON.parse(saved);this.lang=p.lang||'pt';this.darkMode=p.darkMode!==false}catch(e){} }
+          let bin = "";
+          for (let i = 0; i < 60; i++) bin += Math.random() > 0.5 ? "1" : "0";
+          this.binaryLine = bin + " " + bin;
+          let saved;
+          try { saved = localStorage.getItem("portfolioPrefs"); } catch (e) { saved = null; }
+          if (saved) {
+            try { const p = JSON.parse(saved); this.lang = p.lang || "pt"; this.darkMode = p.darkMode !== false; } catch (e) {}
+          }
           this.montarDados();
         },
-
         montarDados() {
           const l = this.lang;
           this.timeline = [
-            { data: i18n[l].t1ano, titulo: i18n[l].t1tit, desc: i18n[l].t1desc, tags: ['Alpine.js','Tailwind','Ollama','Canvas'] },
-            { data: i18n[l].t2ano, titulo: i18n[l].t2tit, desc: i18n[l].t2desc, tags: ['Alpine.js','Tailwind','JavaScript','Lucide'] },
-            { data: i18n[l].t3ano, titulo: i18n[l].t3tit, desc: i18n[l].t3desc, tags: ['HTML5','CSS3','JavaScript','LocalStorage'] },
-            { data: i18n[l].t4ano, titulo: i18n[l].t4tit, desc: i18n[l].t4desc, tags: ['lógica','Algoritmos','Web','Git'] },
-            { data: i18n[l].t5ano, titulo: i18n[l].t5tit, desc: i18n[l].t5desc, tags: ['Estruturas','Algoritmos','Complexidade','LeetCode'] },
-            { data: i18n[l].t6ano, titulo: i18n[l].t6tit, desc: i18n[l].t6desc, tags: ['Pesquisa','CNPQ','Artigos','Metodologia'] },
-            { data: i18n[l].t7ano, titulo: i18n[l].t7tit, desc: i18n[l].t7desc, tags: ['MBA','BI','Data Warehouse','Python'] },
-            { data: i18n[l].t8ano, titulo: i18n[l].t8tit, desc: i18n[l].t8desc, tags: ['Ciência da Computação','C','Python','Matemática'] },
-            { data: i18n[l].t9ano, titulo: i18n[l].t9tit, desc: i18n[l].t9desc, tags: ['Matemática','Lógica','Engenharia','Software'] }
+            { data: i18n[l].t1ano, titulo: i18n[l].t1tit, desc: i18n[l].t1desc, tags: ["Alpine.js","Tailwind","Ollama","Canvas"] },
+            { data: i18n[l].t2ano, titulo: i18n[l].t2tit, desc: i18n[l].t2desc, tags: ["Alpine.js","Tailwind","JavaScript","Lucide"] },
+            { data: i18n[l].t3ano, titulo: i18n[l].t3tit, desc: i18n[l].t3desc, tags: ["HTML5","CSS3","JavaScript","LocalStorage"] },
+            { data: i18n[l].t4ano, titulo: i18n[l].t4tit, desc: i18n[l].t4desc, tags: ["Logica","Algoritmos","Web","Git"] },
+            { data: i18n[l].t5ano, titulo: i18n[l].t5tit, desc: i18n[l].t5desc, tags: ["Estruturas","Algoritmos","Complexidade","LeetCode"] },
+            { data: i18n[l].t6ano, titulo: i18n[l].t6tit, desc: i18n[l].t6desc, tags: ["Pesquisa","CNPQ","Artigos","Metodologia"] },
+            { data: i18n[l].t7ano, titulo: i18n[l].t7tit, desc: i18n[l].t7desc, tags: ["MBA","BI","Data Warehouse","Python"] },
+            { data: i18n[l].t8ano, titulo: i18n[l].t8tit, desc: i18n[l].t8desc, tags: ["Ciencia da Computacao","C","Python","Matematica"] },
+            { data: i18n[l].t9ano, titulo: i18n[l].t9tit, desc: i18n[l].t9desc, tags: ["Matematica","Logica","Engenharia","Software"] }
           ];
           this.blogPosts = [
-            { data: '15 Mai 2026', tempo: 5, titulo: i18n[l].b1tit, resumo: i18n[l].b1res, tags: ['Alpine.js','Tailwind','Single-file'], cor:'#00ff41' },
-            { data: '02 Mai 2026', tempo: 4, titulo: i18n[l].b2tit, resumo: i18n[l].b2res, tags: ['IA','Automação','RPA'], cor:'#7c3aed' },
-            { data: '18 Abr 2026', tempo: 3, titulo: i18n[l].b3tit, resumo: i18n[l].b3res, tags: ['CSS','Responsivo','Performance'], cor:'#0ea5e9' },
-            { data: '01 Abr 2026', tempo: 4, titulo: i18n[l].b4tit, resumo: i18n[l].b4res, tags: ['Terminal','UI/UX','Design'], cor:'#f59e0b' },
-            { data: '20 Mar 2026', tempo: 6, titulo: i18n[l].b5tit, resumo: i18n[l].b5res, tags: ['Alpine.js','React','JavaScript'], cor:'#ef4444' },
-            { data: '10 Mar 2026', tempo: 5, titulo: i18n[l].b6tit, resumo: i18n[l].b6res, tags: ['Performance','Front-end','Otimização'], cor:'#10b981' },
-            { data: '25 Fev 2026', tempo: 7, titulo: i18n[l].b7tit, resumo: i18n[l].b7res, tags: ['CSS','Grid','Layout'], cor:'#06b6d4' },
-            { data: '10 Fev 2026', tempo: 5, titulo: i18n[l].b8tit, resumo: i18n[l].b8res, tags: ['PWA','Service Worker','Offline'], cor:'#8b5cf6' },
-            { data: '28 Jan 2026', tempo: 6, titulo: i18n[l].b9tit, resumo: i18n[l].b9res, tags: ['JWT','Autenticação','Segurança'], cor:'#ec4899' },
-            { data: '15 Jan 2026', tempo: 4, titulo: i18n[l].b10tit, resumo: i18n[l].b10res, tags: ['Acessibilidade','HTML','UX'], cor:'#14b8a6' },
-            { data: '02 Jan 2026', tempo: 8, titulo: i18n[l].b11tit, resumo: i18n[l].b11res, tags: ['API','REST','Back-end'], cor:'#f97316' },
-            { data: '20 Dez 2025', tempo: 4, titulo: i18n[l].b12tit, resumo: i18n[l].b12res, tags: ['Python','Automação','Scripts'], cor:'#3b82f6' }
+            { data:"15 Mai 2026", tempo:5, titulo:i18n[l].b1tit, resumo:i18n[l].b1res, tags:["Alpine.js","Tailwind","Single-file"], cor:"#00ff41" },
+            { data:"02 Mai 2026", tempo:4, titulo:i18n[l].b2tit, resumo:i18n[l].b2res, tags:["IA","Automacao","RPA"], cor:"#7c3aed" },
+            { data:"18 Abr 2026", tempo:3, titulo:i18n[l].b3tit, resumo:i18n[l].b3res, tags:["CSS","Responsivo","Performance"], cor:"#0ea5e9" },
+            { data:"01 Abr 2026", tempo:4, titulo:i18n[l].b4tit, resumo:i18n[l].b4res, tags:["Terminal","UI/UX","Design"], cor:"#f59e0b" },
+            { data:"20 Mar 2026", tempo:6, titulo:i18n[l].b5tit, resumo:i18n[l].b5res, tags:["Alpine.js","React","JavaScript"], cor:"#ef4444" },
+            { data:"10 Mar 2026", tempo:5, titulo:i18n[l].b6tit, resumo:i18n[l].b6res, tags:["Performance","Front-end","Otimizacao"], cor:"#10b981" },
+            { data:"25 Fev 2026", tempo:7, titulo:i18n[l].b7tit, resumo:i18n[l].b7res, tags:["CSS","Grid","Layout"], cor:"#06b6d4" },
+            { data:"10 Fev 2026", tempo:5, titulo:i18n[l].b8tit, resumo:i18n[l].b8res, tags:["PWA","Service Worker","Offline"], cor:"#8b5cf6" },
+            { data:"28 Jan 2026", tempo:6, titulo:i18n[l].b9tit, resumo:i18n[l].b9res, tags:["JWT","Autenticacao","Seguranca"], cor:"#ec4899" },
+            { data:"15 Jan 2026", tempo:4, titulo:i18n[l].b10tit, resumo:i18n[l].b10res, tags:["Acessibilidade","HTML","UX"], cor:"#14b8a6" },
+            { data:"02 Jan 2026", tempo:8, titulo:i18n[l].b11tit, resumo:i18n[l].b11res, tags:["API","REST","Back-end"], cor:"#f97316" },
+            { data:"20 Dez 2025", tempo:4, titulo:i18n[l].b12tit, resumo:i18n[l].b12res, tags:["Python","Automacao","Scripts"], cor:"#3b82f6" }
           ];
           this.depoimentos = [
-            { nome: i18n[l].d1nome, cargo: i18n[l].d1cargo, texto: i18n[l].d1texto, estrelas: 5, iniciais: 'CS' },
-            { nome: i18n[l].d2nome, cargo: i18n[l].d2cargo, texto: i18n[l].d2texto, estrelas: 5, iniciais: 'AO' },
-            { nome: i18n[l].d3nome, cargo: i18n[l].d3cargo, texto: i18n[l].d3texto, estrelas: 5, iniciais: 'RL' },
-            { nome: i18n[l].d4nome, cargo: i18n[l].d4cargo, texto: i18n[l].d4texto, estrelas: 5, iniciais: 'JC' },
-            { nome: i18n[l].d5nome, cargo: i18n[l].d5cargo, texto: i18n[l].d5texto, estrelas: 4, iniciais: 'MA' },
-            { nome: i18n[l].d6nome, cargo: i18n[l].d6cargo, texto: i18n[l].d6texto, estrelas: 5, iniciais: 'FC' },
-            { nome: i18n[l].d7nome, cargo: i18n[l].d7cargo, texto: i18n[l].d7texto, estrelas: 5, iniciais: 'RT' },
-            { nome: i18n[l].d8nome, cargo: i18n[l].d8cargo, texto: i18n[l].d8texto, estrelas: 4, iniciais: 'PM' },
-            { nome: i18n[l].d9nome, cargo: i18n[l].d9cargo, texto: i18n[l].d9texto, estrelas: 5, iniciais: 'DA' },
-            { nome: i18n[l].d10nome, cargo: i18n[l].d10cargo, texto: i18n[l].d10texto, estrelas: 5, iniciais: 'CR' }
+            { nome:i18n[l].d1nome, cargo:i18n[l].d1cargo, texto:i18n[l].d1texto, estrelas:5, iniciais:"CS" },
+            { nome:i18n[l].d2nome, cargo:i18n[l].d2cargo, texto:i18n[l].d2texto, estrelas:5, iniciais:"AO" },
+            { nome:i18n[l].d3nome, cargo:i18n[l].d3cargo, texto:i18n[l].d3texto, estrelas:5, iniciais:"RL" },
+            { nome:i18n[l].d4nome, cargo:i18n[l].d4cargo, texto:i18n[l].d4texto, estrelas:5, iniciais:"JC" },
+            { nome:i18n[l].d5nome, cargo:i18n[l].d5cargo, texto:i18n[l].d5texto, estrelas:4, iniciais:"MA" },
+            { nome:i18n[l].d6nome, cargo:i18n[l].d6cargo, texto:i18n[l].d6texto, estrelas:5, iniciais:"FC" },
+            { nome:i18n[l].d7nome, cargo:i18n[l].d7cargo, texto:i18n[l].d7texto, estrelas:5, iniciais:"RT" },
+            { nome:i18n[l].d8nome, cargo:i18n[l].d8cargo, texto:i18n[l].d8texto, estrelas:4, iniciais:"PM" },
+            { nome:i18n[l].d9nome, cargo:i18n[l].d9cargo, texto:i18n[l].d9texto, estrelas:5, iniciais:"DA" },
+            { nome:i18n[l].d10nome, cargo:i18n[l].d10cargo, texto:i18n[l].d10texto, estrelas:5, iniciais:"CR" }
           ];
         },
-
         salvarPrefs() {
-          try { localStorage.setItem('portfolioPrefs', JSON.stringify({lang:this.lang,darkMode:this.darkMode})); } catch(e) {}
+          try { localStorage.setItem("portfolioPrefs", JSON.stringify({ lang:this.lang, darkMode:this.darkMode })); } catch (e) {}
           this.montarDados();
         },
-
-        abrirModal(proj) {
-          this.selectedProj = proj;
-          this.modalOpen = true;
-          document.body.style.overflow = 'hidden';
-        },
-        fecharModal() {
-          this.modalOpen = false;
-          this.selectedProj = null;
-          document.body.style.overflow = '';
-        },
+        abrirModal(proj) { this.selectedProj = proj; this.modalOpen = true; document.body.style.overflow = "hidden"; },
+        fecharModal() { this.modalOpen = false; this.selectedProj = null; document.body.style.overflow = ""; },
         enviarForm() {
-          if(!this.formNome.trim()||!this.formEmail.trim()||!this.formMsg.trim()) return;
-          const form = document.querySelector('form[action*="web3forms"]');
+          if (!this.formNome.trim() || !this.formEmail.trim() || !this.formMsg.trim()) return;
+          const form = document.querySelector("form[action*=\"web3forms\"]");
           if (!form) return;
           const data = new FormData(form);
-          fetch(form.action, { method: 'POST', body: data })
+          fetch(form.action, { method:"POST", body:data })
             .then(r => r.json())
-            .then(d => {
-              if (d.success) {
-                this.enviado = true;
-                setTimeout(()=>{this.enviado=false;this.formNome='';this.formEmail='';this.formAssunto='';this.formMsg=''},3000);
-              }
-            }).catch(() => {});
+            .then(d => { if (d.success) { this.enviado = true; setTimeout(() => { this.enviado = false; this.formNome = ""; this.formEmail = ""; this.formAssunto = ""; this.formMsg = ""; }, 3000); } })
+            .catch(() => {});
         }
-      };
+      }));
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'JetBrains Mono',monospace; overflow-x:hidden; transition:background .3s,color .3s; }
+    [x-cloak] { display:none !important; }
+    :root { --bg:#0a0a0a; --bg2:#0f0f0f; --text:#e0e0e0; --text2:#a0a0a0; --text3:#666; --border:rgba(0,255,65,0.12); --card-bg:rgba(10,10,10,0.85); --input-bg:rgba(255,255,255,0.05); --glass-bg:rgba(8,8,8,0.75); --scanline:rgba(0,255,65,0.015); --grid:rgba(0,255,65,0.04); }
+    .light { --bg:#f5f5f0; --bg2:#e8e8e0; --text:#1a1a1a; --text2:#4a4a4a; --text3:#999; --border:rgba(0,200,50,0.2); --card-bg:rgba(255,255,255,0.9); --input-bg:rgba(0,0,0,0.05); --glass-bg:rgba(255,255,255,0.85); --scanline:rgba(0,200,50,0.02); --grid:rgba(0,200,50,0.06); }
+    body { background:var(--bg); color:var(--text); }
+    .glass { background:var(--glass-bg); backdrop-filter:blur(20px); border:1px solid var(--border); }
+    .glass-card { background:var(--card-bg); backdrop-filter:blur(16px); border:1px solid rgba(0,255,65,0.08); transition:all .3s; }
+    .glass-card:hover { border-color:rgba(0,255,65,0.3); box-shadow:0 0 30px rgba(0,255,65,0.08); transform:translateY(-2px); }
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:#00ff41; border-radius:4px; }
+    #particles-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+    .scanline { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px); }
+    .grid-bg { background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px); background-size:50px 50px; }
+    .neon-text { text-shadow:0 0 10px rgba(0,255,65,0.4),0 0 30px rgba(0,255,65,0.15); }
+    .btn-neon { background:linear-gradient(135deg,#00ff41,#00cc33); color:#000; font-weight:700; transition:all .3s; position:relative; overflow:hidden; cursor:pointer; }
+    .btn-neon:hover { box-shadow:0 0 35px rgba(0,255,65,0.4); transform:translateY(-2px); }
+    .btn-neon:disabled { opacity:0.5; cursor:not-allowed; transform:none !important; box-shadow:none !important; }
+    .btn-outline { border:1px solid rgba(0,255,65,0.35); color:#00ff41; transition:all .3s; background:transparent; cursor:pointer; }
+    .btn-outline:hover { background:rgba(0,255,65,0.08); box-shadow:0 0 20px rgba(0,255,65,0.1); }
+    .code-line::before { content:'> '; color:#00ff41; font-weight:700; }
+    .tag-badge { background:rgba(0,255,65,0.08); border:1px solid rgba(0,255,65,0.15); color:#00ff41; font-size:10px; padding:2px 8px; border-radius:4px; font-weight:500; }
+    .cursor-blink::after { content:'|'; animation:blink 1s step-end infinite; color:#00ff41; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .animated-border { position:relative; }
+    .animated-border::before { content:''; position:absolute; inset:-2px; border-radius:16px; background:conic-gradient(from 0deg,transparent,#00ff41,transparent,#00ff41,transparent); -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; animation:spin 3s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes slideUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+    @keyframes glowPulse { 0%,100%{box-shadow:0 0 20px rgba(0,255,65,.05)} 50%{box-shadow:0 0 50px rgba(0,255,65,.15)} }
+    .fade-in { animation:fadeIn .6s ease-out; }
+    .slide-up { animation:slideUp .5s ease-out; }
+    .pulse-dot { animation:pulse 1.5s ease-in-out infinite; }
+    .glow-pulse { animation:glowPulse 3s ease-in-out infinite; }
+    .timeline-line { position:absolute; left:50%; top:0; bottom:0; width:2px; background:linear-gradient(to bottom,transparent,#00ff41,transparent); transform:translateX(-50%); }
+    .timeline-dot { width:16px; height:16px; border-radius:50%; background:#00ff41; border:3px solid var(--bg); position:absolute; left:50%; transform:translateX(-50%); z-index:2; box-shadow:0 0 15px rgba(0,255,65,0.3); }
+    @media (max-width:768px) {
+      .timeline-line { left:20px; }
+      .timeline-dot { left:20px; }
     }
+    .lang-btn { padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; cursor:pointer; transition:.2s; border:1px solid transparent; background:transparent; color:var(--text3); }
+    .lang-btn.active { background:rgba(0,255,65,0.1); border-color:rgba(0,255,65,0.3); color:#00ff41; }
+    *:focus-visible { outline:2px solid #00ff41; outline-offset:2px; border-radius:4px; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
+  </style>
+</head>
+<body>
+  <canvas id="particles-canvas"></canvas>
+  <div class="scanline"></div>
+  <div x-data="portfolio" x-cloak class="relative z-10 min-h-screen" :class="!darkMode ? 'light' : ''" role="main">    <nav aria-label="Navegacao principal" class="fixed top-0 left-0 right-0 z-40 glass border-b" style="border-color:var(--border)">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <a href="#" @click.prevent="section = 'home'" class="flex items-center gap-2.5 group" aria-label="Ir para o inicio">
+          <div class="w-8 h-8 rounded-lg bg-[#00ff41]/10 border border-[#00ff41]/30 flex items-center justify-center group-hover:bg-[#00ff41]/20 transition">
+            <span class="text-[11px] font-bold text-[#00ff41]">&lt;/&gt;</span>
+          </div>
+          <span class="font-bold text-sm" style="color:var(--text)"><span class="text-[#00ff41]">~</span>/portfolio</span>
+        </a>
+        <div class="hidden md:flex items-center gap-1" role="menubar">
+          <template x-for="item in navItems" :key="item.id">
+            <a href="#" @click.prevent="section = item.id" role="menuitem"
+              class="px-3.5 py-2 rounded-lg text-xs font-medium transition-all duration-200"
+              :class="section === item.id ? 'text-[#00ff41] bg-[#00ff41]/10' : ''"
+              :style="section !== item.id ? 'color: var(--text3)' : ''">
+              <span class="code-line" x-text="t(item.label)"></span>
+            </a>
+          </template>
+          <div class="flex items-center gap-2 ml-4 pl-4 border-l" style="border-color:var(--border)">
+            <button @click="lang = lang === 'pt' ? 'en' : 'pt'; salvarPrefs()" class="lang-btn" :class="lang === 'pt' ? 'active' : ''">PT</button>
+            <button @click="lang = lang === 'en' ? 'pt' : 'en'; salvarPrefs()" class="lang-btn" :class="lang === 'en' ? 'active' : ''">EN</button>
+          </div>
+        </div>
+        <div class="flex md:hidden items-center gap-2">
+          <button @click="lang = lang === 'pt' ? 'en' : 'pt'; salvarPrefs()" class="lang-btn text-xs" :class="lang === 'pt' ? 'active' : ''">PT</button>
+          <button @click="mobileOpen = !mobileOpen" class="p-2 rounded-lg" style="color:var(--text3)">
+            <svg x-show="!mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            <svg x-show="mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+      <div x-show="mobileOpen" class="md:hidden fixed inset-0 z-50 bg-black/96 backdrop-blur-2xl flex flex-col items-center justify-center gap-4">
+        <template x-for="item in navItems" :key="item.id">
+          <a href="#" @click.prevent="section = item.id; mobileOpen = false" role="menuitem"
+            class="text-lg font-medium transition font-mono"
+            :class="section === item.id ? 'text-[#00ff41]' : ''"
+            :style="section !== item.id ? 'color: var(--text3)' : ''">
+            <span x-text="'$ ' + t(item.label)"></span>
+          </a>
+        </template>
+        <a href="#" @click.prevent="section = 'contato'; mobileOpen = false" class="mt-4 px-6 py-3 btn-neon rounded-xl text-sm">$ ./contato</a>
+      </div>
+    </nav>
+
+    <div x-show="section === 'home'" role="region" aria-label="Inicio" class="pt-16">
+      <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#00ff41]/8 via-transparent" style="to:var(--bg)"></div>
+        <div class="absolute inset-0 grid-bg opacity-60"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-[#00ff41] mb-8" style="border-color:var(--border)">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00ff41] pulse-dot"></span>
+            <span class="font-mono">system.status: online</span>
+          </div>
+          <div class="animated-border w-24 h-24 mx-auto mb-6 rounded-2xl overflow-hidden glow-pulse">
+            <div class="w-full h-full rounded-2xl overflow-hidden"><img src="../assets/foto-perfil.jpeg" alt="Foto de perfil" loading="lazy" class="w-full h-full object-cover"></div>
+          </div>
+          <div class="mb-4">
+            <p class="text-sm font-mono mb-2" style="color:var(--text3)"><span class="text-[#00ff41]">$</span> whoami</p>
+            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black leading-tight mb-2 cursor-blink inline-block" style="color:var(--text)">
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff41] to-[#00cc33] neon-text" x-text="t('heroTitle')"></span>
+            </h1>
+          </div>
+          <p class="text-base sm:text-lg max-w-2xl mx-auto mb-2 leading-relaxed font-mono" style="color:var(--text2)">
+            <span class="text-zinc-600">//</span> <span x-text="t('heroSub')"></span>
+          </p>
+          <p class="text-sm max-w-xl mx-auto mb-10 font-mono" style="color:var(--text3)" x-text="t('heroDesc')"></p>
+          <p class="text-[10px] text-[#00ff41]/20 font-mono mb-6 tracking-widest" x-text="binaryLine"></p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="#" @click.prevent="section = 'projetos'" class="px-8 py-3.5 btn-neon rounded-xl text-sm font-bold flex items-center gap-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              <span x-text="t('heroBtnProj')"></span>
+            </a>
+            <a href="#" @click.prevent="section = 'contato'" class="px-8 py-3.5 btn-outline rounded-xl text-sm font-semibold font-mono" x-text="t('heroBtnContact')"></a>
+          </div>
+          <div class="mt-12 flex justify-center gap-5">
+            <a href="https://github.com/luiz199" target="_blank" class="glass-card rounded-xl px-4 py-2.5 flex items-center gap-2 text-xs" style="color:var(--text3)">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              github.com/luiz199
+            </a>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t" style="from:var(--bg);to:transparent"></div>
+      </section>
+    </div>
+
+    <div x-show="section === 'sobre'" role="region" aria-label="Sobre" class="pt-16 min-h-screen py-20 px-4">
+      <div class="absolute inset-0 grid-bg opacity-30"></div>
+      <div class="max-w-4xl mx-auto pt-10 relative">
+        <div class="text-center mb-12">
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat about.md</span>
+          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('aboutTitle')"></span></h2>
+        </div>
+        <div class="glass-card rounded-2xl p-8 md:p-10">
+          <div class="flex flex-col md:flex-row gap-8 items-start">
+            <div class="w-32 h-32 rounded-2xl overflow-hidden shrink-0 mx-auto md:mx-0 border-2 border-[#00ff41]/20 glow-pulse">
+              <img src="../assets/foto-perfil.jpeg" alt="Foto de perfil" loading="lazy" class="w-full h-full object-cover">
+            </div>
+            <div class="space-y-4 font-mono text-sm">
+              <p style="color:var(--text2)"><span class="text-[#00ff41]">const</span> <span style="color:var(--text)">dev</span> = <span style="color:var(--text2)">{</span></p>
+              <p class="pl-4" style="color:var(--text2)">nome: <span class="text-[#00cc33]">'<span x-text="t('devName')"></span>'</span>,</p>
+              <p class="pl-4" style="color:var(--text2)">foco: <span class="text-[#00cc33]">'<span x-text="t('devFocus')"></span>'</span>,</p>
+              <p class="pl-4" style="color:var(--text2)">stack: <span class="text-[#00cc33]">['JavaScript', 'Python', 'Alpine.js', 'Tailwind']</span>,</p>
+              <p class="pl-4 mb-4" style="color:var(--text2)">objetivo: <span class="text-[#00cc33]">'<span x-text="t('devGoal')"></span>'</span></p>
+              <p style="color:var(--text2)"><span class="text-[#00ff41]">}</span>;</p>
+              <p class="mt-3" style="color:var(--text2)"><span class="text-[#00ff41]">const</span> <span style="color:var(--text)">formacao</span> = <span style="color:var(--text2)">[</span></p>
+              <p class="pl-4" style="color:var(--text3)"><span class="text-zinc-600">//</span> <span x-text="t('formacaoLabel')"></span></p>
+              <template x-for="(f, i) in formacoes" :key="i">
+                <p class="pl-4" style="color:var(--text2)">
+                  <span class="text-[#00cc33]">{</span> curso: <span class="text-[#00cc33]">'<span x-text="f.curso"></span>'</span>, instituicao: <span class="text-[#00cc33]">'<span x-text="f.inst"></span>'</span> <span class="text-[#00cc33]">}</span><span x-show="i < formacoes.length - 1">,</span>
+                </p>
+              </template>
+              <p style="color:var(--text2)"><span class="text-[#00ff41]">]</span>;</p>
+              <p class="mt-4 leading-relaxed border-t pt-4" style="color:var(--text3);border-color:var(--border)" x-text="t('aboutText')"></p>
+            </div>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold mt-14 mb-8 text-center font-mono" style="color:var(--text)"><span class="text-[#00ff41]">></span> tech_stack</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <template x-for="tech in skills" :key="tech.nome">
+            <div class="glass-card rounded-xl p-4 text-center hover:border-[#00ff41]/30 transition group">
+              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform" x-text="tech.icone"></div>
+              <p class="text-xs font-mono group-hover:text-[#00ff41] transition" style="color:var(--text3)" x-text="tech.nome"></p>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+    <div x-show="section === 'timeline'" role="region" aria-label="Carreira" class="pt-16 min-h-screen py-20 px-4">
+      <div class="absolute inset-0 grid-bg opacity-30"></div>
+      <div class="max-w-4xl mx-auto pt-10 relative">
+        <div class="text-center mb-12">
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ git log --oneline</span>
+          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('timelineTitle')"></span></h2>
+        </div>
+        <div class="relative">
+          <div class="timeline-line"></div>
+          <div class="space-y-12">
+            <template x-for="(ev, i) in timeline" :key="i">
+              <div class="relative flex items-start" :class="i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'">
+                <div class="hidden md:block w-1/2"></div>
+                <div class="timeline-dot"></div>
+                <div class="w-full md:w-1/2 pl-10 md:pl-0" :class="i % 2 === 0 ? 'md:pr-10 md:text-right' : 'md:pl-10'">
+                  <div class="glass-card rounded-xl p-5">
+                    <span class="text-[10px] font-semibold text-[#00ff41] tracking-wider" x-text="ev.data"></span>
+                    <h4 class="text-sm font-bold mt-1" style="color:var(--text)" x-text="ev.titulo"></h4>
+                    <p class="text-xs mt-1" style="color:var(--text3)" x-text="ev.desc"></p>
+                    <div class="flex flex-wrap gap-1.5 mt-2" :class="i % 2 === 0 ? 'md:justify-end' : ''">
+                      <template x-for="tag in ev.tags" :key="tag">
+                        <span class="tag-badge" x-text="tag"></span>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div x-show="section === 'projetos'" role="region" aria-label="Projetos" class="pt-16 min-h-screen py-20 px-4">
+      <div class="absolute inset-0 grid-bg opacity-30"></div>
+      <div class="max-w-6xl mx-auto pt-10 relative">
+        <div class="text-center mb-12">
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ ls -la projects/</span>
+          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('projTitle')"></span></h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <template x-for="(proj, i) in projetos" :key="proj.nome">
+            <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300 cursor-pointer" @click="abrirModal(proj)">
+              <div class="h-44 overflow-hidden">
+                <img :src="proj.img" :alt="proj.nome" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              </div>
+              <div class="p-5">
+                <span class="tag-badge" x-text="proj.categoria"></span>
+                <h3 class="text-base font-bold mt-2 mb-2 font-mono" style="color:var(--text)" x-text="proj.nome"></h3>
+                <p class="text-xs leading-relaxed mb-4 font-mono line-clamp-2" style="color:var(--text3)" x-text="proj.desc"></p>
+                <div class="flex flex-wrap gap-1.5 mb-4">
+                  <template x-for="tag in proj.tags" :key="tag">
+                    <span class="tag-badge" x-text="tag"></span>
+                  </template>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="inline-flex items-center gap-1.5 text-xs font-mono text-[#00ff41] group-hover:underline"><span>$ detalhes →</span></span>
+                  <span class="text-[10px] font-mono" style="color:var(--text3)">v1.0</span>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+        <div class="text-center mt-10">
+          <a href="https://github.com/luiz199/professional-systems" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 btn-outline rounded-xl text-sm font-mono">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            $ <span x-text="t('projRepo')"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div x-show="section === 'blog'" role="region" aria-label="Blog" class="pt-16 min-h-screen py-20 px-4">
+      <div class="absolute inset-0 grid-bg opacity-30"></div>
+      <div class="max-w-5xl mx-auto pt-10 relative">
+        <div class="text-center mb-12">
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat /blog/*.md</span>
+          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('blogTitle')"></span></h2>
+          <p class="mt-2 text-sm font-mono" style="color:var(--text3)">12 artigos • tecnologia • desenvolvimento</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <template x-for="(post, i) in blogPosts" :key="i">
+            <div class="glass-card rounded-xl overflow-hidden hover:border-[#00ff41]/30 transition-all duration-300 group cursor-pointer" @click="section = 'contato'">
+              <div class="h-1.5 w-full" :style="'background:' + (post.cor || '#00ff41')"></div>
+              <div class="p-5">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="tag-badge text-[9px]" :style="'background:' + (post.cor || '#00ff41') + '15;border-color:' + (post.cor || '#00ff41') + '30;color:' + (post.cor || '#00ff41')" x-text="post.tags[0]"></span>
+                  <div class="flex items-center gap-1.5 text-[10px] font-mono" style="color:var(--text3)">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span x-text="post.tempo + ' min'"></span>
+                  </div>
+                </div>
+                <span class="text-[10px] font-mono" style="color:var(--text3)" x-text="post.data"></span>
+                <h3 class="text-sm font-bold mt-1.5 mb-2 leading-snug group-hover:text-[#00ff41] transition" style="color:var(--text)" x-text="post.titulo"></h3>
+                <p class="text-xs leading-relaxed mb-3 line-clamp-3" style="color:var(--text3)" x-text="post.resumo"></p>
+                <div class="flex flex-wrap gap-1.5 mt-auto">
+                  <template x-for="(tag, j) in post.tags" :key="j">
+                    <span x-show="j > 0" class="text-[9px] px-2 py-0.5 rounded-full font-mono" style="background:rgba(0,255,65,0.06);border:1px solid rgba(0,255,65,0.1);color:var(--text3)" x-text="tag"></span>
+                  </template>
+                </div>
+                <div class="mt-4 pt-3 border-t flex items-center justify-between" style="border-color:var(--border)">
+                  <span class="text-[10px] font-mono text-[#00ff41] group-hover:underline">$ ler artigo →</span>
+                  <span class="text-[9px] font-mono" style="color:var(--text3)">#<span x-text="i + 1"></span></span>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <div x-show="section === 'depoimentos'" role="region" aria-label="Depoimentos" class="pt-16 min-h-screen py-20 px-4">
+      <div class="absolute inset-0 grid-bg opacity-30"></div>
+      <div class="max-w-4xl mx-auto pt-10 relative">
+        <div class="text-center mb-12">
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat testimonials.json</span>
+          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('depTitle')"></span></h2>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <template x-for="(dep, i) in depoimentos" :key="i">
+            <div class="glass-card rounded-xl p-6 hover:border-[#00ff41]/30 transition group">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#00ff41]/30 to-[#00cc33]/10 flex items-center justify-center text-sm font-bold text-[#00ff41] shrink-0" x-text="dep.iniciais"></div>
+                <div>
+                  <p class="text-sm font-bold" style="color:var(--text)" x-text="dep.nome"></p>
+                  <p class="text-[10px] font-mono" style="color:var(--text3)" x-text="dep.cargo"></p>
+                </div>
+              </div>
+              <p class="text-xs leading-relaxed italic" style="color:var(--text2)">"<span x-text="dep.texto"></span>"</p>
+              <div class="flex gap-0.5 mt-3">
+                <template x-for="j in 5" :key="j">
+                  <svg class="w-3 h-3" :class="j <= dep.estrelas ? 'text-[#00ff41]' : ''" :style="j <= dep.estrelas ? '' : 'color:var(--text3)'" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+    <div x-show="section === 'contato'" role="region" aria-label="Contato" class="pt-16 min-h-screen py-20 px-4">
+      <div class="absolute inset-0 grid-bg opacity-30"></div>
+      <div class="max-w-2xl mx-auto pt-10 relative">
+        <div class="text-center mb-12">
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ ./send_message</span>
+          <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('contatoTitle')"></span></h2>
+          <p class="mt-2 text-sm font-mono" style="color:var(--text3)" x-text="t('contatoSub')"></p>
+        </div>
+        <div class="glass-card rounded-2xl p-8">
+          <form @submit.prevent="enviarForm" class="space-y-4" action="https://api.web3forms.com/submit" method="POST" aria-label="Formulario de contato">
+            <input type="hidden" name="access_key" value="SUA_CHAVE_WEB3FORMS_AQUI">
+            <input type="hidden" name="subject" x-bind:value="'Contato Portfolio: ' + formAssunto">
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+            <div class="flex items-center gap-2 text-xs font-mono mb-1" style="color:var(--text3)">
+              <span class="text-[#00ff41]">$</span> ./form <span style="color:var(--text3)">--interactive</span>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <input type="text" name="name" x-model="formNome" :placeholder="t('formName')" required
+                class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition"
+                style="background:var(--input-bg);border:1px solid var(--border);color:var(--text)" aria-label="Nome">
+              <input type="email" name="email" x-model="formEmail" :placeholder="t('formEmail')" required
+                class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition"
+                style="background:var(--input-bg);border:1px solid var(--border);color:var(--text)" aria-label="Email">
+            </div>
+            <input type="text" name="subject" x-model="formAssunto" :placeholder="t('formSubject')"
+              class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition"
+              style="background:var(--input-bg);border:1px solid var(--border);color:var(--text)" aria-label="Assunto">
+            <textarea name="message" x-model="formMsg" :placeholder="t('formMsg')" rows="4" required
+              class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition resize-none"
+              style="background:var(--input-bg);border:1px solid var(--border);color:var(--text)" aria-label="Mensagem"></textarea>
+            <button type="submit" class="w-full py-3 btn-neon rounded-xl text-sm font-bold font-mono"
+              :disabled="!formNome.trim() || !formEmail.trim() || !formMsg.trim()">
+              <span x-show="!enviado">$ ./send</span>
+              <span x-show="enviado" class="flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span x-text="t('formSent')"></span>
+              </span>
+            </button>
+          </form>
+        </div>
+        <div class="flex justify-center gap-6 mt-8">
+          <a href="https://github.com/luiz199" target="_blank" class="glass-card rounded-xl px-5 py-3 flex items-center gap-2 text-sm font-mono" style="color:var(--text3)">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="mailto:contato@example.com" class="glass-card rounded-xl px-5 py-3 flex items-center gap-2 text-sm font-mono" style="color:var(--text3)">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div x-show="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4" @keydown.escape.window="fecharModal()">
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" @click="fecharModal()"></div>
+      <div class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl glass border p-0" style="border-color:var(--border)" @click.outside="fecharModal()" x-show="modalOpen" x-transition:enter="transition duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
+        <template x-if="selectedProj">
+          <div>
+            <div class="h-56 sm:h-72 overflow-hidden rounded-t-2xl relative">
+              <img :src="selectedProj.img" :alt="selectedProj.nome" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              <button class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-black/50 backdrop-blur flex items-center justify-center text-white hover:bg-[#00ff41] hover:text-black transition z-10" @click="fecharModal()">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </button>
+            </div>
+            <div class="p-6 sm:p-8">
+              <div class="flex flex-wrap items-center gap-2 mb-3">
+                <span class="tag-badge text-[11px]" x-text="selectedProj.categoria"></span>
+                <template x-for="tag in selectedProj.tags" :key="tag">
+                  <span class="text-[10px] px-2.5 py-1 rounded-full font-mono" style="background:rgba(0,255,65,0.06);border:1px solid rgba(0,255,65,0.1);color:var(--text3)" x-text="tag"></span>
+                </template>
+              </div>
+              <h2 class="text-2xl font-bold font-mono mb-3" style="color:var(--text)" x-text="selectedProj.nome"></h2>
+              <p class="text-sm leading-relaxed mb-6 font-mono" style="color:var(--text2)" x-text="selectedProj.desc"></p>
+              <div x-show="selectedProj.features" class="mb-6">
+                <p class="text-xs font-bold text-[#00ff41] font-mono mb-3">$ cat features.txt</p>
+                <div class="grid sm:grid-cols-2 gap-2">
+                  <template x-for="(feat, fi) in selectedProj.features" :key="fi">
+                    <div class="flex items-start gap-2 text-xs font-mono" style="color:var(--text2)">
+                      <span class="text-[#00ff41] mt-0.5">‹</span>
+                      <span x-text="feat"></span>
+                    </div>
+                  </template>
+                </div>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t" style="border-color:var(--border)">
+                <a :href="selectedProj.link" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 py-3 btn-neon rounded-xl text-sm font-bold font-mono">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                  <span>$ ver repositorio</span>
+                </a>
+                <button class="flex-1 py-3 btn-outline rounded-xl text-sm font-mono" @click="fecharModal()">$ fechar</button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <footer class="relative z-10 border-t py-6" style="border-color:var(--border)">
+      <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-xs font-mono" style="color:var(--text3)">
+          <span class="text-[#00ff41]">$</span>
+          <span>© 2026 luiz199 — built with</span>
+          <span class="text-[#00ff41]">♥</span>
+          <span>|</span>
+          <span class="text-[#00ff41]">./portfolio</span>
+          <span class="hidden sm:inline">v2.0</span>
+        </div>
+        <div class="glass-card rounded-xl px-5 py-2.5 flex items-center gap-3 text-xs font-mono" style="border-color:rgba(0,255,65,0.08)" id="visitorCounter">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#00ff41] pulse-dot"></span>
+            <span style="color:var(--text3)">visitors:</span>
+          </span>
+          <span class="font-bold text-[#00ff41] text-sm tabular-nums" id="visitorCount">--</span>
+          <span class="text-[10px]" style="color:var(--text3)">unique</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    aria-label="Voltar ao topo"
+    class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-xl bg-[#00ff41] text-black flex items-center justify-center shadow-lg shadow-[#00ff41]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#00ff41]/40"
+    style="opacity:0;transform:translateY(20px);pointer-events:none">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script>
+    (function() {
+      const KEY = "pf_visitors";
+      const VISITED_KEY = "pf_visited";
+      const el = document.getElementById("visitorCount");
+      function updateDisplay(num) { if (el) el.textContent = Number(num).toLocaleString(); }
+      let count = parseInt(localStorage.getItem(KEY)) || 0;
+      if (!localStorage.getItem(VISITED_KEY)) {
+        count++;
+        try { localStorage.setItem(KEY, count); localStorage.setItem(VISITED_KEY, "1"); } catch(e) {}
+      }
+      updateDisplay(count);
+      fetch("https://api.countapi.xyz/hit/luiz199/portfolio-counter")
+        .then(r => r.json())
+        .then(d => { if (d && d.value) { updateDisplay(d.value); try { localStorage.setItem(KEY, d.value); } catch(e) {} } })
+        .catch(() => {});
+    })();
   </script>
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
-      });
+    const canvas = document.getElementById("particles-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize(); window.addEventListener("resize", resize);
+    class Particle {
+      constructor() { this.reset(); }
+      reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5; this.r = Math.random() * 1.5 + 0.5; }
+      update() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > canvas.width) this.vx *= -1; if (this.y < 0 || this.y > canvas.height) this.vy *= -1; }
+      draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = "rgba(0,255,65,0.4)"; ctx.fill(); }
     }
-    window.addEventListener('scroll', () => {
-      const btn = document.getElementById('backToTop');
-      if (window.scrollY > 400) {
-        btn.style.opacity = '1'; btn.style.transform = 'translateY(0)'; btn.style.pointerEvents = 'auto';
-      } else {
-        btn.style.opacity = '0'; btn.style.transform = 'translateY(20px)'; btn.style.pointerEvents = 'none';
+    const count = Math.min(80, Math.floor(canvas.width * canvas.height / 15000));
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      for (let i = 0; i < particles.length; i++) for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y, dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = "rgba(0,255,65," + (0.1 * (1 - dist / 150)) + ")"; ctx.lineWidth = 0.5; ctx.stroke(); }
       }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+
+  <script>
+    window.addEventListener("scroll", () => {
+      const btn = document.getElementById("backToTop");
+      if (window.scrollY > 400) { btn.style.opacity = "1"; btn.style.transform = "translateY(0)"; btn.style.pointerEvents = "auto"; }
+      else { btn.style.opacity = "0"; btn.style.transform = "translateY(20px)"; btn.style.pointerEvents = "none"; }
     }, { passive: true });
   </script>
 </body>
