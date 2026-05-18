@@ -1,59 +1,135 @@
-# 🤖 DataMind AI
+<div align="center">
+  <br/>
+  <a href="https://github.com/luiz199/professional-systems/tree/master/datamind-ai">
+    <img src="https://img.shields.io/badge/DataMind-AI-00FF41?style=for-the-badge&logo=openai&logoColor=white&labelColor=0a0a0a" alt="DataMind AI"/>
+  </a>
+  <br/>
+  <br/>
 
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![Alpine.js](https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpinedotjs&logoColor=black)
-![Lucide](https://img.shields.io/badge/Lucide_Icons-F56565?style=for-the-badge&logo=lucide&logoColor=white)
-![Ollama](https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white)
-![Open-Meteo](https://img.shields.io/badge/Open--Meteo-FF6F00?style=for-the-badge&logo=openweathermap&logoColor=white)
+  <p align="center">
+    <strong>🧠 AI-Powered SaaS Platform</strong>
+    <br/>
+    Intelligent chatbot · Real-time weather · Premium design
+  </p>
 
-> **Plataforma SaaS de Inteligência Artificial** — Site institucional + Chat IA + Previsão do tempo, tudo em um único arquivo.
+  <br/>
 
----
+  <div>
+    <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5"/>
+    <img src="https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?style=flat-square&logo=tailwindcss" alt="TailwindCSS"/>
+    <img src="https://img.shields.io/badge/Alpine.js-3.x-8BC0D0?style=flat-square&logo=alpinedotjs&logoColor=black" alt="Alpine.js"/>
+    <img src="https://img.shields.io/badge/Ollama-000000?style=flat-square&logo=ollama&logoColor=white" alt="Ollama"/>
+    <img src="https://img.shields.io/badge/Open--Meteo-FF6F00?style=flat-square&logo=openweathermap&logoColor=white" alt="Open-Meteo"/>
+    <img src="https://img.shields.io/badge/Lucide_Icons-F56565?style=flat-square&logo=lucide&logoColor=white" alt="Lucide"/>
+  </div>
 
-## 📋 Funcionalidades
+  <div>
+    <img src="https://img.shields.io/github/last-commit/luiz199/professional-systems/master?style=flat-square&logo=git&logoColor=white&labelColor=0a0a0a&color=00FF41" alt="Last Commit"/>
+    <img src="https://img.shields.io/github/repo-size/luiz199/professional-systems?style=flat-square&logo=files&logoColor=white&labelColor=0a0a0a&color=00FF41" alt="Repo Size"/>
+    <img src="https://img.shields.io/github/license/luiz199/professional-systems?style=flat-square&logo=opensourceinitiative&logoColor=white&labelColor=0a0a0a&color=00FF41" alt="License"/>
+  </div>
 
-| Módulo | Descrição |
-|--------|-----------|
-| 🏠 **Hero Animado** | Apresentação com partículas e efeito neon |
-| 📱 **Navbar Responsiva** | Navegação com menu mobile e links âncora |
-| 🛠️ **4 Cards de Serviços** | IA, Automação, Análise de Dados, Soluções Digitais |
-| 💲 **3 Planos de Preço** | Starter Grátis, Professional R$97/mês, Enterprise R$297/mês |
-| 💬 **Chat IA** | Dois modos: **Ollama Local** (localhost:11434) e **Fallback NLP** (português) |
-| 🌤️ **Previsão do Tempo** | Open-Meteo API (gratuita, sem chave) com busca por cidade e 5 dias |
-| 🔐 **Admin** | Painel administrativo com proteção por login |
-| 🎨 **Tema Neon** | Design escuro com detalhes em verde neon |
-
-## 🔑 Login
-
-> Qualquer **email e senha** funcionam para acessar o sistema. Não há validação.
-
-## 💬 Chat IA — Modos de Operação
-
-| Modo | Descrição |
-|------|-----------|
-| **Ollama Local** | Conecta ao servidor Ollama em `localhost:11434`. Requer Ollama instalado e rodando. |
-| **Fallback Local** | NLP embutido em português. Respostas baseadas em palavras-chave. Funciona offline. |
-
-## 🌤️ Previsão do Tempo
-
-- API gratuita: [Open-Meteo](https://open-meteo.com/)
-- **Nenhuma chave de API necessária**
-- Busca por nome de cidade (geocoding automático)
-- Previsão de **5 dias** com temperatura, umidade e vento
-
-## 🛠️ Tecnologias
-
-- HTML5
-- Tailwind CSS (CDN)
-- Alpine.js 3.x (CDN)
-- Lucide Icons
-- Open-Meteo API (gratuita)
-- Ollama API (opcional)
-
-## 📸 Screenshots
-
-> Veja capturas de tela na pasta [`screenshots/`](screenshots/)
+  <br/>
+  <br/>
+</div>
 
 ---
 
-<p align="center">Desenvolvido por <a href="https://github.com/luiz199">Luiz Henrique</a></p>
+## 📋 Overview
+
+**DataMind AI** is a premium SaaS landing page with integrated artificial intelligence chatbot and real-time weather forecast. Built as a single HTML file with Tailwind CSS, Alpine.js, and Lucide Icons. Features a futuristic black/neon green design inspired by NVIDIA's aesthetic.
+
+### ✨ Key Features
+
+| Module | Description |
+|--------|-------------|
+| 🏠 **Animated Hero** | Floating particles, grid background, typing effects |
+| 🤖 **AI Chat** | Two modes: Ollama local (LLM) or built-in NLP fallback |
+| 🌤️ **Weather** | 5-day forecast via Open-Meteo API (free, no key needed) |
+| 💲 **Pricing** | 3 plans: Free, Professional R$97/mo, Enterprise R$297/mo |
+| 🛠️ **Services** | 4 cards: AI, Automation, Data Analysis, Digital Solutions |
+| 🔐 **Admin Panel** | Protected dashboard with login (any email/password) |
+| 📱 **Responsive** | Mobile-first design with hamburger menu |
+
+---
+
+## 🖼️ Screenshot
+
+<p align="center">
+  <img src="../portfolio/screenshots/datamind-ai.png" alt="DataMind AI Screenshot" width="90%" />
+</p>
+
+---
+
+## 🤖 AI Chat — Two Modes
+
+| Mode | How it Works |
+|------|-------------|
+| **Ollama Local** | Connects to `localhost:11434`. Requires Ollama installed + model pulled |
+| **NLP Fallback** | Portuguese keyword-based NLP. Works offline, no dependencies |
+
+> Status indicator in chat header: 🟢 green = Ollama connected, ⚫ gray = local fallback
+
+---
+
+## 🌤️ Weather
+
+- **API:** [Open-Meteo](https://open-meteo.com/) — completely free, no API key
+- **Geocoding:** Automatic city name search
+- **Forecast:** 5 days with temperature, humidity, wind, UV index
+- **Suggestions:** Quick-select for popular cities
+
+---
+
+## 📂 Structure
+
+```
+datamind-ai/
+├── index.html       # Complete application (single-file)
+├── README.md        # This file
+└── screenshots/     # Project screenshots
+```
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Open directly in browser
+start datamind-ai/index.html
+
+# For Ollama integration:
+# 1. Install Ollama: https://ollama.ai
+# 2. Pull a model: ollama pull llama3.2
+# 3. Keep Ollama running in background
+# 4. Refresh the page — chat connects automatically
+```
+
+> **Note:** All features work immediately in fallback mode without any setup.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| HTML5 | Structure & semantics |
+| Tailwind CSS 3.4 | Styling via CDN |
+| Alpine.js 3.x | State management & interactivity |
+| Lucide Icons | Professional icon set |
+| Open-Meteo API | Free weather data |
+| Ollama API | Local LLM integration |
+
+---
+
+## 📄 License
+
+MIT License — see [LICENSE](../LICENSE).
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ by <a href="https://github.com/luiz199">Luiz Henrique</a></sub>
+  <br/>
+  <sub>© 2026 DataMind — Inteligência • Inovação • Impacto</sub>
+</div>
