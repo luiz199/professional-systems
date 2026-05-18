@@ -1,163 +1,210 @@
-# Professional Systems
+<div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=32&duration=3000&pause=500&color=00FF41&center=true&vCenter=true&width=500&lines=Professional+Systems;Portfolio+%26+Projects;Full-Stack+Solutions" alt="Typing SVG" />
+  <br/><br/>
+  <p>
+    <strong>Professional Systems</strong> — Complete project portfolio by <a href="https://github.com/luiz199">Luiz Henrique</a>
+  </p>
+  <p>
+    Full-stack developer specialized in web systems, automation, artificial intelligence, and modern SaaS applications.
+  </p>
+  <br/>
+  <p>
+    <a href="https://luiz199.github.io/professional-systems/portfolio/">
+      <img src="https://img.shields.io/badge/Portfolio-00FF41?style=for-the-badge&logo=google-chrome&logoColor=black&labelColor=0a0a0a" />
+    </a>
+    <a href="https://github.com/luiz199">
+      <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&labelColor=0a0a0a" />
+    </a>
+    <a href="mailto:contato@datamind.ai">
+      <img src="https://img.shields.io/badge/Email-00FF41?style=for-the-badge&logo=gmail&logoColor=black&labelColor=0a0a0a" />
+    </a>
+  </p>
+</div>
 
-Portfólio de projetos single-file de Luiz Henrique.
+---
+
+## 📋 Projects Overview
+
+| # | Project | Type | Stack | Live |
+|---|---------|------|-------|------|
+| 1 | **DataMind Weather** | Next.js App | Next.js, TypeScript, TailwindCSS, Framer Motion, OpenWeather | [Repo](https://github.com/luiz199/datamind-weather) |
+| 2 | **DataMind AI** | SaaS Platform | Next.js, OpenAI, TailwindCSS, Framer Motion | [View](https://github.com/luiz199/professional-systems/tree/master/datamind-ai) |
+| 3 | **Portfolio CS** | Portfolio | Alpine.js, TailwindCSS, Canvas API, PWA | [Live](https://luiz199.github.io/professional-systems/portfolio/) |
+| 4 | **RESTAU MASTER PRO** | Management System | HTML5, JavaScript, LocalStorage | [View](https://github.com/luiz199/professional-systems/tree/master/restau-master-pro) |
+| 5 | **FitManager Pro** | Management System | Alpine.js, TailwindCSS, Lucide | [View](https://github.com/luiz199/professional-systems/tree/master/fitmanager-pro) |
+| 6 | **OpenClaw** | Game | Java | [View](https://github.com/luiz199/professional-systems/tree/master/openclaw) |
+| 7 | **Avatar World** | Game | Java | [View](https://github.com/luiz199/professional-systems/tree/master/avatarworld) |
+
+---
+
+## 🌦️ Featured: DataMind Weather
+
+> Real-time weather application with 5-day forecast, GPS detection, and futuristic neon design.
+
+<p align="center">
+  <img src="portfolio/screenshots/datamind-weather.png" alt="DataMind Weather Screenshot" width="90%" />
+</p>
+
+**Stack:** Next.js 14 · TypeScript · TailwindCSS · Framer Motion · OpenWeather API  
+**Highlights:** City search with history · GPS geolocation · Live clock · Particle background · Glassmorphism neon design  
+**Repository:** [github.com/luiz199/datamind-weather](https://github.com/luiz199/datamind-weather)
+
+---
+
+## 🧠 DataMind AI
+
+> AI-powered SaaS platform with intelligent chatbot (OpenAI GPT integration).
+
+<p align="center">
+  <img src="portfolio/screenshots/datamind-ai.png" alt="DataMind AI Screenshot" width="90%" />
+</p>
+
+**Stack:** Next.js 14 · OpenAI API · TailwindCSS · Framer Motion  
+**Highlights:** Chat IA em tempo real · Seção de serviços · Planos de assinatura · Dashboard admin · Design NVIDIA-style  
+**Repository:** [View source](https://github.com/luiz199/professional-systems/tree/master/datamind-ai)
+
+---
+
+## 💻 Portfolio CS
+
+> Professional terminal-themed portfolio with particle network animation and bilingual support.
+
+<p align="center">
+  <img src="portfolio/screenshots/portfolio-cs.png" alt="Portfolio CS Screenshot" width="90%" />
+</p>
+
+**Stack:** Alpine.js · TailwindCSS · Canvas API · PWA  
+**Highlights:** Terminal-style UI · Particle animation · i18n (PT/EN) · Dark/Light theme · Service Worker  
+**Live:** [luiz199.github.io/professional-systems/portfolio/](https://luiz199.github.io/professional-systems/portfolio/)
+
+---
+
+## 🍽️ RESTAU MASTER PRO
+
+> Complete restaurant management system with visual floor plan and digital ordering.
+
+<p align="center">
+  <img src="portfolio/screenshots/restau-master.png" alt="RESTAU MASTER Screenshot" width="90%" />
+</p>
+
+**Stack:** HTML5 · JavaScript · LocalStorage · CSS3  
+**Highlights:** Visual table map · Digital ordering · Payment processing (PIX/Cash/Credit) · Admin panel · Audit logging  
+**Feature:** 100% single-file, zero dependencies
+
+---
+
+## 💪 FitManager Pro
+
+> Professional gym management system with financial control and virtual turnstile.
+
+<p align="center">
+  <img src="portfolio/screenshots/fitmanager.png" alt="FitManager Pro Screenshot" width="90%" />
+</p>
+
+**Stack:** Alpine.js · TailwindCSS · Lucide Icons  
+**Highlights:** Student CRUD · Financial dashboard · Training sheets (A/B/C) · CPF turnstile · Delinquency alerts  
+**Feature:** 5 pre-loaded sample students, glassmorphism design
+
+---
+
+## 🛠️ Technology Stack
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-0a0a0a?style=for-the-badge" />
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+  <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" />
+  <img src="https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=black" />
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Backend%20%26%20AI-0a0a0a?style=for-the-badge" />
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenWeather-EB6E4B?style=for-the-badge&logo=openweathermap&logoColor=white" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Tools-0a0a0a?style=for-the-badge" />
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+  <img src="https://img.shields.io/badge/Puppeteer-40B5A4?style=for-the-badge&logo=puppeteer&logoColor=white" />
+  <img src="https://img.shields.io/badge/GitHub_Pages-222222?style=for-the-badge&logo=github&logoColor=white" />
+  <img src="https://img.shields.io/badge/Canvas_API-00FF41?style=for-the-badge&logo=html5&logoColor=black" />
+  <img src="https://img.shields.io/badge/LocalStorage-FF6F00?style=for-the-badge&logo=storage&logoColor=white" />
+</p>
+
+---
+
+## 📸 Screenshots Gallery
+
+All screenshots were captured in real browsers using **Puppeteer** and represent actual running applications.
+
+| Project | Screenshot |
+|---------|-----------|
+| DataMind Weather | ![weather](portfolio/screenshots/weather-hero.png) |
+| DataMind Tokyo | ![tokyo](portfolio/screenshots/weather-tokyo.png) |
+| DataMind London | ![london](portfolio/screenshots/weather-london.png) |
+
+---
+
+## 📂 Repository Structure
 
 ```
 /
-├── portfolio/          # Portfolio CS (Alpine.js, Tailwind, Canvas)
-├── restau-master-pro/  # Gestão de restaurantes (JS, LocalStorage)
-├── fitmanager-pro/     # Gestão de academia (Alpine.js, Tailwind)
-├── datamind-ai/        # SaaS de IA com chat + clima (Alpine.js, Ollama)
-├── assets/             # Imagens e recursos
-└── index.html          # Hub de navegação entre projetos
+├── datamind-weather/     # Next.js weather forecast app (separate repo)
+├── datamind-ai/          # SaaS AI platform (single-file)
+├── portfolio/            # CS-themed portfolio with PWA
+├── restau-master-pro/    # Restaurant management system
+├── fitmanager-pro/       # Gym management system
+├── openclaw/             # Java game project
+├── avatarworld/          # Java game project
+├── assets/               # Shared images and resources
+└── index.html            # Navigation hub
 ```
 
-## Projetos
+---
 
-| Projeto | Descrição | Stack |
-|---------|-----------|-------|
-| [Portfolio CS](https://luiz199.github.io/professional-systems/portfolio/) | Portfólio CS com blog, depoimentos, timeline | Alpine.js, Tailwind, Canvas |
-| [RESTAU MASTER PRO](https://github.com/luiz199/professional-systems/tree/master/restau-master-pro) | Gestão de restaurantes e lanchonetes | JavaScript, LocalStorage |
-| [FitManager Pro](https://github.com/luiz199/professional-systems/tree/master/fitmanager-pro) | Gestão de academia | Alpine.js, Tailwind, Lucide |
-| [DataMind AI](https://github.com/luiz199/professional-systems/tree/master/datamind-ai) | SaaS de IA com chat + clima | Alpine.js, Ollama, Open-Meteo |
+## 🚀 Quick Start
 
-## Tecnologias
+```bash
+# Clone the repository
+git clone https://github.com/luiz199/professional-systems.git
+cd professional-systems
 
-<<<<<<< HEAD
-| Módulo | Descrição |
-|--------|-----------|
-| **Dashboard** | Estatísticas em tempo real com gráficos de faturamento diário/semanal/mensal |
-| **Mapa de Mesas** | Planta baixa visual com status coloridos (livre, ocupada, reservada) |
-| **Comanda Digital** | Adição de itens por categoria com cálculo automático de total |
-| **Cardápio** | Cadastro com foto, descrição, categoria e preços |
-| **Pagamento** | Modal com suporte a dinheiro, cartão, PIX e débito + cálculo de troco |
-| **Histórico** | Vendas com filtros por período, visualização detalhada e reimpressão |
-| **Painel Admin** | Usuários, configurações, manutenção (backup/restore/limpar), auditoria |
-| **Tema** | Alternância entre modo claro e escuro com persistência |
+# Open any project directly in browser
+# Example: RESTAU MASTER PRO
+start restau-master-pro/index.html
 
-## Características Técnicas
-
-- 100% **single-file** (único arquivo `.html`)
-- **Zero dependências externas** — sem CDN, sem frameworks, sem bibliotecas
-- Persistência via **LocalStorage** do navegador
-- Design **responsivo** e profissional
-- Interface **premium** com animações e transições suaves
-- **Multi-usuário** com sistema de autenticação
-- **Backup e restore** completo em JSON
-- **Auditoria** com registro de todas as ações importantes
-
-## Como usar
-
-1. Baixe o arquivo `restau-master-pro.html`
-2. Abra no navegador
-3. Login:
-4. Pronto! Tudo funciona localmente, sem necessidade de servidor
+# Or open the portfolio
+start portfolio/index.html
+```
 
 ---
 
-# FITMANAGER PRO
+## 📄 License
 
-**Sistema profissional de gestão de academia.**
-
-Single-file HTML5 com Tailwind CSS, Alpine.js e Lucide Icons. Dashboard, controle de alunos, módulo financeiro, fichas de treino e catraca virtual.
-
-## Funcionalidades
-
-| Módulo | Descrição |
-|--------|-----------|
-| **Dashboard** | Métricas em tempo real: total de alunos, ativos, inadimplentes, faturamento mensal |
-| **Alunos** | CRUD completo com tabela, busca por nome/CPF, modal de cadastro |
-| **Financeiro** | Controle de inadimplência, histórico de caixa, recebimento com atualização automática |
-| **Treinos** | Lista geral e ficha individual com abas A/B/C, gerenciamento completo de exercícios |
-| **Catraca** | Simulador de acesso por CPF com liberação/bloqueio automático |
-| **Alertas** | Painel de cobrança destacando alunos em atraso |
-| **Fluxo** | Registro de entrada com histórico de acessos |
-
-## Características Técnicas
-
-- 100% **single-file** (único arquivo `.html`)
-- **Tailwind CSS** via CDN para estilização
-- **Alpine.js** para estado e interatividade em memória
-- **Lucide Icons** para iconografia profissional
-- Design **glassmorphism** com gradientes e animações
-- **Toast notifications** para feedback de ações
-- **Impressão profissional** de fichas de treino
-- **Split login** com branding DataMind AI
-- **5 alunos fictícios** pré-carregados
-
-## Como usar
-
-1. Baixe o arquivo `fitmanager-pro.html`
-2. Abra no navegador
-3. Login:
-4. Pronto! Tudo funciona localmente, sem necessidade de servidor
+MIT License — see [LICENSE](LICENSE).
 
 ---
 
-# DATAMIND AI
-
-**Site institucional SaaS com inteligência artificial integrada.**
-
-Single-file HTML5 com Tailwind CSS, Alpine.js e Lucide Icons. Design futurista preto e neon verde, estilo NVIDIA. Chat IA inteligente, seção de clima e painel administrativo.
-
-## Funcionalidades
-
-| Módulo | Descrição |
-|--------|-----------|
-| **Hero** | Apresentação animada com partículas flutuantes e grid background |
-| **Navbar** | Navegação responsiva com menu mobile |
-| **Serviços** | 4 cards: IA, Automação, Análise de Dados, Soluções Digitais |
-| **Planos** | 3 planos (Starter Grátis, Professional R$ 97, Enterprise R$ 297) |
-| **Chat IA** | Assistente virtual com duas modalidades de resposta |
-| **Clima** | Previsão do tempo com busca por cidade e 5 dias de forecast |
-| **Painel** | Login e dashboard administrativo |
-| **Footer** | Rodapé com branding |
-
-## Chat IA — Duas Modalidades
-
-| Modo | Descrição |
-|------|-----------|
-| **Ollama Local** | Conecta-se ao Ollama rodando em `localhost:11434`. Usa modelo local (ex: `llama3.2`) para respostas inteligentes e naturais |
-| **Fallback Local** | Se o Ollama não estiver disponível, usa sistema próprio de NLP em português com respostas pré-programadas |
-
-Status indicado no header do chat (verde = Ollama conectado, cinza = modo local).
-
-## Clima
-
-- API **Open-Meteo** (gratuita, sem necessidade de chave)
-- Geocoding automático por nome de cidade
-- Temperatura atual, sensação térmica, umidade, vento, pressão, UV
-- Previsão para 5 dias com máximas/mínimas e chance de chuva
-- Sugestões de cidades populares
-
-## Características Técnicas
-
-- 100% **single-file** (único arquivo `.html`)
-- **Tailwind CSS** via CDN para estilização
-- **Alpine.js** para estado e interatividade em memória
-- **Lucide Icons** para iconografia profissional
-- Design **futurista** dark com neon green (#00ff41)
-- **Animações** CSS: fadeIn, slideUp, scaleIn, pulse, float, glowPulse
-- **Glassmorphism** com backdrop-filter e bordas translúcidas
-- **Responsivo** e mobile-first
-- **Chat com contexto** — mantém histórico da conversa
-- **Clima com dados reais** via Open-Meteo API
-- **Ollama integration** — respostas via modelo local de IA
-
-## Como usar
-
-1. Baixe o arquivo `datamind-ai.html`
-2. Abra no navegador
-3. Chat IA funciona imediatamente (modo fallback)
-4. Para modo Ollama: instale o [Ollama](https://ollama.ai), rode `ollama pull llama3.2`, e mantenha o serviço ativo
-5. Login painel:
-
----
-=======
-HTML5 · CSS3 · JavaScript · Alpine.js · Tailwind CSS · Canvas API · Ollama · Open-Meteo API · Lucide Icons · LocalStorage API · GitHub Pages
->>>>>>> fcfd657 (Reorganiza repo em pastas, remove senhas hardcoded, adiciona SEO/PWA/READMEs/screenshots/acessibilidade)
-
-## Licença
-
-Projetos pessoais — uso livre.
-
+<div align="center">
+  <sub>Built with ❤️ by <strong>Luiz Henrique</strong></sub>
+  <br/>
+  <sub>© 2026 DataMind — Inteligência • Inovação • Impacto</sub>
+  <br/><br/>
+  <img src="https://komarev.com/ghpvc/?username=luiz199&color=00FF41&style=flat-square&label=Repo+Views" alt="Views" />
+</div>
