@@ -504,19 +504,30 @@
 
   <script>
     (function() {
-      const key = 'portfolio-luiz199';
-      let stored = localStorage.getItem('visitor_' + key);
+      const KEY = 'pf_visitors';
+      const VISITED_KEY = 'pf_visited';
       const el = document.getElementById('visitorCount');
-      fetch('https://api.countapi.xyz/hit/luiz199/portfolio-' + key)
-        .then(r => r.json())
-        .then(d => { if (el && d.value) el.textContent = d.value.toLocaleString(); })
-        .catch(() => {
-          if (stored) { el.textContent = stored; }
-          else { el.textContent = '1'; }
-        });
-      if (!stored) {
-        try { localStorage.setItem('visitor_' + key, '1'); } catch(e) {}
+
+      function updateDisplay(num) {
+        if (el) el.textContent = Number(num).toLocaleString();
       }
+
+      let count = parseInt(localStorage.getItem(KEY)) || 0;
+
+      if (!localStorage.getItem(VISITED_KEY)) {
+        count++;
+        try {
+          localStorage.setItem(KEY, count);
+          localStorage.setItem(VISITED_KEY, '1');
+        } catch(e) {}
+      }
+
+      updateDisplay(count);
+
+      fetch('https://api.countapi.xyz/hit/luiz199/portfolio-counter')
+        .then(r => r.json())
+        .then(d => { if (d && d.value) { updateDisplay(d.value); try { localStorage.setItem(KEY, d.value); } catch(e) {} } })
+        .catch(() => {});
     })();
   </script>
 
