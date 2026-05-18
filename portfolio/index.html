@@ -514,8 +514,8 @@
         depTitle:'Depoimentos',
         contatoTitle:'Contato', contatoSub:'Tem um projeto em mente? Mande uma mensagem.',
         formName:'nome', formEmail:'email', formSubject:'assunto', formMsg:'mensagem', formSent:'Mensagem enviada!',
-        t1ano:'2026', t1tit:'Portfolio CS & DataMind AI', t1desc:'criação do portfolio profissional com tema Computer Science e plataforma SaaS DataMind AI com chatbot inteligente.',
-        t2ano:'2025', t2tit:'FitManager Pro & RESTAU MASTER', t2desc:'Desenvolvimento dos sistemas de gestão para academia e restaurante. Soluções single-file com Alpine.js e Tailwind.',
+        t1ano:'2026', t1tit:'DataMind Weather & Portfolio CS', t1desc:'App de previsão do tempo com Next.js 14, TypeScript e OpenWeather. Portfolio profissional com tema CS, PWA e i18n.',
+        t2ano:'2025', t2tit:'DataMind AI & RESTAU MASTER', t2desc:'Plataforma SaaS de IA com chat GPT integrado. Sistema de gestão de restaurante com mapa de mesas e comanda digital.',
         t3ano:'2024', t3tit:'Primeiros Projetos Web', t3desc:'Início na criação de sistemas web completos. Foco em HTML5, CSS3, JavaScript puro e otimização de performance.',
         t4ano:'2023', t4tit:'Fundação em Programação', t4desc:'Início dos estudos em lógica de Programação, algoritmos e desenvolvimento web. Descoberta da paixão por tecnologia.',
         b1tit:'Como criar sistemas single-file profissionais', b1res:'Aprenda a construir aplicações completas em um único arquivo HTML, sem frameworks pesados, usando Alpine.js e Tailwind CSS.',
@@ -540,8 +540,8 @@
         depTitle:'Testimonials',
         contatoTitle:'Contact', contatoSub:'Have a project in mind? Send a message.',
         formName:'name', formEmail:'email', formSubject:'subject', formMsg:'message', formSent:'Message sent!',
-        t1ano:'2026', t1tit:'Portfolio CS & DataMind AI', t1desc:'Created professional CS-themed portfolio and DataMind AI SaaS platform with intelligent chatbot.',
-        t2ano:'2025', t2tit:'FitManager Pro & RESTAU MASTER', t2desc:'Developed gym and restaurant management systems. Single-file solutions with Alpine.js and Tailwind.',
+        t1ano:'2026', t1tit:'DataMind Weather & Portfolio CS', t1desc:'Weather forecast app with Next.js 14, TypeScript and OpenWeather API. CS-themed portfolio with PWA and i18n.',
+        t2ano:'2025', t2tit:'DataMind AI & RESTAU MASTER', t2desc:'AI SaaS platform with integrated GPT chat. Restaurant management system with table map and digital ordering.',
         t3ano:'2024', t3tit:'First Web Projects', t3desc:'Started building complete web systems. Focus on HTML5, CSS3, vanilla JavaScript and performance optimization.',
         t4ano:'2023', t4tit:'Programming Foundation', t4desc:'Began studying programming logic, algorithms and web development. Discovered passion for technology.',
         b1tit:'How to build professional single-file systems', b1res:'Learn to build complete applications in a single HTML file, without heavy frameworks, using Alpine.js and Tailwind CSS.',
@@ -571,19 +571,21 @@
         t(key) { return (i18n[this.lang]||i18n.pt)[key] || key; },
 
         skills: [
-          { nome:'HTML5',icone:'🌐'},{nome:'CSS3',icone:'🎨'},{nome:'JavaScript',icone:'⚡'},
-          { nome:'Alpine.js',icone:'🔷'},{nome:'Tailwind CSS',icone:'🌊'},{nome:'Python',icone:'🐍'},
-          { nome:'Git',icone:'🔀'},{nome:'APIs REST',icone:'🔌'},{nome:'Ollama / IA',icone:'🧠'},
-          { nome:'LocalStorage',icone:'💾'},{nome:'UI/UX Design',icone:'✨'},{nome:'Responsivo',icone:'📱'}
+          { nome:'Next.js',icone:'▲'},{nome:'TypeScript',icone:'📘'},{nome:'JavaScript',icone:'⚡'},
+          { nome:'TailwindCSS',icone:'🌊'},{nome:'Framer Motion',icone:'🎭'},{nome:'Python',icone:'🐍'},
+          { nome:'OpenAI / IA',icone:'🧠'},{nome:'OpenWeather API',icone:'🌦'},{nome:'Git',icone:'🔀'},
+          { nome:'Alpine.js',icone:'🔷'},{nome:'HTML5 / CSS3',icone:'🌐'},{nome:'UI/UX Design',icone:'✨'}
         ],
 
         projetos: [
-          { nome:'RESTAU MASTER PRO',categoria:'Sistema',desc:'Gestão completa de restaurante com mapa de mesas, comanda digital e painel admin.',
-            img:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=350&fit=crop',tags:['HTML5','JavaScript','LocalStorage'],link:'https://github.com/luiz199/professional-systems' },
-          { nome:'FitManager Pro',categoria:'Sistema',desc:'Gestão de academia com alunos, financeiro, fichas de treino e catraca virtual.',
-            img:'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=350&fit=crop',tags:['Alpine.js','Tailwind','Lucide'],link:'https://github.com/luiz199/professional-systems' },
-          { nome:'DataMind AI',categoria:'SaaS',desc:'Site SaaS com chat IA (Ollama + NLP), clima em tempo real e dashboard.',
-            img:'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=350&fit=crop',tags:['Alpine.js','Tailwind','Ollama'],link:'https://github.com/luiz199/professional-systems' }
+          { nome:'DataMind Weather',categoria:'Next.js App',desc:'App de previsão do tempo com Next.js 14, TailwindCSS, Framer Motion e OpenWeather API. Design futurista com neon glassmorphism e partículas animadas.',
+            img:'./screenshots/datamind-weather.png',tags:['Next.js','TailwindCSS','TypeScript','OpenWeather'],link:'https://github.com/luiz199/datamind-weather' },
+          { nome:'DataMind AI',categoria:'SaaS - Next.js',desc:'Plataforma SaaS de IA generativa com chat inteligente integrado (OpenAI GPT), design futurista preto e neon verde estilo NVIDIA.',
+            img:'./screenshots/datamind-ai.png',tags:['Next.js','OpenAI','TailwindCSS','Framer'],link:'https://github.com/luiz199/professional-systems' },
+          { nome:'RESTAU MASTER PRO',categoria:'Sistema',desc:'Gestão completa de restaurante com mapa visual de mesas, comanda digital, cardápio com fotos e painel admin completo. Zero dependências externas.',
+            img:'./screenshots/restau-master.png',tags:['HTML5','JavaScript','LocalStorage'],link:'https://github.com/luiz199/professional-systems' },
+          { nome:'FitManager Pro',categoria:'Sistema',desc:'Gestão de academia com controle de alunos, módulo financeiro, fichas de treino personalizadas e catraca virtual inteligente.',
+            img:'./screenshots/fitmanager.png',tags:['Alpine.js','Tailwind','Lucide'],link:'https://github.com/luiz199/professional-systems' }
         ],
 
         timeline: [],

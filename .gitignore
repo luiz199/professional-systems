@@ -1,0 +1,5 @@
+node_modules/
+.next/
+*.local
+take-screenshots.js
+take-all-shots.js
