@@ -19,6 +19,12 @@
       <img src="https://img.shields.io/badge/Email-00FF41?style=for-the-badge&logo=gmail&logoColor=black&labelColor=0a0a0a" />
     </a>
   </p>
+  <p>
+    <img src="https://img.shields.io/github/actions/workflow/status/luiz199/professional-systems/deploy.yml?branch=master&style=flat-square&logo=githubactions&logoColor=white&label=Deploy&labelColor=0a0a0a&color=00FF41" />
+    <img src="https://img.shields.io/github/last-commit/luiz199/professional-systems/master?style=flat-square&logo=git&logoColor=white&labelColor=0a0a0a&color=00FF41" />
+    <img src="https://img.shields.io/github/repo-size/luiz199/professional-systems?style=flat-square&logo=files&logoColor=white&labelColor=0a0a0a&color=00FF41" />
+    <img src="https://img.shields.io/github/stars/luiz199/professional-systems?style=flat-square&logo=github&logoColor=white&labelColor=0a0a0a&color=00FF41" />
+  </p>
 </div>
 
 ---

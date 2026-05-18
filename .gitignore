@@ -1,5 +1,17 @@
 node_modules/
 .next/
 *.local
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.local
+dist/
+build/
+*.sublime-*
+.vscode/
+.idea/
+*.swo
+*.swp
 take-screenshots.js
 take-all-shots.js
