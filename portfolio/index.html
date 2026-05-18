@@ -481,6 +481,45 @@
 
   </div>
 
+  <footer class="relative z-10 border-t py-6" :style="'border-color: var(--border)'">
+    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 text-xs font-mono" :style="'color: var(--text3)'">
+        <span class="text-[#00ff41]">$</span>
+        <span>© 2026 luiz199 — built with</span>
+        <span class="text-[#00ff41]">♥</span>
+        <span>|</span>
+        <span class="text-[#00ff41]">./portfolio</span>
+        <span class="hidden sm:inline">v2.0</span>
+      </div>
+      <div class="glass-card rounded-xl px-5 py-2.5 flex items-center gap-3 text-xs font-mono" style="border-color: rgba(0,255,65,0.08)" id="visitorCounter">
+        <span class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-[#00ff41] pulse-dot"></span>
+          <span :style="'color: var(--text3)'">visitors:</span>
+        </span>
+        <span class="font-bold text-[#00ff41] text-sm tabular-nums" id="visitorCount">--</span>
+        <span class="text-[10px]" :style="'color: var(--text3)'">unique</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const key = 'portfolio-luiz199';
+      let stored = localStorage.getItem('visitor_' + key);
+      const el = document.getElementById('visitorCount');
+      fetch('https://api.countapi.xyz/hit/luiz199/portfolio-' + key)
+        .then(r => r.json())
+        .then(d => { if (el && d.value) el.textContent = d.value.toLocaleString(); })
+        .catch(() => {
+          if (stored) { el.textContent = stored; }
+          else { el.textContent = '1'; }
+        });
+      if (!stored) {
+        try { localStorage.setItem('visitor_' + key, '1'); } catch(e) {}
+      }
+    })();
+  </script>
+
   <script>
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
