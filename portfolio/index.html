@@ -237,6 +237,7 @@
         },
         abrirModal(proj) { this.selectedProj = proj; this.modalOpen = true; document.body.style.overflow = "hidden"; },
         fecharModal() { this.modalOpen = false; this.selectedProj = null; document.body.style.overflow = ""; },
+        toggleMobile() { this.mobileOpen = !this.mobileOpen; document.body.style.overflow = this.mobileOpen ? "hidden" : ""; },
         enviarForm() {
           if (!this.formNome.trim() || !this.formEmail.trim() || !this.formMsg.trim()) return;
           const form = document.querySelector("form[action*=\"web3forms\"]");
@@ -294,6 +295,15 @@
     @media (max-width:768px) {
       .timeline-line { left:20px; }
       .timeline-dot { left:20px; }
+      .glass { backdrop-filter:blur(10px); }
+      .glass-card { backdrop-filter:blur(8px); }
+    }
+    @media (max-width:480px) {
+      .timeline-dot { width:12px; height:12px; }
+      .section-label { letter-spacing:0.1em; }
+    }
+    @media (max-height:500px) {
+      .modal-image { height:120px; }
     }
     .lang-btn { padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; cursor:pointer; transition:.2s; border:1px solid transparent; background:transparent; color:var(--text3); }
     .lang-btn.active { background:rgba(0,255,65,0.1); border-color:rgba(0,255,65,0.3); color:#00ff41; }
@@ -327,8 +337,8 @@
           </div>
         </div>
         <div class="flex md:hidden items-center gap-2">
-          <button @click="lang = lang === 'pt' ? 'en' : 'pt'; salvarPrefs()" class="lang-btn text-xs" :class="lang === 'pt' ? 'active' : ''" aria-label="Mudar idioma para português">PT</button>
-          <button @click="mobileOpen = !mobileOpen" class="p-2 rounded-lg" style="color:var(--text3)" :aria-label="mobileOpen ? 'Fechar menu' : 'Abrir menu'" :aria-expanded="mobileOpen">
+          <button @click="lang = lang === 'pt' ? 'en' : 'pt'; salvarPrefs()" class="lang-btn text-xs min-w-[44px] min-h-[44px]" :class="lang === 'pt' ? 'active' : ''" aria-label="Mudar idioma para português">PT</button>
+          <button @click="toggleMobile()" class="p-3 rounded-lg" style="color:var(--text3)" :aria-label="mobileOpen ? 'Fechar menu' : 'Abrir menu'" :aria-expanded="mobileOpen">
             <svg x-show="!mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
             <svg x-show="mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
@@ -351,7 +361,7 @@
       <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-[#00ff41]/8 via-transparent" style="to:var(--bg)"></div>
         <div class="absolute inset-0 grid-bg opacity-60"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center pt-20">
+          <div class="relative z-10 max-w-4xl mx-auto px-4 text-center pt-10 sm:pt-20">
           <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-[#00ff41] mb-8" style="border-color:var(--border)">
             <span class="w-1.5 h-1.5 rounded-full bg-[#00ff41] pulse-dot"></span>
             <span class="font-mono">system.status: online</span>
@@ -369,7 +379,7 @@
             <span class="text-zinc-600">//</span> <span x-text="t('heroSub')"></span>
           </p>
           <p class="text-sm max-w-xl mx-auto mb-10 font-mono" style="color:var(--text3)" x-text="t('heroDesc')"></p>
-          <p class="text-[10px] text-[#00ff41]/20 font-mono mb-6 tracking-widest" x-text="binaryLine"></p>
+          <p class="text-[10px] text-[#00ff41]/20 font-mono mb-6 tracking-widest overflow-hidden whitespace-nowrap text-ellipsis max-w-full" x-text="binaryLine"></p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a href="#" @click.prevent="section = 'projetos'" class="px-8 py-3.5 btn-neon rounded-xl text-sm font-bold flex items-center gap-2">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
@@ -388,7 +398,7 @@
       </section>
     </div>
 
-    <div x-show="section === 'sobre'" role="region" aria-label="Sobre" class="pt-16 min-h-screen py-20 px-4">
+    <div x-show="section === 'sobre'" role="region" aria-label="Sobre" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -430,7 +440,7 @@
         </div>
       </div>
     </div>
-    <div x-show="section === 'timeline'" role="region" aria-label="Carreira" class="pt-16 min-h-screen py-20 px-4">
+    <div x-show="section === 'timeline'" role="region" aria-label="Carreira" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -463,7 +473,7 @@
       </div>
     </div>
 
-    <div x-show="section === 'projetos'" role="region" aria-label="Projetos" class="pt-16 min-h-screen py-20 px-4">
+    <div x-show="section === 'projetos'" role="region" aria-label="Projetos" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-6xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -502,7 +512,7 @@
       </div>
     </div>
 
-    <div x-show="section === 'blog'" role="region" aria-label="Blog" class="pt-16 min-h-screen py-20 px-4">
+    <div x-show="section === 'blog'" role="region" aria-label="Blog" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-5xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -541,7 +551,7 @@
       </div>
     </div>
 
-    <div x-show="section === 'depoimentos'" role="region" aria-label="Depoimentos" class="pt-16 min-h-screen py-20 px-4">
+    <div x-show="section === 'depoimentos'" role="region" aria-label="Depoimentos" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -558,7 +568,7 @@
                   <p class="text-[10px] font-mono" style="color:var(--text3)" x-text="dep.cargo"></p>
                 </div>
               </div>
-              <p class="text-xs leading-relaxed italic" style="color:var(--text2)">"<span x-text="dep.texto"></span>"</p>
+              <p class="text-xs leading-relaxed italic line-clamp-4 md:line-clamp-none" style="color:var(--text2)">"<span x-text="dep.texto"></span>"</p>
               <div class="flex gap-0.5 mt-3">
                 <template x-for="j in 5" :key="j">
                   <svg class="w-3 h-3" :class="j <= dep.estrelas ? 'text-[#00ff41]' : ''" :style="j <= dep.estrelas ? '' : 'color:var(--text3)'" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -569,7 +579,7 @@
         </div>
       </div>
     </div>
-    <div x-show="section === 'contato'" role="region" aria-label="Contato" class="pt-16 min-h-screen py-20 px-4">
+    <div x-show="section === 'contato'" role="region" aria-label="Contato" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-2xl mx-auto pt-10 relative">
         <div class="text-center mb-12">
@@ -609,7 +619,7 @@
             </button>
           </form>
         </div>
-        <div class="flex justify-center gap-6 mt-8">
+        <div class="flex flex-wrap justify-center gap-6 mt-8">
           <a href="https://github.com/luiz199" target="_blank" class="glass-card rounded-xl px-5 py-3 flex items-center gap-2 text-sm font-mono" style="color:var(--text3)">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
             GitHub
@@ -635,7 +645,7 @@
       <div class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl glass border p-0" style="border-color:var(--border)" @click.outside="fecharModal()" x-show="modalOpen" x-transition:enter="transition duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
         <template x-if="selectedProj">
           <div>
-            <div class="h-56 sm:h-72 overflow-hidden rounded-t-2xl relative">
+            <div class="modal-image h-56 sm:h-72 overflow-hidden rounded-t-2xl relative">
               <img :src="selectedProj.img" :alt="selectedProj.nome" class="w-full h-full object-cover">
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
               <button class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-black/50 backdrop-blur flex items-center justify-center text-white hover:bg-[#00ff41] hover:text-black transition z-10" @click="fecharModal()">
@@ -675,7 +685,7 @@
       </div>
     </div>
 
-    <footer class="relative z-10 border-t py-6" style="border-color:var(--border)">
+    <footer class="relative z-10 border-t py-6" style="border-color:var(--border);padding-bottom:max(1.5rem,env(safe-area-inset-bottom))">
       <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-2 text-xs font-mono" style="color:var(--text3)">
           <span class="text-[#00ff41]">$</span>
@@ -725,6 +735,7 @@
     }
     const count = Math.min(80, Math.floor(canvas.width * canvas.height / 15000));
     for (let i = 0; i < count; i++) particles.push(new Particle());
+    let animId;
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => { p.update(); p.draw(); });
@@ -732,9 +743,12 @@
         const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y, dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 150) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = "rgba(0,255,65," + (0.1 * (1 - dist / 150)) + ")"; ctx.lineWidth = 0.5; ctx.stroke(); }
       }
-      requestAnimationFrame(animate);
+      animId = requestAnimationFrame(animate);
     }
     animate();
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) { cancelAnimationFrame(animId); } else { animate(); }
+    });
   </script>
 
   <script>
