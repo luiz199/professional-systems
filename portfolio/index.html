@@ -12,7 +12,10 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="DataMind Portfolio">
-  <meta property="og:title" content="Luiz Henrique — Full-Stack Developer | Next.js, TypeScript & AI">
+  <meta property="og:title" content="Luiz Henrique — Full-Stack Developer | Portfolio">
+  <link rel="alternate" hreflang="pt-BR" href="https://luiz199.github.io/professional-systems/portfolio/">
+  <link rel="alternate" hreflang="en" href="https://luiz199.github.io/professional-systems/portfolio/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://luiz199.github.io/professional-systems/portfolio/">
   <meta property="og:description" content="Full-Stack Developer especializado em Next.js, TypeScript e Inteligência Artificial.">
   <meta property="og:url" content="https://luiz199.github.io/professional-systems/portfolio/">
   <meta property="og:image" content="https://luiz199.github.io/professional-systems/portfolio/screenshots/portfolio-cs.png">
@@ -20,7 +23,7 @@
   <meta property="og:image:height" content="720">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@luiz199">
-  <meta name="twitter:title" content="Luiz Henrique — Full-Stack Developer">
+  <meta name="twitter:title" content="Luiz Henrique — Full-Stack Developer | Portfolio">
   <meta name="twitter:description" content="Full-Stack Developer | Next.js, TypeScript & AI | DataMind Portfolio">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="512x512" href="../assets/icons/favicon.png">
@@ -324,14 +327,14 @@
           </div>
         </div>
         <div class="flex md:hidden items-center gap-2">
-          <button @click="lang = lang === 'pt' ? 'en' : 'pt'; salvarPrefs()" class="lang-btn text-xs" :class="lang === 'pt' ? 'active' : ''">PT</button>
-          <button @click="mobileOpen = !mobileOpen" class="p-2 rounded-lg" style="color:var(--text3)">
+          <button @click="lang = lang === 'pt' ? 'en' : 'pt'; salvarPrefs()" class="lang-btn text-xs" :class="lang === 'pt' ? 'active' : ''" aria-label="Mudar idioma para português">PT</button>
+          <button @click="mobileOpen = !mobileOpen" class="p-2 rounded-lg" style="color:var(--text3)" :aria-label="mobileOpen ? 'Fechar menu' : 'Abrir menu'" :aria-expanded="mobileOpen">
             <svg x-show="!mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
             <svg x-show="mobileOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
         </div>
       </div>
-      <div x-show="mobileOpen" class="md:hidden fixed inset-0 z-50 bg-black/96 backdrop-blur-2xl flex flex-col items-center justify-center gap-4">
+      <div x-show="mobileOpen" class="md:hidden fixed inset-0 z-50 bg-black/96 backdrop-blur-2xl flex flex-col items-center justify-center gap-4" role="dialog" aria-modal="true" aria-label="Menu de navegação">
         <template x-for="item in navItems" :key="item.id">
           <a href="#" @click.prevent="section = item.id; mobileOpen = false" role="menuitem"
             class="text-lg font-medium transition font-mono"
