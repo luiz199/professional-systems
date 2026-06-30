@@ -1,0 +1,53 @@
+{
+  "name": "Luiz Henrique — Full-Stack Developer Portfolio",
+  "short_name": "Portfolio CS",
+  "description": "Portfolio profissional de Luiz Henrique. Full-Stack Developer especializado em Next.js, TypeScript, IA e sistemas web modernos.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00FF41",
+  "orientation": "any",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "../assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "../assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["portfolio", "technology", "development", "web"],
+  "lang": "pt-BR",
+  "screenshots": [
+    {
+      "src": "screenshots/dark-mode.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Portfolio em modo escuro"
+    },
+    {
+      "src": "screenshots/light-mode.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Portfolio em modo claro"
+    }
+  ]
+}
