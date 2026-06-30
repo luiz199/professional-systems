@@ -152,8 +152,8 @@
     document.addEventListener("alpine:init", () => {
       Alpine.data("portfolio", () => ({
         section: "home", mobileOpen: false, lang: "pt", darkMode: true,
-        formNome: "", formEmail: "", formAssunto: "", formMsg: "", enviado: false,
-        binaryLine: "", modalOpen: false, selectedProj: null,
+        formNome: "", formEmail: "", formAssunto: "", formMsg: "", enviado: false, formErro: "",
+        binaryLine: "", modalOpen: false, selectedProj: null, filtroCategoria: "todas", filtroTag: "",
         navItems: [
           { id:"home", label:"inicio" }, { id:"sobre", label:"sobre" },
           { id:"timeline", label:"timeline" }, { id:"projetos", label:"projetos" },
@@ -168,15 +168,15 @@
           { nome:"Alpine.js",icone:"🔷"},{ nome:"HTML5 / CSS3",icone:"🌐"},{ nome:"UI/UX Design",icone:"✨"}
         ],
         projetos: [
-          { nome:"DataMind Weather",categoria:"Next.js App",desc:"App de previsao do tempo com Next.js 14, TailwindCSS, Framer Motion e OpenWeather API. Design futurista com neon glassmorphism e particulas animadas.",img:"./screenshots/datamind-weather.png",tags:["Next.js","TailwindCSS","TypeScript","OpenWeather"],link:"https://github.com/luiz199/datamind-weather",features:["Previsao 5 dias com graficos interativos","Design futurista com particulas animadas","Temas claro/escuro com transicao suave","Responsivo com suporte PWA offline","Integracao com OpenWeather API","Animacoes com Framer Motion"]},
-          { nome:"DataMind AI",categoria:"SaaS - Next.js",desc:"Plataforma SaaS de IA generativa com chat inteligente integrado (OpenAI GPT), design futurista preto e neon verde estilo NVIDIA.",img:"./screenshots/datamind-ai.png",tags:["Next.js","OpenAI","TailwindCSS","Framer"],link:"https://github.com/luiz199/professional-systems",features:["Chat inteligente com OpenAI GPT","Interface futurista neon verde","Historico de conversas persistente","Planos e precos dinamicos","Painel administrativo completo","Responsivo e otimizado para mobile"]},
-          { nome:"RESTAU MASTER PRO",categoria:"Sistema",desc:"Gestao completa de restaurante com mapa visual de mesas, comanda digital, cardapio com fotos e painel admin completo. Zero dependencias externas.",img:"./screenshots/restau-master.png",tags:["HTML5","JavaScript","LocalStorage"],link:"https://github.com/luiz199/professional-systems",features:["Mapa visual interativo de mesas","Comanda digital com adicao de itens","Cardapio com fotos e categorias","Painel admin com metricas","Tema escuro e claro","Zero dependencias externas"]},
-          { nome:"FitManager Pro",categoria:"Sistema",desc:"Gestao de academia com controle de alunos, modulo financeiro, fichas de treino personalizadas e catraca virtual inteligente.",img:"./screenshots/fitmanager.png",tags:["Alpine.js","Tailwind","Lucide"],link:"https://github.com/luiz199/professional-systems",features:["CRUD completo de alunos","Catraca virtual por CPF","Fichas de treino A/B/C","Controle financeiro e inadimplencia","Painel de alertas inteligente","Relatorios e exportacao de dados"]},
-          { nome:"Login Screen",categoria:"UI/UX - Interactive",desc:"Tela de login profissional com fundo dinamico, glassmorphism, floating labels, toggle de senha, loading animado com barra de progresso e dock estilo macOS integrado.",img:"./screenshots/login-site.png",tags:["HTML5","CSS3","JavaScript","Glassmorphism"],link:"https://github.com/luiz199/luiz199",features:["Background com imagem real e overlay gradiente","Floating labels animados nos campos","Toggle de senha com icone dinamico","Loading com barra de progresso e sucesso","Dock estilo macOS com tooltips","Animacoes suaves em glassmorphism"]},
-          { nome:"NeoVet",categoria:"Sistema SaaS - Next.js",desc:"Sistema profissional de gestao clinica veterinaria com login animado, dashboard com graficos, CRUD completo de clientes/pets/agendamentos, controle financeiro com nota fiscal, estoque com alerta inteligente e perfil da clinica com CNPJ.",img:"./screenshots/neovet-dashboard.png",tags:["Next.js","TailwindCSS","Framer Motion","Recharts"],link:"https://github.com/luiz199/professional-systems",features:["Login com imagem real e animacoes premium","Dashboard com graficos de receita e consultas","CRUD completo de clientes e pets","Sistema de agendamentos com status","Controle de medicamentos e estoque","Financeiro com emissao de nota fiscal","Perfil da clinica com CNPJ e CRMV","Sidebar animada tema escuro premium"]},
-          { nome:"Mimos & Personalizados AC",categoria:"Next.js App",desc:"E-commerce completo de presentes personalizados com Next.js 16, TailwindCSS v4, Framer Motion, painel admin com CRUD, 12 produtos seed, carrinho local e integracao WhatsApp.",img:"./screenshots/mimos-personalizados.png",tags:["Next.js","TailwindCSS","TypeScript","Framer"],link:"https://luiz199.github.io/mimos-personalizados/",features:["Catalogo com 12 produtos personalizados","Painel admin com CRUD completo","Carrinho de compras com localStorage","Integracao WhatsApp para pedidos","Animacoes com Framer Motion","Tema pastel com glassmorphism","Contador de visitas e notificacoes","Responsivo e otimizado para mobile"]},
-          { nome:"Rei da Pelada PRO",categoria:"SaaS - Next.js",desc:"Plataforma premium de campeonatos de futebol com ranking ao vivo, divisao inteligente de times (snake-draft), estatisticas detalhadas, suporte a goleiros com pontuacao separada e design mobile-first dark premium com glassmorphism.",img:"./screenshots/rei-da-pelada.png",tags:["Next.js","TypeScript","Socket.IO","MongoDB"],link:"https://frontend-mu-five-37.vercel.app",features:["Ranking em tempo real com Socket.IO","Divisao de times snake-draft (2/3/4 times)","Estatisticas separadas para goleiros","Design mobile-first dark com glassmorphism","PWA installavel com service worker","Painel admin com autenticacao","Scoreboard e feed de eventos ao vivo","MVP e artilheiros por partida"]},
-          { nome:"Datamind WhatsApp Business PRO",categoria:"SaaS - Next.js + NestJS",desc:"Plataforma SaaS profissional para empresas gerenciarem atendimento via WhatsApp com CRM, campanhas em massa, IA generativa (OpenAI), disparo agendado, autenticacao JWT/2FA/OAuth, multiempresas e dashboard com graficos Recharts.",img:"./screenshots/datamind-whatsapp.png",tags:["Next.js","NestJS","MongoDB","OpenAI"],link:"https://github.com/luiz199/datamind-whatsapp",features:["Dashboard com metricas e graficos em tempo real","CRM completo com tags e historico","Campanhas em massa com agendamento","IA generativa integrada (OpenAI GPT)","Autenticacao JWT + 2FA + OAuth Google","Multiempresas com isolamento de dados","Tema dark/light com animacoes Framer Motion","Conexao WhatsApp via QR Code"]},
+          { nome:"DataMind Weather",categoria:"Next.js App",desc:"App de previsao do tempo com Next.js 14, TailwindCSS, Framer Motion e OpenWeather API. Design futurista com neon glassmorphism e particulas animadas.",img:"./screenshots/datamind-weather.png",imgAlt:"Dashboard do DataMind Weather mostrando previsao de 5 dias com graficos neon e particulas animadas",tags:["Next.js","TailwindCSS","TypeScript","OpenWeather"],link:"https://github.com/luiz199/datamind-weather",versao:"2.1",features:["Previsao 5 dias com graficos interativos","Design futurista com particulas animadas","Temas claro/escuro com transicao suave","Responsivo com suporte PWA offline","Integracao com OpenWeather API","Animacoes com Framer Motion"]},
+          { nome:"DataMind AI",categoria:"SaaS - Next.js",desc:"Plataforma SaaS de IA generativa com chat inteligente integrado (OpenAI GPT), design futurista preto e neon verde estilo NVIDIA.",img:"./screenshots/datamind-ai.png",imgAlt:"Interface do DataMind AI com chat GPT integrado e tema neon verde futurista",tags:["Next.js","OpenAI","TailwindCSS","Framer"],link:"https://github.com/luiz199/professional-systems",versao:"1.3",features:["Chat inteligente com OpenAI GPT","Interface futurista neon verde","Historico de conversas persistente","Planos e precos dinamicos","Painel administrativo completo","Responsivo e otimizado para mobile"]},
+          { nome:"RESTAU MASTER PRO",categoria:"Sistema",desc:"Gestao completa de restaurante com mapa visual de mesas, comanda digital, cardapio com fotos e painel admin completo. Zero dependencias externas.",img:"./screenshots/restau-master.png",imgAlt:"Tela do Restau Master PRO com mapa de mesas interativo e comanda digital",tags:["HTML5","JavaScript","LocalStorage"],link:"https://github.com/luiz199/professional-systems",versao:"3.0",features:["Mapa visual interativo de mesas","Comanda digital com adicao de itens","Cardapio com fotos e categorias","Painel admin com metricas","Tema escuro e claro","Zero dependencias externas"]},
+          { nome:"FitManager Pro",categoria:"Sistema",desc:"Gestao de academia com controle de alunos, modulo financeiro, fichas de treino personalizadas e catraca virtual inteligente.",img:"./screenshots/fitmanager.png",imgAlt:"Dashboard do FitManager Pro com metricas de alunos, financeiro e catraca virtual",tags:["Alpine.js","Tailwind","Lucide"],link:"https://github.com/luiz199/professional-systems",versao:"2.0",features:["CRUD completo de alunos","Catraca virtual por CPF","Fichas de treino A/B/C","Controle financeiro e inadimplencia","Painel de alertas inteligente","Relatorios e exportacao de dados"]},
+          { nome:"Login Screen",categoria:"UI/UX - Interactive",desc:"Tela de login profissional com fundo dinamico, glassmorphism, floating labels, toggle de senha, loading animado com barra de progresso e dock estilo macOS integrado.",img:"./screenshots/login-site.png",imgAlt:"Tela de login com glassmorphism, floating labels e dock estilo macOS",tags:["HTML5","CSS3","JavaScript","Glassmorphism"],link:"https://github.com/luiz199/luiz199",versao:"1.0",features:["Background com imagem real e overlay gradiente","Floating labels animados nos campos","Toggle de senha com icone dinamico","Loading com barra de progresso e sucesso","Dock estilo macOS com tooltips","Animacoes suaves em glassmorphism"]},
+          { nome:"NeoVet",categoria:"Sistema SaaS - Next.js",desc:"Sistema profissional de gestao clinica veterinaria com login animado, dashboard com graficos, CRUD completo de clientes/pets/agendamentos, controle financeiro com nota fiscal, estoque com alerta inteligente e perfil da clinica com CNPJ.",img:"./screenshots/neovet-dashboard.png",imgAlt:"Dashboard do NeoVet com graficos de receita, agendamentos e controle de estoque veterinario",tags:["Next.js","TailwindCSS","Framer Motion","Recharts"],link:"https://github.com/luiz199/professional-systems",versao:"1.5",features:["Login com imagem real e animacoes premium","Dashboard com graficos de receita e consultas","CRUD completo de clientes e pets","Sistema de agendamentos com status","Controle de medicamentos e estoque","Financeiro com emissao de nota fiscal","Perfil da clinica com CNPJ e CRMV","Sidebar animada tema escuro premium"]},
+          { nome:"Mimos & Personalizados AC",categoria:"Next.js App",desc:"E-commerce completo de presentes personalizados com Next.js 16, TailwindCSS v4, Framer Motion, painel admin com CRUD, 12 produtos seed, carrinho local e integracao WhatsApp.",img:"./screenshots/mimos-personalizados.png",imgAlt:"Loja virtual Mimos & Personalizados com catalogo de produtos e painel admin",tags:["Next.js","TailwindCSS","TypeScript","Framer"],link:"https://luiz199.github.io/mimos-personalizados/",versao:"1.0",features:["Catalogo com 12 produtos personalizados","Painel admin com CRUD completo","Carrinho de compras com localStorage","Integracao WhatsApp para pedidos","Animacoes com Framer Motion","Tema pastel com glassmorphism","Contador de visitas e notificacoes","Responsivo e otimizado para mobile"]},
+          { nome:"Rei da Pelada PRO",categoria:"SaaS - Next.js",desc:"Plataforma premium de campeonatos de futebol com ranking ao vivo, divisao inteligente de times (snake-draft), estatisticas detalhadas, suporte a goleiros com pontuacao separada e design mobile-first dark premium com glassmorphism.",img:"./screenshots/rei-da-pelada.png",imgAlt:"Plataforma Rei da Pelada PRO exibindo ranking de jogadores e partida ao vivo com estatisticas",tags:["Next.js","TypeScript","Socket.IO","MongoDB"],link:"https://frontend-mu-five-37.vercel.app",versao:"1.0",features:["Ranking em tempo real com Socket.IO","Divisao de times snake-draft (2/3/4 times)","Estatisticas separadas para goleiros","Design mobile-first dark com glassmorphism","PWA installavel com service worker","Painel admin com autenticacao","Scoreboard e feed de eventos ao vivo","MVP e artilheiros por partida"]},
+          { nome:"Datamind WhatsApp Business PRO",categoria:"SaaS - Next.js + NestJS",desc:"Plataforma SaaS profissional para empresas gerenciarem atendimento via WhatsApp com CRM, campanhas em massa, IA generativa (OpenAI), disparo agendado, autenticacao JWT/2FA/OAuth, multiempresas e dashboard com graficos Recharts.",img:"./screenshots/datamind-whatsapp.png",imgAlt:"Dashboard do Datamind WhatsApp Business PRO com metricas de mensagens, CRM e graficos Recharts",tags:["Next.js","NestJS","MongoDB","OpenAI"],link:"https://github.com/luiz199/datamind-whatsapp",versao:"0.8",features:["Dashboard com metricas e graficos em tempo real","CRM completo com tags e historico","Campanhas em massa com agendamento","IA generativa integrada (OpenAI GPT)","Autenticacao JWT + 2FA + OAuth Google","Multiempresas com isolamento de dados","Tema dark/light com animacoes Framer Motion","Conexao WhatsApp via QR Code"]},
         ],
         formacoes: [
           { curso:"Ciencia da Computacao", inst:"UNIBF" }, { curso:"MBA em Data Warehouse & BI", inst:"UNIBF" },
@@ -239,18 +239,33 @@
           try { localStorage.setItem("portfolioPrefs", JSON.stringify({ lang:this.lang, darkMode:this.darkMode })); } catch (e) {}
           this.montarDados();
         },
-        abrirModal(proj) { this.selectedProj = proj; this.modalOpen = true; document.body.style.overflow = "hidden"; },
-        fecharModal() { this.modalOpen = false; this.selectedProj = null; document.body.style.overflow = ""; },
+        abrirModal(proj) {
+          this.selectedProj = proj; this.modalOpen = true; document.body.style.overflow = "hidden";
+          this.$nextTick(() => { const btn = document.querySelector("#modalCloseBtn"); if (btn) btn.focus(); });
+        },
+        fecharModal() {
+          this.modalOpen = false; this.selectedProj = null; document.body.style.overflow = "";
+          const cards = document.querySelectorAll(".glass-card"); const idx = this.projetos.indexOf(this.selectedProj);
+          if (cards[idx]) cards[idx].focus();
+        },
         toggleMobile() { this.mobileOpen = !this.mobileOpen; document.body.style.overflow = this.mobileOpen ? "hidden" : ""; },
         enviarForm() {
           if (!this.formNome.trim() || !this.formEmail.trim() || !this.formMsg.trim()) return;
+          this.formErro = "";
           const form = document.querySelector("form[action*=\"web3forms\"]");
           if (!form) return;
           const data = new FormData(form);
           fetch(form.action, { method:"POST", body:data })
             .then(r => r.json())
-            .then(d => { if (d.success) { this.enviado = true; setTimeout(() => { this.enviado = false; this.formNome = ""; this.formEmail = ""; this.formAssunto = ""; this.formMsg = ""; }, 3000); } })
-            .catch(() => {});
+            .then(d => {
+              if (d.success) {
+                this.enviado = true;
+                setTimeout(() => { this.enviado = false; this.formNome = ""; this.formEmail = ""; this.formAssunto = ""; this.formMsg = ""; }, 3000);
+              } else {
+                this.formErro = d.message || "Erro ao enviar. Tente novamente.";
+              }
+            })
+            .catch(() => { this.formErro = "Erro de conexao. Verifique sua internet e tente novamente."; });
         }
       }));
     });
@@ -261,7 +276,7 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'JetBrains Mono',monospace; overflow-x:hidden; transition:background .3s,color .3s; }
     [x-cloak] { display:none !important; }
-    :root { --bg:#0a0a0a; --bg2:#0f0f0f; --text:#e0e0e0; --text2:#a0a0a0; --text3:#666; --border:rgba(0,255,65,0.12); --card-bg:rgba(10,10,10,0.85); --input-bg:rgba(255,255,255,0.05); --glass-bg:rgba(8,8,8,0.75); --scanline:rgba(0,255,65,0.015); --grid:rgba(0,255,65,0.04); }
+    :root { --bg:#0a0a0a; --bg2:#0f0f0f; --text:#e0e0e0; --text2:#a0a0a0; --text3:#999; --border:rgba(0,255,65,0.12); --card-bg:rgba(10,10,10,0.85); --input-bg:rgba(255,255,255,0.05); --glass-bg:rgba(8,8,8,0.75); --scanline:rgba(0,255,65,0.015); --grid:rgba(0,255,65,0.04); }
     .light { --bg:#f5f5f0; --bg2:#e8e8e0; --text:#1a1a1a; --text2:#4a4a4a; --text3:#999; --border:rgba(0,200,50,0.2); --card-bg:rgba(255,255,255,0.9); --input-bg:rgba(0,0,0,0.05); --glass-bg:rgba(255,255,255,0.85); --scanline:rgba(0,200,50,0.02); --grid:rgba(0,200,50,0.06); }
     body { background:var(--bg); color:var(--text); }
     .glass { background:var(--glass-bg); backdrop-filter:blur(20px); border:1px solid var(--border); }
@@ -296,6 +311,7 @@
     .slide-up { animation:slideUp .5s ease-out; }
     .pulse-dot { animation:pulse 1.5s ease-in-out infinite; }
     .glow-pulse { animation:glowPulse 3s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; } .scanline { display:none; } canvas#particles-canvas { display:none; } }
     .timeline-line { position:absolute; left:50%; top:0; bottom:0; width:2px; background:linear-gradient(to bottom,transparent,#00ff41,transparent); transform:translateX(-50%); }
     .timeline-dot { width:16px; height:16px; border-radius:50%; background:#00ff41; border:3px solid var(--bg); position:absolute; left:50%; transform:translateX(-50%); z-index:2; box-shadow:0 0 15px rgba(0,255,65,0.3); }
     @media (max-width:768px) {
@@ -342,7 +358,7 @@
   </style>
 </head>
 <body>
-  <canvas id="particles-canvas"></canvas>
+  <canvas id="particles-canvas" aria-hidden="true" role="presentation"></canvas>
   <div class="scanline"></div>
   <div x-data="portfolio" x-cloak class="relative z-10 min-h-screen smooth-scroll gpu-layer" :class="!darkMode ? 'light' : ''" role="main">    <nav aria-label="Navegacao principal" class="fixed top-0 left-0 right-0 z-40 glass border-b" style="border-color:var(--border)">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" style="padding-left:max(1rem,env(safe-area-inset-left));padding-right:max(1rem,env(safe-area-inset-right))">
@@ -555,11 +571,28 @@
           <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ ls -la projects/</span>
           <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('projTitle')"></span></h2>
         </div>
+        <div class="flex flex-wrap gap-2 justify-center mb-8">
+          <button @click="filtroCategoria = 'todas'; filtroTag = ''" class="px-4 py-2 rounded-xl text-xs font-mono transition-all duration-300"
+            :class="filtroCategoria === 'todas' && !filtroTag ? 'btn-neon' : 'btn-outline'">$ todas</button>
+          <template x-for="cat in [...new Set(projetos.map(p => p.categoria))]" :key="cat">
+            <button @click="filtroCategoria = cat; filtroTag = ''" class="px-4 py-2 rounded-xl text-xs font-mono transition-all duration-300"
+              :class="filtroCategoria === cat ? 'btn-neon' : 'btn-outline'"
+              x-text="'$ ' + cat"></button>
+          </template>
+        </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <template x-for="(proj, i) in projetos" :key="proj.nome">
-            <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300 cursor-pointer" @click="abrirModal(proj)">
+          <template x-for="(proj, i) in projetos.filter(p => (filtroCategoria === 'todas' || p.categoria === filtroCategoria) && (!filtroTag || p.tags.includes(filtroTag)))" :key="proj.nome">
+            <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300 cursor-pointer"
+              @click="abrirModal(proj)"
+              x-transition:enter="transition duration-300"
+              x-transition:enter-start="opacity-0 translate-y-4"
+              x-transition:enter-end="opacity-100 translate-y-0"
+              :style="'transition-delay: ' + (i * 60) + 'ms'">
               <div class="h-28 sm:h-36 overflow-hidden">
-                <img :src="proj.img" :alt="proj.nome" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <picture>
+                  <source :srcset="proj.img.replace('.png', '.webp')" type="image/webp">
+                  <img :src="proj.img" :alt="proj.imgAlt || proj.nome" loading="lazy" width="400" height="225" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" @error="$event.target.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22225%22 viewBox=%220 0 400 225%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22225%22/%3E%3Ctext fill=%22%23333%22 font-family=%22monospace%22 font-size=%2214%22 x=%22200%22 y=%22115%22 text-anchor=%22middle%22%3EImagem%3C/text%3E%3C/svg%3E'">
+                </picture>
               </div>
               <div class="p-5">
                 <span class="tag-badge" x-text="proj.categoria"></span>
@@ -567,16 +600,20 @@
                 <p class="text-xs leading-relaxed mb-4 font-mono line-clamp-2" style="color:var(--text3)" x-text="proj.desc"></p>
                 <div class="flex flex-wrap gap-1.5 mb-4">
                   <template x-for="tag in proj.tags" :key="tag">
-                    <span class="tag-badge" x-text="tag"></span>
+                    <span class="tag-badge cursor-pointer hover:bg-[#00ff41]/20 transition" @click.stop="filtroTag = tag; filtroCategoria = 'todas'" x-text="tag"></span>
                   </template>
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="inline-flex items-center gap-1.5 text-xs font-mono text-[#00ff41] group-hover:underline"><span>$ detalhes →</span></span>
-                  <span class="text-[10px] font-mono" style="color:var(--text3)">v1.0</span>
+                  <span class="text-[10px] font-mono" style="color:var(--text3)"><span x-text="proj.versao ? 'v' + proj.versao : ''"></span></span>
                 </div>
               </div>
             </div>
           </template>
+          <div x-show="projetos.filter(p => (filtroCategoria === 'todas' || p.categoria === filtroCategoria) && (!filtroTag || p.tags.includes(filtroTag))).length === 0"
+               class="col-span-full text-center py-12 text-sm font-mono" style="color:var(--text3)">
+            Nenhum projeto encontrado para este filtro.
+          </div>
         </div>
         <div class="text-center mt-10">
           <a href="https://github.com/luiz199/professional-systems" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 btn-outline rounded-xl text-sm font-mono">
@@ -597,7 +634,7 @@
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <template x-for="(post, i) in blogPosts" :key="i">
-            <div class="glass-card rounded-xl overflow-hidden hover:border-[#00ff41]/30 transition-all duration-300 group cursor-pointer" @click="section = 'contato'">
+            <div class="glass-card rounded-xl overflow-hidden hover:border-[#00ff41]/30 transition-all duration-300 group">
               <div class="h-1.5 w-full shrink-0" :style="'background:' + (post.cor || '#00ff41')"></div>
               <div class="p-5">
                 <div class="flex items-center justify-between mb-3">
@@ -684,6 +721,7 @@
             <textarea name="message" x-model="formMsg" :placeholder="t('formMsg')" rows="4" required
               class="w-full rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-[#00ff41]/30 transition resize-none"
               style="background:var(--input-bg);border:1px solid var(--border);color:var(--text)" aria-label="Mensagem"></textarea>
+            <p x-show="formErro" class="text-xs font-mono text-red-500 text-center" x-text="formErro"></p>
             <button type="submit" class="w-full py-3 btn-neon rounded-xl text-sm font-bold font-mono"
               :disabled="!formNome.trim() || !formEmail.trim() || !formMsg.trim()">
               <span x-show="!enviado">$ ./send</span>
@@ -715,15 +753,18 @@
       </div>
     </div>
 
-    <div x-show="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4" @keydown.escape.window="fecharModal()">
+    <div x-show="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4" @keydown.escape.window="fecharModal()" @keydown.tab.prevent="$event.shiftKey ? document.querySelector('#modalCloseBtn')?.focus() : document.querySelector('.modal-repo-btn')?.focus()" @keydown.shift.tab.prevent="document.querySelector('#modalCloseBtn')?.focus()">
       <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" @click="fecharModal()"></div>
       <div class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl glass border p-0" style="border-color:var(--border);margin:0 max(0.5rem,env(safe-area-inset-right)) 0 max(0.5rem,env(safe-area-inset-left))" @click.outside="fecharModal()" x-show="modalOpen" x-transition:enter="transition duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
         <template x-if="selectedProj">
           <div>
             <div class="modal-image h-56 sm:h-72 overflow-hidden rounded-t-2xl relative">
-              <img :src="selectedProj.img" :alt="selectedProj.nome" class="w-full h-full object-cover">
+              <picture>
+                <source :srcset="selectedProj.img.replace('.png', '.webp')" type="image/webp">
+                <img :src="selectedProj.img" :alt="selectedProj.imgAlt || selectedProj.nome" class="w-full h-full object-cover" width="800" height="450">
+              </picture>
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-              <button class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-black/50 backdrop-blur flex items-center justify-center text-white hover:bg-[#00ff41] hover:text-black transition z-10" @click="fecharModal()">
+              <button id="modalCloseBtn" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-black/50 backdrop-blur flex items-center justify-center text-white hover:bg-[#00ff41] hover:text-black transition z-10" @click="fecharModal()">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
               </button>
             </div>
@@ -748,7 +789,7 @@
                 </div>
               </div>
               <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t" style="border-color:var(--border)">
-                <a :href="selectedProj.link" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 py-3 btn-neon rounded-xl text-sm font-bold font-mono">
+                <a :href="selectedProj.link" target="_blank" class="modal-repo-btn flex-1 inline-flex items-center justify-center gap-2 py-3 btn-neon rounded-xl text-sm font-bold font-mono">
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
                   <span>$ ver repositorio</span>
                 </a>
@@ -808,6 +849,9 @@
       update() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > canvas.width) this.vx *= -1; if (this.y < 0 || this.y > canvas.height) this.vy *= -1; }
       draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = "rgba(0,255,65,0.4)"; ctx.fill(); }
     }
+    const maxParticles = 80;
+    const isMobile = window.innerWidth < 768;
+    const connectionDist = 150;
     let count = Math.min(maxParticles, Math.floor(canvas.width * canvas.height / (isMobile ? 20000 : 15000)));
     for (let i = 0; i < count; i++) particles.push(new Particle());
     let animId;
@@ -835,3 +879,4 @@
   </script>
 </body>
 </html>
+
