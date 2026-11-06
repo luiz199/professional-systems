@@ -16,16 +16,17 @@
 
 | Seção | Descrição |
 |-------|-----------|
-| 🎯 **Hero** | Apresentação com rede de partículas animadas (Canvas API) |
+| 🎯 **Hero** | Partículas em Canvas + spotlights animados, título palavra-a-palavra e botões com borda mágica giratória |
 | 👤 **Sobre** | Bio + formação acadêmica (Ciência da Computação — UNIBF) |
 | 📅 **Timeline** | Linha do tempo da carreira profissional |
-| 🗂️ **Projetos** | Portfólio de projetos com descrição e links |
+| 🗂️ **Projetos** | 15 projetos com filtros por categoria/tag, tilt 3D no hover e modal de detalhes |
 | 📝 **Blog** | 4 artigos técnicos integrados |
-| ⭐ **Depoimentos** | 4 depoimentos de clientes/colegas |
+| ⭐ **Depoimentos** | 10 depoimentos em marquee infinito (pausa no hover/foco) |
 | 📬 **Contato** | Formulário funcional com validação |
 | 🌙 **Dark/Light** | Alternância de tema com animação suave |
 | 🌎 **i18n PT/EN** | Suporte a português e inglês com toggle |
 | 📱 **PWA** | Instalável como aplicativo (manifest.json + service worker) |
+| ♿ **Acessibilidade** | `prefers-reduced-motion` desativa todos os efeitos animados |
 
 ## 🚀 Como Usar
 
