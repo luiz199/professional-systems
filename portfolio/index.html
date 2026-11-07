@@ -266,6 +266,8 @@
           const y = (e.clientY - r.top) / r.height - 0.5;
           el.style.setProperty("--rx", (-y * 8).toFixed(2) + "deg");
           el.style.setProperty("--ry", (x * 8).toFixed(2) + "deg");
+          el.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+          el.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
         },
         tiltReset(e) {
           e.currentTarget.style.setProperty("--rx", "0deg");
@@ -405,11 +407,56 @@
     /* Tilt 3D nos cards de projetos (3d-pin) */
     .tilt-inner { transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transition:transform .2s ease-out; will-change:transform; }
 
+    /* ===== Efeitos v2 — mais animação ===== */
+    /* Reveal no scroll */
+    [data-reveal] { opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); will-change:opacity, transform; }
+    [data-reveal].is-in { opacity:1; transform:none; }
+
+    /* Digitação de terminal nos comandos de seção */
+    .type-cmd.typing::after { content:'▌'; margin-left:2px; color:#00ff41; animation:blink 1s step-end infinite; }
+
+    /* Glow radial seguindo o cursor nos cards */
+    .tilt-inner { position:relative; }
+    .tilt-inner::after { content:''; position:absolute; inset:0; border-radius:inherit; background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%), rgba(0,255,65,0.13), rgba(0,255,65,0.04) 45%, transparent 68%); opacity:0; transition:opacity .35s ease; pointer-events:none; z-index:1; }
+    .tilt-inner:hover::after { opacity:1; }
+
+    /* Tech stack em marquee infinito */
+    .skills-viewport { overflow:hidden; -webkit-mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent); mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent); }
+    .skills-track { display:flex; width:max-content; gap:.75rem; animation:skillsScroll 30s linear infinite; }
+    .skills-viewport:hover .skills-track, .skills-viewport:focus-within .skills-track { animation-play-state:paused; }
+    @keyframes skillsScroll { from { transform:translateX(0) } to { transform:translateX(-50%) } }
+    .skill-chip { flex-shrink:0; }
+
+    /* Glitch digital no título do hero */
+    .glitch { position:relative; }
+    .glitch::before, .glitch::after { content:attr(data-text); position:absolute; left:0; top:0; width:100%; pointer-events:none; opacity:0; color:#00ff41; }
+    .glitch::before { text-shadow:-2px 0 rgba(0,255,65,.75); animation:glitchA 8s infinite; }
+    .glitch::after { color:#00e5ff; text-shadow:2px 0 rgba(0,229,255,.75); animation:glitchB 8s infinite; }
+    @keyframes glitchA {
+      0%, 90% { opacity:0; clip-path:inset(100% 0 0 0); transform:none; }
+      91% { opacity:.85; clip-path:inset(10% 0 62% 0); transform:translate(-3px,0); }
+      93% { opacity:.85; clip-path:inset(58% 0 18% 0); transform:translate(3px,0); }
+      95% { opacity:.85; clip-path:inset(32% 0 44% 0); transform:translate(-2px,0); }
+      96%, 100% { opacity:0; clip-path:inset(100% 0 0 0); transform:none; }
+    }
+    @keyframes glitchB {
+      0%, 91% { opacity:0; clip-path:inset(100% 0 0 0); transform:none; }
+      92% { opacity:.7; clip-path:inset(48% 0 30% 0); transform:translate(3px,0); }
+      94% { opacity:.7; clip-path:inset(20% 0 58% 0); transform:translate(-3px,0); }
+      96%, 100% { opacity:0; clip-path:inset(100% 0 0 0); transform:none; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .hero-word { animation-delay:0s !important; opacity:1 !important; transform:none !important; }
       .marquee-track { animation:none !important; }
       .marquee-viewport { overflow-x:auto; -webkit-mask-image:none; mask-image:none; }
       .tilt-inner { transform:none !important; }
+      [data-reveal] { opacity:1 !important; transform:none !important; transition:none !important; }
+      .type-cmd.typing::after { animation:none !important; }
+      .skills-track { animation:none !important; }
+      .skills-viewport { overflow-x:auto; -webkit-mask-image:none; mask-image:none; }
+      .glitch::before, .glitch::after { animation:none !important; opacity:0 !important; }
+      .tilt-inner::after { display:none !important; }
     }
   </style>
 </head>
@@ -521,11 +568,12 @@
           </div>
           <div class="mb-4">
             <p class="text-sm font-mono mb-2" style="color:var(--text3)"><span class="text-[#00ff41]">$</span> whoami</p>
-            <h1 class="hero-title text-4xl sm:text-5xl lg:text-7xl font-black leading-tight mb-2 cursor-blink inline-block" style="color:var(--text)">
+            <h1 class="hero-title glitch text-4xl sm:text-5xl lg:text-7xl font-black leading-tight mb-2 inline-block" style="color:var(--text)" data-text="Full-Stack Developer">
               <template x-for="(item, i) in heroWords()" :key="i">
                 <span class="hero-word text-transparent bg-clip-text bg-gradient-to-r from-[#00ff41] to-[#00cc33] neon-text"
                   :style="'animation-delay:' + (i * 0.16) + 's;margin-right:' + item.mr" x-text="item.w"></span>
               </template>
+              <span class="cursor-blink" aria-hidden="true"></span>
             </h1>
           </div>
           <p class="text-base sm:text-lg max-w-2xl mx-auto mb-2 leading-relaxed font-mono" style="color:var(--text2)">
@@ -554,11 +602,11 @@
     <div x-show="section === 'sobre'" role="region" aria-label="Sobre" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat about.md</span>
+        <div class="text-center mb-12" data-reveal>
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono type-cmd" data-type>$ cat about.md</span>
           <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('aboutTitle')"></span></h2>
         </div>
-        <div class="glass-card rounded-2xl p-8 md:p-10">
+        <div class="glass-card rounded-2xl p-8 md:p-10" data-reveal>
           <div class="flex flex-col md:flex-row gap-8 items-start">
             <div class="w-32 h-32 rounded-2xl overflow-hidden shrink-0 mx-auto md:mx-0 border-2 border-[#00ff41]/20 glow-pulse">
               <img src="../assets/foto-perfil.jpeg" alt="Foto de perfil" loading="lazy" class="w-full h-full object-cover">
@@ -583,21 +631,29 @@
           </div>
         </div>
         <h3 class="text-xl font-bold mt-14 mb-8 text-center font-mono" style="color:var(--text)"><span class="text-[#00ff41]">></span> tech_stack</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-          <template x-for="tech in skills" :key="tech.nome">
-            <div class="glass-card rounded-xl p-4 text-center hover:border-[#00ff41]/30 transition group">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform" x-text="tech.icone"></div>
-              <p class="text-xs font-mono group-hover:text-[#00ff41] transition" style="color:var(--text3)" x-text="tech.nome"></p>
-            </div>
-          </template>
+        <div class="skills-viewport" tabindex="0" aria-label="Tecnologias" data-reveal>
+          <div class="skills-track">
+            <template x-for="tech in skills" :key="'a' + tech.nome">
+              <div class="skill-chip glass-card rounded-xl px-5 py-4 flex items-center gap-2.5 hover:border-[#00ff41]/30 transition group">
+                <div class="text-2xl group-hover:scale-110 transition-transform" x-text="tech.icone"></div>
+                <p class="text-xs font-mono group-hover:text-[#00ff41] transition whitespace-nowrap" style="color:var(--text3)" x-text="tech.nome"></p>
+              </div>
+            </template>
+            <template x-for="tech in skills" :key="'b' + tech.nome">
+              <div class="skill-chip glass-card rounded-xl px-5 py-4 flex items-center gap-2.5" aria-hidden="true" inert>
+                <div class="text-2xl" x-text="tech.icone"></div>
+                <p class="text-xs font-mono whitespace-nowrap" style="color:var(--text3)" x-text="tech.nome"></p>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
     </div>
     <div x-show="section === 'timeline'" role="region" aria-label="Carreira" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ git log --oneline</span>
+        <div class="text-center mb-12" data-reveal>
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono type-cmd" data-type>$ git log --oneline</span>
           <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('timelineTitle')"></span></h2>
         </div>
         <div class="relative">
@@ -608,7 +664,7 @@
                 <div class="hidden md:block w-1/2"></div>
                 <div class="timeline-dot"></div>
                 <div class="w-full md:w-1/2 pl-10 md:pl-0" :class="i % 2 === 0 ? 'md:pr-10 md:text-right' : 'md:pl-10'">
-                  <div class="glass-card rounded-xl p-5">
+                  <div class="glass-card rounded-xl p-5" data-reveal>
                     <span class="text-[10px] font-semibold text-[#00ff41] tracking-wider" x-text="ev.data"></span>
                     <h4 class="text-sm font-bold mt-1" style="color:var(--text)" x-text="ev.titulo"></h4>
                     <p class="text-xs mt-1" style="color:var(--text3)" x-text="ev.desc"></p>
@@ -629,8 +685,8 @@
     <div x-show="section === 'projetos'" role="region" aria-label="Projetos" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-6xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ ls -la projects/</span>
+        <div class="text-center mb-12" data-reveal>
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono type-cmd" data-type>$ ls -la projects/</span>
           <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('projTitle')"></span></h2>
         </div>
         <div class="flex flex-wrap gap-2 justify-center mb-8">
@@ -644,7 +700,7 @@
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <template x-for="(proj, i) in projetos.filter(p => (filtroCategoria === 'todas' || p.categoria === filtroCategoria) && (!filtroTag || p.tags.includes(filtroTag)))" :key="proj.nome">
-            <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300 cursor-pointer"
+            <div class="glass-card rounded-xl overflow-hidden group hover:border-[#00ff41]/30 transition-all duration-300 cursor-pointer" data-reveal
               @click="abrirModal(proj)"
               x-transition:enter="transition duration-300"
               x-transition:enter-start="opacity-0 translate-y-4"
@@ -691,14 +747,14 @@
     <div x-show="section === 'blog'" role="region" aria-label="Blog" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-5xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat /blog/*.md</span>
+        <div class="text-center mb-12" data-reveal>
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono type-cmd" data-type>$ cat /blog/*.md</span>
           <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('blogTitle')"></span></h2>
           <p class="mt-2 text-sm font-mono" style="color:var(--text3)">12 artigos • tecnologia • desenvolvimento</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <template x-for="(post, i) in blogPosts" :key="i">
-            <div class="glass-card rounded-xl overflow-hidden hover:border-[#00ff41]/30 transition-all duration-300 group">
+            <div class="glass-card rounded-xl overflow-hidden hover:border-[#00ff41]/30 transition-all duration-300 group" data-reveal>
               <div class="h-1.5 w-full shrink-0" :style="'background:' + (post.cor || '#00ff41')"></div>
               <div class="p-5">
                 <div class="flex items-center justify-between mb-3">
@@ -730,11 +786,11 @@
     <div x-show="section === 'depoimentos'" role="region" aria-label="Depoimentos" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-4xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ cat testimonials.json</span>
+        <div class="text-center mb-12" data-reveal>
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono type-cmd" data-type>$ cat testimonials.json</span>
           <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('depTitle')"></span></h2>
         </div>
-        <div class="marquee-viewport py-2" tabindex="0" aria-label="Depoimentos em rolagem">
+        <div class="marquee-viewport py-2" tabindex="0" aria-label="Depoimentos em rolagem" data-reveal>
           <div class="marquee-track">
             <template x-for="(dep, i) in depoimentos" :key="'a' + i">
               <div class="marquee-card glass-card rounded-xl p-6 hover:border-[#00ff41]/30 transition group">
@@ -777,12 +833,12 @@
     <div x-show="section === 'contato'" role="region" aria-label="Contato" class="pt-16 min-h-screen py-12 sm:py-20 px-4">
       <div class="absolute inset-0 grid-bg opacity-30"></div>
       <div class="max-w-2xl mx-auto pt-10 relative">
-        <div class="text-center mb-12">
-          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono">$ ./send_message</span>
+        <div class="text-center mb-12" data-reveal>
+          <span class="text-xs font-semibold text-[#00ff41] tracking-[0.2em] uppercase font-mono type-cmd" data-type>$ ./send_message</span>
           <h2 class="text-3xl sm:text-4xl font-bold mt-3 font-mono" style="color:var(--text)"><span class="text-[#00ff41]">//</span> <span x-text="t('contatoTitle')"></span></h2>
           <p class="mt-2 text-sm font-mono" style="color:var(--text3)" x-text="t('contatoSub')"></p>
         </div>
-        <div class="glass-card rounded-2xl p-8">
+        <div class="glass-card rounded-2xl p-8" data-reveal>
           <form @submit.prevent="enviarForm" class="space-y-4" action="https://api.web3forms.com/submit" method="POST" aria-label="Formulario de contato">
             <input type="hidden" name="access_key" value="SUA_CHAVE_WEB3FORMS_AQUI">
             <input type="hidden" name="subject" x-bind:value="'Contato Portfolio: ' + formAssunto">
@@ -959,6 +1015,109 @@
       if (window.scrollY > 400) { btn.style.opacity = "1"; btn.style.transform = "translateY(0)"; btn.style.pointerEvents = "auto"; }
       else { btn.style.opacity = "0"; btn.style.transform = "translateY(20px)"; btn.style.pointerEvents = "none"; }
     }, { passive: true });
+  </script>
+  <script>
+    (function () {
+      var reduce = function () { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; };
+
+      /* ===== Reveal no scroll ===== */
+      function initReveal() {
+        var els = document.querySelectorAll("[data-reveal]:not([data-fx])");
+        if (!els.length || !("IntersectionObserver" in window)) return;
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -30px 0px" });
+        var groups = new Map();
+        els.forEach(function (el) {
+          var p = el.parentElement;
+          groups.set(p, (groups.get(p) || 0) + 1);
+        });
+        els.forEach(function (el) {
+          el.setAttribute("data-fx", "1");
+          if (groups.get(el.parentElement) > 1) {
+            var idx = Array.prototype.indexOf.call(el.parentElement.children, el);
+            el.style.transitionDelay = Math.min(idx * 70, 420) + "ms";
+          }
+          io.observe(el);
+        });
+      }
+
+      /* ===== Digitação de terminal ===== */
+      function typeEl(el) {
+        if (el.dataset.typed) return;
+        el.dataset.typed = "1";
+        var full = el.textContent;
+        if (reduce() || !full) return;
+        el.textContent = "";
+        el.classList.add("typing");
+        var i = 0;
+        (function step() {
+          if (i <= full.length) {
+            el.textContent = full.slice(0, i++);
+            setTimeout(step, 28 + Math.random() * 45);
+          } else {
+            setTimeout(function () { el.classList.remove("typing"); }, 1100);
+          }
+        })();
+      }
+      function initType() {
+        var els = document.querySelectorAll("[data-type]:not([data-typed])");
+        if (!els.length || !("IntersectionObserver" in window)) return;
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { io.unobserve(e.target); typeEl(e.target); }
+          });
+        }, { threshold: 0.6 });
+        els.forEach(function (el) { io.observe(el); });
+      }
+
+      /* ===== Text scramble no menu ===== */
+      var SCR = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&<>/\\|_{}[]";
+      function scramble(el) {
+        if (reduce() || el.dataset.scr) return;
+        var target = el.textContent;
+        if (!target.trim()) return;
+        el.dataset.scr = "1";
+        var len = target.length, frame = 0;
+        var total = Math.min(14 + len * 2, 32);
+        el._scrTimer = setInterval(function () {
+          frame++;
+          var out = "";
+          for (var i = 0; i < len; i++) {
+            var c = target.charAt(i);
+            if (c === " ") { out += " "; continue; }
+            var rev = (frame - i * 1.1) / 7;
+            out += rev >= 1 ? c : SCR.charAt(Math.floor(Math.random() * SCR.length));
+          }
+          el.textContent = out;
+          if (frame >= total) {
+            clearInterval(el._scrTimer);
+            el.textContent = target;
+            delete el._scrTimer;
+            delete el.dataset.scr;
+          }
+        }, 32);
+      }
+      function initScramble() {
+        document.querySelectorAll('[role="menuitem"] > span:first-child:not([data-fx])').forEach(function (el) {
+          el.setAttribute("data-fx", "1");
+          var a = el.closest("a");
+          if (!a) return;
+          a.addEventListener("mouseenter", function () { scramble(el); });
+          a.addEventListener("focus", function () { scramble(el); });
+          a.addEventListener("click", function () {
+            if (el._scrTimer) { clearInterval(el._scrTimer); delete el._scrTimer; delete el.dataset.scr; }
+          });
+        });
+      }
+
+      function initEffects() { initReveal(); initType(); initScramble(); }
+      document.addEventListener("alpine:initialized", initEffects);
+      window.addEventListener("load", function () { setTimeout(initEffects, 300); });
+      initEffects();
+    })();
   </script>
 </body>
 </html>
