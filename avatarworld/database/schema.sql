@@ -1,0 +1,96 @@
+-- AvatarWorld Database Schema
+CREATE DATABASE IF NOT EXISTS avatarworld CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE avatarworld;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) DEFAULT NULL,
+    coins INT DEFAULT 1000,
+    avatar_data TEXT DEFAULT NULL,
+    is_admin BOOLEAN DEFAULT FALSE,
+    is_banned BOOLEAN DEFAULT FALSE,
+    is_muted BOOLEAN DEFAULT FALSE,
+    muted_until TIMESTAMP NULL DEFAULT NULL,
+    last_daily TIMESTAMP NULL DEFAULT NULL,
+    last_login TIMESTAMP NULL DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE rooms (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    owner_id INT NOT NULL,
+    password VARCHAR(255) DEFAULT NULL,
+    max_users INT DEFAULT 50,
+    layout_data TEXT DEFAULT NULL,
+    wallpaper VARCHAR(50) DEFAULT 'default',
+    floor VARCHAR(50) DEFAULT 'default',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    category VARCHAR(50) DEFAULT 'general',
+    price INT NOT NULL DEFAULT 0,
+    rarity VARCHAR(20) DEFAULT 'common',
+    data TEXT DEFAULT NULL,
+    is_furniture BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE inventory (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    item_id INT NOT NULL,
+    is_equipped BOOLEAN DEFAULT FALSE,
+    acquired_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_user_item (user_id, item_id)
+);
+
+CREATE TABLE room_furniture (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    room_id INT NOT NULL,
+    item_id INT NOT NULL,
+    x INT NOT NULL DEFAULT 0,
+    y INT NOT NULL DEFAULT 0,
+    rotation INT DEFAULT 0,
+    FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
+);
+
+CREATE TABLE chat_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    room_id INT DEFAULT NULL,
+    message TEXT NOT NULL,
+    type VARCHAR(20) DEFAULT 'room',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    from_user_id INT DEFAULT NULL,
+    to_user_id INT DEFAULT NULL,
+    item_id INT DEFAULT NULL,
+    amount INT NOT NULL DEFAULT 0,
+    type VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (from_user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (to_user_id) REFERENCES users(id) ON DELETE SET NULL
+);
+
+CREATE TABLE server_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    action VARCHAR(100) NOT NULL,
+    details TEXT DEFAULT NULL,
+    ip_address VARCHAR(45) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
